@@ -1,0 +1,181 @@
+/* 
+
+	MedikCare styles 
+
+*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+.navbar-style {
+	background-color: #fff;
+	box-shadow: 0 1px 1px #efefef;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	max-height: 30vh;
+	padding: 10px;
+	z-index: 2;
+}
+.dropdown:hover .dropdown-menu {
+	display: block;
+	z-index: 2;
+}
+.dropdown-item:hover {
+background-color: #9B51E0; 
+color: white;
+}
+section {
+	padding: 150px 0px;
+}
+.home-section {
+	margin-top: 100px;
+}
+.home-content h1 {
+	font-weight: 800;
+}
+.home-content p {
+	font-weight: 500;
+}
+
+.home-buttons {
+	margin: 0px 15px  0px 0px;
+	border-radius: 5px;
+}
+.home-svg {
+	width: 100%;
+	height: auto;
+
+}
+.service-content {
+	padding: 10px 30px;
+}
+.service-container {
+	margin: 30px 0px;
+}
+.service-svg {
+	width: 300px;
+}
+.started-content h5 {
+	background-color: #9B51E0;
+	padding: 10px;
+	color: white;
+	font-weight: 900;
+	width: 100%;
+}
+.started-content p {
+	width: 70%;
+}
+.started-content button {
+	margin: 50px 0px;
+}
+.started-content h1 {
+	margin-bottom:  50px;
+}
+.milestone-content p {
+	text-align: center;
+	color: #9B51E0;
+	font-weight: bold;
+}
+.milestone-content h5 {
+	font-weight: 800;
+	text-align: center;
+		color: white;
+	text-shadow: 5px 5px 5px #9B51E0;
+}
+.milestone-content h1{
+	text-align: center;
+	margin: 30px;
+	color: white;
+	text-shadow: 5px 5px 5px #9B51E0;
+}.milestone-content h2,h4{
+	margin: 30px 0px;
+	font-size: 70px;
+}
+.milestone-width {
+	margin-left: 70px;
+	height: 70vh;
+}
+.milestone-svg {
+width: 100%;
+height: 70vh;
+}
+.form label {
+	margin-top: 10px;
+	font-weight: 600
+}
+.form .card {
+	margin-top: 10px;
+}
+.form .form-check-label {
+	margin-top: 0px;
+}
+
+.square {
+	content: "";
+	border: 5px solid white;
+	border-radius: 3px;
+	 font-size: 3px;
+	 box-shadow: 5px 5px 0px 0px #9B51E0;
+	 display: inline;
+	 position: relative;
+	 bottom: 5px;
+	 margin-right: 10px;
+}
+button {
+	border: 0px;
+}
+.btn-medik {
+	background-color: #9B51E0;
+	color: white;
+}
+.btn-medik-border {
+	border: 1px solid #9B51E0;
+}
+.medik-color {
+	color: #9B51E0;
+}
+.b-medik {
+	background-color: #9B51E0;
+}
+.medik-color-secondary {
+	color: #fff;
+}
+.b-medik-color-secondary {
+	background-color: #EBDCF9
+}
+.float-right {
+	float: right;
+	clear: both;
+}
+.overflow {
+	overflow: hidden;
+}
+.center {
+	text-align: center;
+}
+.footer-color {
+	background-color: #BB6BD9;
+}
+.footer ul{
+list-style-type: none;
+font-size: 30px;
+font-weight: bolder;
+color: #BB6BD9;
+}
+.footer li>a {
+	color: #9B51E0;
+	font-size: 70%;
+	text-decoration: none;
+	font-weight: normal;
+}
+.tab {
+	display: none;
+}
+.tabShow {
+	display:block;
+}
