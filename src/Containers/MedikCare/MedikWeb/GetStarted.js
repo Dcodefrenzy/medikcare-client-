@@ -7,9 +7,9 @@ const GetStarted = (props) => {
     	<div className="container home-content">
     	    <div className="row">
     			<div className="col-12 col-sm-12 col-md-7">
-    					<img src={started1} className="home-svg"/>
+    					<img src={started1} alt="getting started with medikcare" className="home-svg"/>
     			</div>
-    			<div className="col-5 col-sm-12 col-md-4 service-container">
+    			<div className="col-10 col-sm-12 col-md-4 service-container">
     				<div className="started-content">
     				 <h1 className="">Get Started In 10mins.</h1>
     					<h5><i className="square card"></i> Create an account.</h5>

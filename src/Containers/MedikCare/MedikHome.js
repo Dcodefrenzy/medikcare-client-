@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Home from './MedikWeb/Home';
-import NavBar from './NavBar/NavBar';
+import NavBar from './MedikWeb/NavBar/NavBar';
 import MedikVideo from './MedikWeb/MedikVideo';
 import Services from './MedikWeb/Services';
 import GetStarted from './MedikWeb/GetStarted';

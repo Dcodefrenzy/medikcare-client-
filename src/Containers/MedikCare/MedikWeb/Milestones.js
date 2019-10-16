@@ -33,7 +33,7 @@ const Milestones = (props) => {
     			</div>
     			<div className="col-12 col-sm-12 col-md-12">
     				<h1 className="center">Saving the world one person at a time.</h1>
-    			    <img src={connects} className='milestone-svg'/>
+    			    <img src={connects} alt="connects-milestones" className='milestone-svg'/>
     			</div>
     			<div className="col-11 col-sm-12 col-md-8">
     				<h4>Try Us Now,</h4>
@@ -42,7 +42,7 @@ const Milestones = (props) => {
     			    
     			</div>
     			<div className="col-2 col-sm-12 col-md-2">
-    				<img src={ideas} className="milestone-width "/>
+    				<img src={ideas} alt="ideas-milestones" className="milestone-width "/>
     			</div>
     		</div>
     	</div>

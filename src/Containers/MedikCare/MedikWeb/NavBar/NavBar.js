@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 
-const NavBar = (props) => {
+const NavBar = () => {
   return (
      <header className="header">
-     	<nav className="navebar navbar-style row">
+     	<nav className="navbar navbar-style row">
      		<div className="col-12 col-sm-4 col-md-4">
      		<ul className="nav">
      			<li className="nav-item"><p className="nav-link">MedikCare</p></li>
@@ -22,7 +22,7 @@ const NavBar = (props) => {
 				  </li>
 				<li className="nav-item"><a className="nav-link medik-color" href="">FAQ</a></li> 
 				<Link to="/login">    			
-     				<li className="nav-item"><a className="nav-link medik-color" href="">Login</a></li>
+     				<li className="nav-item nav-link medik-color">Login</li>
 				</Link>
 				<Link to="/registration">
      				<li className="nav-item"><button className="home-buttons nav-link btn-sm btn-medik">Get Started</button></li>

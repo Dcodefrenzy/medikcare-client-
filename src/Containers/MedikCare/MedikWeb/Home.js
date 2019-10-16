@@ -15,7 +15,7 @@ const Home = (props) => {
 	    			</div>
 	    		</div>
 	    		<div className="col-12 col-sm-12 col-md-6 home-image"> 
-	    			<img src={doctors} className='home-svg img-fluids'/>
+	    			<img src={doctors} alt="Talk to doctors on our application" className='home-svg img-fluids'/>
 	    		</div>
 	    	</div>
 	    </div>

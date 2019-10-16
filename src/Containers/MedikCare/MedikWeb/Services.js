@@ -19,7 +19,7 @@ const Services = (props) => {
     							<button className="btn btn-sm btn-medik">Read More</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ health_questions } className='home-svg'/>
+    							 <img src={ health_questions } alt="Post health questions" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -33,7 +33,7 @@ const Services = (props) => {
     							<button className="btn btn-sm btn-medik">Read More</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ chat } className='home-svg'/>
+    							 <img src={ chat } alt="consult using our application with doctors" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -47,7 +47,7 @@ const Services = (props) => {
     							<button className="btn btn-sm btn-medik">Read More</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ todo } className='home-svg'/>
+    							 <img src={ todo } alt="Get treatment plan" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -61,7 +61,7 @@ const Services = (props) => {
     							<button className="btn btn-sm btn-medik">Read More</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ goals } className='home-svg'/>
+    							 <img src={ goals } alt="set health goals" className='home-svg'/>
     						</div>
     					</div>
     				</div>

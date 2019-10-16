@@ -9,23 +9,27 @@ const UserLogin = (props) => {
             <div className="row form">
                 <div className="col-12 col-sm-6 col-md-6">
                     <div>
-                        <img src={Login} className="home-svg"/>
+                        <img src={Login} alt="Login on medikcare platform" className="home-svg"/>
                     </div>
                 </div>
                 <div className="col-12 col-sm-6 col-md-6">
                     <div className="card">
                         <div className="card-header b-medik medik-color-secondary home-content"><h1>User Login</h1></div>
-                        <form>
+                        
+                        <p className={props.errorDisplay}>{props.errorMessage}</p>
+                        <form onSubmit={props.submit}>
                             <div className="col-12 col-sm-12 col-md-12">
                                     <div className="form-group">
-                                        <label for="mail">Email address</label>
-                                        <input type="email" name="mail" className="form-control"  aria-describedby="email" placeholder="example@mail.com" />
+                                        <label htmlFor="mail">Email address</label>
+                                        <input type="email" name="mail" className="form-control"  aria-describedby="email" placeholder="example@mail.com" id={props.emailId} onChange={props.emailChange} value={props.emailValue}  required/>
+                                        <span id={props.emailErrorId} className={props.emailClass}>{props.emailErrorValue}</span>        
                                     </div>
                                 </div>
                             <div className="col-12 col-sm-12 col-md-12">
                                     <div className="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" name="password" min="6" className="form-control"  aria-describedby="password" placeholder="Please enter your password" />
+                                        <label htmlFor="password">Password</label>
+                                        <input type="password" name="password" min="6" className="form-control"  aria-describedby="password" placeholder="Please enter your password"  id={props.passwordId} onChange={props.passwordChange} value={props.passwordValue} required/>
+                                        <span id={props.passwordErrorId} className={props.passwordClass}>{props.passwordErrorValue}</span>           
                                     </div>
                                 </div>
                             <div className="col-6 col-sm-6 col-md-6">

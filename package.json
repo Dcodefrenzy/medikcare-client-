@@ -6,6 +6,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "bootstrap": "^4.3.1",
+    "font-awesome": "^4.7.0",
     "nodemailer": "^4.7.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "react": "^16.8.6",
@@ -15,6 +16,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "0.9.5",
     "react-svg": "^10.0.20",
+    "socket.io-client": "^2.3.0",
     "validator": "^10.6.0"
   },
   "devDependencies": {
