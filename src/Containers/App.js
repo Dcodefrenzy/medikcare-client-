@@ -22,10 +22,39 @@ import DoctorLoginValidation from './MedikCare/Medicals/Doctors/DoctorsLogins/Do
 import DoctorDashboard from './MedikCare/Medicals/Doctors/DoctorsDashboard/Dashboard';
 import Chat from './MedikCare/Chat/Chat';
 import ChatDashboard from './MedikCare/Chat/ChatDashboard/ChatDashboard';
+import UsersListTh from './MedikCare/Admins/UsersList/UsersDetails/UsersTh';
+import DoctorsListTh from './MedikCare/Admins/DoctorsList/DoctorsList';
+import UpdatePassword from './MedikCare/Admins/Password/UpdatePassword';
+import adminProfile from './MedikCare/Admins/Profile/Profile';
+import updateImage from './MedikCare/Admins/Profile/UpdateImage';
 
 
 
  class App extends Component {
+	
+	  displayNotification = ()=> {
+		if (Notification.permission == 'granted') {
+		  navigator.serviceWorker.getRegistration().then(function(reg) {
+			var options = {
+				body: 'First notification!',
+				actions: [
+				  {action: 'explore', title: 'Go to the site', icon: 'img/check.png'},
+				  {action: 'close', title: 'No thank you', icon: 'img/x.png'},
+				]
+			  };
+			  
+			  var text = 'HEY! Your task is now overdue.';
+			reg.showNotification(text, options);
+		  });
+		}
+	  }
+
+	componentDidMount() {
+		Notification.requestPermission(function(status) {
+			console.log('Notification permission status:', status);
+		});
+		this.displayNotification();
+	}
 	render() {
 		return (
 			<Router>
@@ -51,6 +80,11 @@ import ChatDashboard from './MedikCare/Chat/ChatDashboard/ChatDashboard';
 						<Route path="/admin/register" exact component={AdminRegister} />
 						<Route path="/admin/login" exact component={AdminLogin} />
 						<Route path="/admin/admins" exact component={AdminList} />
+						<Route path="/admin/users" exact component={UsersListTh} />
+						<Route path="/admin/doctors" exact component={DoctorsListTh} />
+						<Route path="/admin/password/change" exact component={UpdatePassword} />
+						<Route path="/admin/Profile" exact component={adminProfile} />
+						<Route path="/image/update" exact component={updateImage} />
 						
 						<Route path="/health/questions" exact component={HealthQuestions} />
 						<Route path="/health/questions/answers/:id" exact component={HealthQuestionAnswersClass} />

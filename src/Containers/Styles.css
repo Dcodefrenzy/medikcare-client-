@@ -224,7 +224,9 @@ body {
 	height: 16px;
 	vertical-align: text-bottom;
   }
-  
+  .img-height-sm {
+	  height: 10%;
+  }
   /*
    * Sidebar
    */
@@ -333,7 +335,7 @@ body {
 
 }
 .fixed >div {
-	margin: 20% 40%;
+	margin: 60% 40%;
 }
 .admin-details-fixed{
 	z-index: 2;
@@ -448,11 +450,14 @@ body {
 	.user-dashboard-container h3{
 		font-size: 20px;
 	}
+
 }
 
 @media(min-width:768px) {
 	.fixed-navbar-footer {
 		display: none;
 	}
+	.admin-nav {
+		display: none;
+	}
 }
-

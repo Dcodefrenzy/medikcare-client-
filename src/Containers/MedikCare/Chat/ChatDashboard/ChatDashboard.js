@@ -1,12 +1,18 @@
-import React, {useState, useEffect} from "react" ;
+import React, {useState, useEffect, createContext} from "react" ;
 import ChatDashboardNotification from "./ChatDashboardNotification";
 import ChatDashbordNewChat from "./ChatDashbordNewChat";
 import ChatDashbordActivities from "./ChatDashBoardActivities";
+export const SessionContext = createContext();
+
 
 
 
 const ChatDashboard = (props) =>{
     const [displays, setEventDisplays] = useState({notification:{display:"display-show",active:"chat-dashboard-active"},message:{display:"display-none",active:""},task:{display:"display-none",active:""}})
+   const [session, setSession] = useState({});
+   
+
+    
     const setEventDisplaysHandler = (event) =>{
         switch (event.target.id) {
             case "bell":
@@ -22,6 +28,20 @@ const ChatDashboard = (props) =>{
                 break;
         }
     }
+    const getSession = ()=> {
+        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
+        if(sessionItemDoctor === null && sessionItemUser === null) {
+            window.history.back();
+        }else if(sessionItemUser === null && sessionItemDoctor !== null){
+            sessionItemDoctor.isUser = false;
+            return sessionItemDoctor
+        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+            sessionItemUser.isUser = true;
+            return sessionItemUser
+        }
+    }
+
     return(
         <div className="container-fluid b-medik">
             <div className="container">
@@ -49,9 +69,11 @@ const ChatDashboard = (props) =>{
                                 </div>
                                 <div className="chat">
                                    <section>
-                                       <ChatDashboardNotification display={displays.notification.display} />
-                                       <ChatDashbordNewChat display={displays.message.display} />
-                                       <ChatDashbordActivities display={displays.task.display} />
+                                       <SessionContext.Provider value={getSession()}>
+                                            <ChatDashboardNotification display={displays.notification.display} />
+                                            <ChatDashbordNewChat display={displays.message.display}  />
+                                            <ChatDashbordActivities display={displays.task.display} />
+                                       </SessionContext.Provider>
                                    </section>
                                 </div>
                             </div>

@@ -13,7 +13,7 @@ const DashboardDetails = (props) => {
             <div className="col-12 col-sm-12 col-md-8 col-lg-6"><h1>Good day Ayodeji Fakunle</h1><img /></div>
     		<div className="row">
     			<div className="col-12 col-sm-12 col-md-12 col-lg-6 user-dashboard-container">
-					<Link to="/user/question" className="href">
+					<Link to="/health/questions" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
@@ -21,7 +21,7 @@ const DashboardDetails = (props) => {
                                 <button className="btn btn-sm btn-medik">Post a question</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
-    							 <img src={ health_questions } alt="Post health questions" className='home-svg'/>
+    							 <img src={ health_questions } alt="health-questions" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -35,7 +35,7 @@ const DashboardDetails = (props) => {
                                 <button className="btn btn-sm btn-medik">Talk to a doctor</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
-    							 <img src={ chat } alt="consult using our application with doctors" className='home-svg'/>
+    							 <img src={ chat } alt="consult-doctors" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -49,7 +49,7 @@ const DashboardDetails = (props) => {
                                 <button className="btn btn-sm btn-medik">Book a session</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
-    							 <img src={ conversiation } alt="consult using our application with doctors" className='home-svg'/>
+    							 <img src={ conversiation } alt="book-sessions" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -62,7 +62,7 @@ const DashboardDetails = (props) => {
                                 <button className="btn btn-sm btn-medik">Treatment plan</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
-    							 <img src={ todo } alt="Get treatment plan" className='home-svg'/>
+    							 <img src={ todo } alt="treatment-plan" className='home-svg'/>
     						</div>
     					</div>
     				</div>
@@ -75,7 +75,7 @@ const DashboardDetails = (props) => {
                                 <button className="btn btn-sm btn-medik">Join an health goal</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
-    							 <img src={ goals } alt="set health goals" className='home-svg'/>
+    							 <img src={ goals } alt="health-goals" className='home-svg'/>
     						</div>
     					</div>
     				</div>

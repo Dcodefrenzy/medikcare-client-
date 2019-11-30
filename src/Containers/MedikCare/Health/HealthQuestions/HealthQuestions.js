@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import HealthQuestionsList from './HealthQuestionsList';
 import Carosel from '../../Users/Carosel/Carosel';
 import Loading from '../../Loading/Loading';
@@ -24,7 +25,8 @@ class HealthQuestions extends Component {
             noData : {
                 display: "display-none",
             },
-            display: "display-block"
+            display: "display-block",
+            HealthQuestion: "display-none",
         }
     }
 
@@ -39,7 +41,8 @@ class HealthQuestions extends Component {
         if(this.sessionItemUser === null && this.sessionItemAdmin !== null) {
              homeLink = "/doctor/dashboard"
         }else if(this.sessionItemUser !== null && this.sessionItemAdmin === null) {
-             homeLink = "/user/dashboard"
+             homeLink = "/user/dashboard";
+             this.setState({HealthQuestion:"display-block"})
         }
         
         const breadcrumbs = [
@@ -113,6 +116,9 @@ class HealthQuestions extends Component {
                 <Loading display={this.state.display}/>
                 <Carosel listItem={this.state.carosel} />
                 <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
+                <Link className={this.state.HealthQuestion} to="/user/question">
+                    <button className="btn btn-sm b-medik text-white">Post a question</button>
+                </Link>
                 <HealthQuestionsList  noData={this.state.noData.display} questions={this.state.questions} answers={this.state.answers} />
             </div>
         )

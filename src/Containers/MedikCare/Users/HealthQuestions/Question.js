@@ -4,6 +4,7 @@ import NavbarFooter from '../NavBar/NavbarFooter';
 import Carosel from '../Carosel/Carosel';
 import Loading from '../../Loading/Loading';
 import PopMessage from '../../PopMessage/PopMessage';
+import HealthQuestions from '../../Health/HealthQuestions/HealthQuestions';
 
 
 class Question extends Component {
@@ -40,7 +41,8 @@ class Question extends Component {
     breadcrumbHandler = () => {
         const breadcrumbs = [
             {link:"/user/dashboard", name:"Home", key:"Home"},
-            {link:"/user/question", name:"Question", key:"Question"},
+            {link:"/health/questions", name:"Health Questions", key:"Questios"},
+            {link:"/user/question", name:"Ask Question", key:"Question"},
 
         ];
         this.setState({carosel:breadcrumbs});

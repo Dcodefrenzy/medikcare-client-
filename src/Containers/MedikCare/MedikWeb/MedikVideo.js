@@ -14,8 +14,8 @@ const MedikVideo = (props) => {
     				<p className="medik-color-secondary"><i className="square card"></i>Responsible Customer Care.</p>
     			</div>
     			<div className="col-12 col-sm-12 col-md-7">
-    				<div className>
-    				    <video className="card" width="100%" height="100%" controls autoPlay="true">
+    				<div>
+    				    <video className="card" width="100%" height="100%" controls autoPlay={true}>
 						  <source src={vid} type="video/mp4" />
 						  <source src={vid} type="video/ogg" />
 						  Your browser does not support the video tag.

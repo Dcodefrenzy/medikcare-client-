@@ -224,7 +224,7 @@ class Registration extends Component  {
                                                     <div className="form-group">
                                                         <label htmlFor="lastName">Last Name</label>
                                                         <input id={this.state.registerForm.lastname.id} onChange={(event) => this.inputChangedHandler(event, this.state.registerForm.lastname.id)} type={this.state.registerForm.lastname.type} className="form-control" min="3" aria-describedby="lastname" name="lastname" placeholder="Lastname" value={this.state.registerForm.lastname.value} required />
-                                                        <span id={this.state.lastNameError.id} className={this.state.lastNameError.display}>{this.state.firstNameError.value}</span>
+                                                        <span id={this.state.lastNameError.id} className={this.state.lastNameError.display}>{this.state.lastNameError.value}</span>
                                                     </div>
                                                 </div>
                                                 <div className="col-12 col-sm-12 col-md-4">
