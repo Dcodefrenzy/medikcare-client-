@@ -1,17 +1,18 @@
 import React from 'react';
 import ItemNotFound from '../../ItemNotFound/ItemNotFound';
 import { Link } from 'react-router-dom';
-
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 const HealthQuestionsList = (props) => {
 
-    const question = props.questions.map((question, index)=>{
-        const answersLength = props.answers.filter((answer)=>{
+    const question = props.questions.reverse().map((question, index)=>{
+        const answersLength = props.answers.reverse().filter((answer)=>{
             return answer._questionId === question._id;    
         })
         const link = "/health/questions/answers/"+ question._id
-        const date = new Date(question.createdAt).toLocaleTimeString() +" "+ new Date(question.createdAt).toDateString();
+        const date = <Moment fromNow>{question.createdAt}</Moment>
         return <Link to={link} className="href" key={question._id}>
                     <div className="border-bottom padding-sm">
                         <h3 className="text-chocolate"><i className="fa fa-user"></i> {question.topic}</h3>

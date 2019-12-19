@@ -55,22 +55,18 @@ const UserRegistration = (props) => {
                                                     <span id={props.ageErrorId} className={props.ageClass}>{props.ageErrorValue}</span>
                                                 </div>
                                             </div>
-                                            <div className="col-12 col-sm-6 col-md-6">
-                                                <label htmlFor="gender">Gender</label>
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name={props.gender} onChange={props.genderChange} value="female"  />
-                                                    <label className="form-check-label" htmlFor="femaleGender">Female</label>
+                                            <div className="col-12 col-sm-12 col-md-12">
+                                                <div className="form-group">
+                                                    <label htmlFor="referral">Gender</label>
+                                                    <select className="form-control" name="referral" id={props.gender} onChange={props.genderChange}  required>
+                                                        <option>Select</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Others">Others</option>
+                                                    </select>
+                                                    <span id={props.genderErrorId} className={props.genderClass}>{props.genderErrorValue}</span>
                                                 </div>
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name={props.gender} onChange={props.genderChange} value="male" />
-                                                    <label className="form-check-label" htmlFor="maleGender">Male</label>
-                                                </div>
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="radio" name={props.gender} onChange={props.genderChange}  value="others" />
-                                                    <label className="form-check-label" htmlFor="otherGender">Others</label>
-                                                </div>
-                                                <span id={props.genderErrorId} className={props.genderClass}>{props.genderErrorValue}</span>
-                                            </div>
+                                            </div> 
                                             <div className="col-12 col-sm-6 col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="password">Password</label>
@@ -89,6 +85,7 @@ const UserRegistration = (props) => {
                                             <div className="form-group">
                                                 <label htmlFor="referral">How did you hear about us?</label>
                                                 <select className="form-control" name="referral" id={props.socialMediaId} onChange={props.socialMediaChange} required>
+                                                    <option>Select</option>
                                                     <option value="1">Twitter</option>
                                                     <option value="2">Facebook</option>
                                                     <option value="3">Instagram</option>

@@ -1,10 +1,12 @@
 import React from 'react';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 
 const HealthQuestionAnswers = (props) => {
 
-    const date = new Date(props.question.createdAt).toLocaleTimeString() +" "+ new Date(props.question.createdAt).toDateString();
+    const date = <Moment fromNow>{props.question.createdAt}</Moment>
     const answer = props.answers.map((answer)=>{
       let button =  button =  <button onClick={event=>props.buttonClicked(event, answer._id)} className= "btn btn-sm btn-success" id={answer._id}>{props.buttonValue}</button> 
         if(props.doctorid !== null) {
@@ -28,7 +30,7 @@ const HealthQuestionAnswers = (props) => {
         }else{          
               top =  <i className="fa fa-star text-dark"> Top answer</i>
         }
-        const date = new Date(answer.createdAt).toLocaleTimeString() +" "+ new Date(answer.createdAt).toDateString();
+        const date =<Moment fromNow>{answer.createdAt}</Moment>
       return  <div className="card top-margin-sm" key={answer._id}>
         <div className="card-body">
             <div className="border-bottom">     

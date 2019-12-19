@@ -25,9 +25,13 @@ const updateImage = (props) => {
             if(response.status === 401) {
                 sessionStorage.removeItem("admin");
                 window.location = "/admin/login?Session expired please login."
-            }else if (response.status === 200) {console.log(response.message)
+            }else if (response.status === 200) {
                 setDisplay({display:"display-none"});
-                setAdmin(response.message.image);
+                if (response.message.image) {
+                    setAdmin(response.message.image);
+                }else{
+                    setAdmin({filename:"user.png"});
+                }
             }
         })
     }
@@ -41,7 +45,6 @@ const updateImage = (props) => {
         const formData = new FormData()
         
         formData.append('image', file.file)
-        console.log(formData.get("image"))
         const url = "http://192.168.33.12:3000/api/v1/admins/image/update";
         fetch(url, {
             method: "POST",
@@ -49,14 +52,13 @@ const updateImage = (props) => {
             headers: {"x-auth": sessionItem.token}
         })
         .then(res => res.json())
-        .then(response => { 
+        .then(response => { console.log(response.message)
             if(response.status === 401) {
                 sessionStorage.removeItem("admin");
                 window.location = "/admin/login?Session expired please login."
-            }else if (response.status === 200) {
-                console.log("here")
-               // setDisplay({display:"display-none"});
-                //setAdmin(response.message);
+            }else if (response.status === 201) {
+                window.location.reload(true);
+
             }
         })
 

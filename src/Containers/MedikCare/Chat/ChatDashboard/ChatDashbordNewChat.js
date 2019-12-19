@@ -1,11 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
 import io from 'socket.io-client';
+import ChatSession from './ChatSession';
+import { Link } from 'react-router-dom';
+import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
+import Loading from '../../Loading/Loading';
+
 
 
 const ChatDashbordNewChat = (props) =>{
     const [doctors, displayDoctors] = useState([])
-    const session = useContext(SessionContext);
+    
+    const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:""})
+        let session;
+    const getSession = ()=> {
+        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
+        if(sessionItemDoctor === null && sessionItemUser === null) {
+            window.history.back();
+        }else if(sessionItemUser === null && sessionItemDoctor !== null){
+            sessionItemDoctor.isUser = false;
+            return session = sessionItemDoctor;
+        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+            sessionItemUser.isUser = true;
+            return session = sessionItemUser;
+        }
+    }
 
     const fetchDoctorsHandeller = () => {
         const url = "http://192.168.33.12:3000/api/v1/doctor/user/doctors";
@@ -24,26 +44,40 @@ const ChatDashbordNewChat = (props) =>{
                 window.location = "/login?Session expired please login.";
                 }
             }else if(response.status === 200){
+                
+            setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
                 displayDoctors(response.message)
             }
         })
     }
+    
     const socket = io("http://localhost:8080");
-    const startSessionHander = (event, id)=>{
-
-            event.preventDefault();
-            socket.emit("session start", session._id, id);
+   const checkSession =()=>{
+        socket.emit("check session", session._id);
     }
-    socket.on('create session', (from, to)=>{
-        console.log(to)
+    socket.on("check session", (checkSession)=>{
+        if(!checkSession) {
+            fetchDoctorsHandeller();
+        }else{
+            let id ="";
+            if (session._id === checkSession.from) {
+                id = checkSession.to;
+                window.location = "/chat/current/session/"+id;
+            }else if(session._id === checkSession.to) {
+                id = checkSession.from;      
+            window.location = "/chat/current/session/"+id;
+            }
+        }
         
     })
 
+
     useEffect(()=>{
-        fetchDoctorsHandeller();
+        getSession();
+        checkSession();
     }, [])
 
-        const doctor = doctors.map((doctor)=>{
+    const doctor = doctors.map((doctor)=>{
                 const online = doctor.loginStatus === true?"text-success":"text-danger"
       return    <div className="card b-medik" key={doctor._id}>
                     <div className="card-body text-white">
@@ -57,19 +91,65 @@ const ChatDashbordNewChat = (props) =>{
                             <i className="fa fa-star fa-2x" aria-hidden="true"></i>
                             <i className="fa fa-star fa-2x" aria-hidden="true"></i>
                         </span> 
-                        <i className="fa fa-envelope fa-2x float-right" onClick={(event)=>startSessionHander(event, doctor._id)} id={doctor._id} aria-hidden="true" />                   
+                        <Link to={"/chat/session/"+doctor._id}>
+                            <i className="fa fa-envelope fa-2x float-right" aria-hidden="true" />                   
+                        </Link>   
                     </div>
                 </div>
         })
-    return(  
-        <div className={props.display}>
-            <h1 className="text-dark text-center">Doctors</h1>
-                    {doctor}
-                <div className="card b-medik top-margin-sm">
-                    <div className="card-body text-white">
-                    <h1 className="text-center">More..</h1>
+    return( 
+        <div className="container-fluid b-medik">
+        <div className="container">
+            <div className="row">
+                <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
+                    <div className="card b-medik">
+                        <div className="card-body">
+                            <div className="card b-medik position-fixed fixed-top">
+                                <div className="card-body text-white">
+                                    <div className="row justify-content-between">
+                                        <div className="col-3">
+                                            <i className="fa fa-arrow-left fa-lg" aria-hidden="false"> Back</i>
+                                        </div>
+                                        <div className="col-3">
+                                            <Link to="/chat/dashboard">
+                                                <i  id="bell" className="fa fa-bell fa-3x text-white" aria-hidden="true"></i>
+                                            </Link>
+                                        </div>   
+                                        <div className="col-3">
+                                            <Link to="/chat/doctors">
+                                                <i  id="newMessage" className="fa fa-plus-circle fa-3x chat-dashboard-active"> </i>
+                                            </Link>
+                                        </div>
+                                        <div className="col-3">
+                                            <Link to="/chat/notifications">
+                                                <i  id="activities" className="fa fa-tasks fa-3x text-white"  aria-hidden="true"></i>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="chat">
+                                    <section> 
+                                        
+                                <div className={"text-center "+alert.spinnerDisplay}>
+                                         <i className="fa fa-spinner fa-pulse text-white fa-3x"></i>
+                                    </div>
+                                        <div className="">
+                                            <h1 className="text-dark text-center">Doctors</h1>
+                                                    {doctor}
+                                                <div className="card b-medik top-margin-sm">
+                                                    <div className="card-body text-white">
+                                                    <h1 className="text-center">More..</h1>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
         </div>
     )
 }

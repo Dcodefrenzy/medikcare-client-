@@ -2,6 +2,7 @@ import React, {useState, useEffect, createContext} from "react" ;
 import ChatDashboardNotification from "./ChatDashboardNotification";
 import ChatDashbordNewChat from "./ChatDashbordNewChat";
 import ChatDashbordActivities from "./ChatDashBoardActivities";
+import { Link } from 'react-router-dom';
 export const SessionContext = createContext();
 
 
@@ -13,21 +14,6 @@ const ChatDashboard = (props) =>{
    
 
     
-    const setEventDisplaysHandler = (event) =>{
-        switch (event.target.id) {
-            case "bell":
-                setEventDisplays({notification:{display:"display-show",active:"chat-dashboard-active"},message:{display:"display-none",active:""},task:{display:"display-none",active:""}});
-                break;
-            case "newMessage":
-                setEventDisplays({notification:{display:"display-none",active:""},message:{display:"display-show",active:"chat-dashboard-active"},task:{display:"display-none",active:""}});
-                break;
-            case "activities":
-                setEventDisplays({notification:{display:"display-none",active:""},message:{display:"display-none",active:""},task:{display:"display-show",active:"chat-dashboard-active"}});
-                break;
-            default:
-                break;
-        }
-    }
     const getSession = ()=> {
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
         const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
@@ -56,23 +42,27 @@ const ChatDashboard = (props) =>{
                                                 <i className="fa fa-arrow-left fa-lg" aria-hidden="false"> Back</i>
                                             </div>
                                             <div className="col-3">
-                                                <i onClick={(event)=>setEventDisplaysHandler(event)} id="bell" className={`fa fa-bell fa-3x ${displays.notification.active}`} aria-hidden="true"></i>
-                                            </div>   
-                                            <div className="col-3">
-                                                <i onClick={(event)=>setEventDisplaysHandler(event)} id="newMessage" className={`fa fa-plus-circle fa-3x ${displays.message.active}`}> </i>
-                                            </div>
-                                            <div className="col-3">
-                                                <i onClick={(event)=>setEventDisplaysHandler(event)} id="activities" className={`fa fa-tasks fa-3x ${displays.task.active}`}  aria-hidden="true"></i>
-                                            </div>
+                                            <Link to="/chat/dashboard">
+                                                <i  id="bell" className="fa fa-bell fa-3x chat-dashboard-active" aria-hidden="true"></i>
+                                            </Link>
+                                        </div>   
+                                        <div className="col-3">
+                                            <Link to="/chat/doctors">
+                                                <i  id="newMessage" className="fa fa-plus-circle fa-3x text-white"> </i>
+                                            </Link>
+                                        </div>
+                                        <div className="col-3">
+                                            <Link to="/chat/notifications">
+                                                <i  id="activities" className="fa fa-tasks fa-3x text-white"   aria-hidden="true"></i>
+                                            </Link>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="chat">
                                    <section>
                                        <SessionContext.Provider value={getSession()}>
-                                            <ChatDashboardNotification display={displays.notification.display} />
-                                            <ChatDashbordNewChat display={displays.message.display}  />
-                                            <ChatDashbordActivities display={displays.task.display} />
+                                            <ChatDashboardNotification />
                                        </SessionContext.Provider>
                                    </section>
                                 </div>

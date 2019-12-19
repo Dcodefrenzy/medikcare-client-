@@ -27,6 +27,16 @@ import DoctorsListTh from './MedikCare/Admins/DoctorsList/DoctorsList';
 import UpdatePassword from './MedikCare/Admins/Password/UpdatePassword';
 import adminProfile from './MedikCare/Admins/Profile/Profile';
 import updateImage from './MedikCare/Admins/Profile/UpdateImage';
+import userProfile from './MedikCare/Users/Profile/Profile';
+import updateUserImage from './MedikCare/Users/Profile/UpdateImage';
+import updateDoctorImage from './MedikCare/Medicals/Doctors/Profile/UpdateImage';
+import doctorProfile from './MedikCare/Medicals/Doctors/Profile/Profile';
+import updateAnnualPracticingLicence from './MedikCare/Medicals/Doctors/Profile/licence';
+import ChatSession from './MedikCare/Chat/ChatDashboard/ChatSession';
+import mainActivity from './MedikCare/Users/Activities/MainActivity';
+import chatCurrentsession from './MedikCare/Chat/ChatDashboard/ChatCurrentSession';
+import ChatDashbordActivities from './MedikCare/Chat/ChatDashboard/ChatDashBoardActivities';
+import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChat';
 
 
 
@@ -39,11 +49,11 @@ import updateImage from './MedikCare/Admins/Profile/UpdateImage';
 				body: 'First notification!',
 				actions: [
 				  {action: 'explore', title: 'Go to the site', icon: 'img/check.png'},
-				  {action: 'close', title: 'No thank you', icon: 'img/x.png'},
+				  {action: 'close', title: 'No thank you', icon: 'MedikImage/MED2.png'},
 				]
 			  };
 			  
-			  var text = 'HEY! Your task is now overdue.';
+			  var text = {task:'HEY! Your task is now overdue.',icon: 'MedikImage/MED2.png'};
 			reg.showNotification(text, options);
 		  });
 		}
@@ -53,7 +63,13 @@ import updateImage from './MedikCare/Admins/Profile/UpdateImage';
 		Notification.requestPermission(function(status) {
 			console.log('Notification permission status:', status);
 		});
-		this.displayNotification();
+		if (Notification.permission === 'granted') {
+			console.log("granted already.")
+		}else{
+			this.displayNotification();
+		}
+		//this.displayNotification();
+	
 	}
 	render() {
 		return (
@@ -69,12 +85,18 @@ import updateImage from './MedikCare/Admins/Profile/UpdateImage';
 						<Route path="/user/verification" exact component={Verification} />
 						<Route path="/user/verification/verify/:id" exact component={VerificationSuccess} />
 						<Route path="/user/question" exact component={Question} />
+						<Route path="/user/profile" exact component={userProfile} />
+						<Route path="/user/image/update" exact component={updateUserImage} />
+						<Route path="/user/main-activity" exact component={mainActivity} />
 
 						<Route path="/doctor/registration" exact component={DoctorsRegistrationValidation} />
 						<Route path="/doctor/login" exaxt component={DoctorLoginValidation} />
 						<Route path="/doctor/verification" exact component={DoctorsVerification} />
 						<Route path="/doctor/verification/verify/:id" exact component={DoctorVerificationSuccess} />
 						<Route path="/doctor/dashboard" exact component={DoctorDashboard} />
+						<Route path="/doctor/profile" exact component={doctorProfile} />
+						<Route path="/doctor/image/update" exact component={updateDoctorImage} />
+						<Route path="/doctor/upload/annual-practicing-licence/file" exact component={updateAnnualPracticingLicence} />
 						
 						<Route path="/admin/dashboard" exact component={AdminDashboard} />
 						<Route path="/admin/register" exact component={AdminRegister} />
@@ -84,13 +106,20 @@ import updateImage from './MedikCare/Admins/Profile/UpdateImage';
 						<Route path="/admin/doctors" exact component={DoctorsListTh} />
 						<Route path="/admin/password/change" exact component={UpdatePassword} />
 						<Route path="/admin/Profile" exact component={adminProfile} />
-						<Route path="/image/update" exact component={updateImage} />
+						<Route path="admin/image/update" exact component={updateImage} />
 						
 						<Route path="/health/questions" exact component={HealthQuestions} />
 						<Route path="/health/questions/answers/:id" exact component={HealthQuestionAnswersClass} />
 
-						<Route path="/chat" exact component={Chat} />
+					
 						<Route path="/chat/dashboard" exact component={ChatDashboard} />
+						<Route path="/chat/doctors" exact component={ChatDashbordNewChat} />
+						<Route path="/chat/notifications" exact component={ChatDashbordActivities} />
+						<Route path="/chat/:id" exact component={Chat} />
+						<Route path="/chat/session/:id" exact component={ChatSession} />
+						<Route path="/chat/current/session/:id" exact component={chatCurrentsession} />
+						
+						
 
 						<Route path="/page-not-found" exact component={NotFound} />
 					</Switch>

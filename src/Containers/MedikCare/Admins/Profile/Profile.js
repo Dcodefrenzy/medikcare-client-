@@ -41,7 +41,11 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
             }else if (response.status === 200) {
                 setDisplay({display:"display-none"});
                 setAdmin(response.message);
-                setFile(response.message.image)
+                if (response.message.image) {
+                    setFile(response.message.image);
+                }else{
+                    setFile({filename:"user.png"});
+                }
             }
         })
     }
@@ -52,7 +56,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
         const last  = lastName.value === ""?admin.lastname:lastName.value;
        let adminData ={};
        adminData = {"firstname": first,"lastname": last};
-        const url = "http://192.168.33.12:3000/api/v1/admins/profile/update";"admin/logs"
+        const url = "http://192.168.33.12:3000/api/v1/admins/profile/update";
         fetch(url, {
             method: "PATCH",
             body:JSON.stringify(adminData),
@@ -116,7 +120,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
                                         <div className="row">
                                            <div className="col-5 col-sm-5 col-md-5">
                                            <img className="img-thumbnail" width="100%" src={"/Images/"+file.filename} alt="admin-profile-image"/>
-                                           <Link to="/image/update">
+                                           <Link to="admin/image/update">
                                                 <small className="display-block">Click here to add a profile picture</small>
                                            </Link>
                                            </div>

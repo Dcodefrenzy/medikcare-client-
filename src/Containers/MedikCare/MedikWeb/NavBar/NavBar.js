@@ -8,7 +8,7 @@ const NavBar = () => {
      	<nav className="navbar navbar-style row">
      		<div className="col-12 col-sm-4 col-md-4">
      		<ul className="nav">
-     			<li className="nav-item"><p className="nav-link">MedikCare</p></li>
+     			<li className="nav-item"><img  width="30%" src={"/MedikImage/MED3.png"} alt="logo"/></li>
      		</ul>
      		</div>
      		<div className=" col-12 col-sm-8 col-md-8">

@@ -1,12 +1,113 @@
 import React, {useState, useEffect} from "react" ;
-import socketIOClient from "socket.io-client";
+import io from 'socket.io-client';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 
 
-const Chat =()=>{
-
+const Chat =(props)=>{
+    const to  = props.match.params.id
+    let session;
     
+    const [message, setMessage] = useState({id:"msg", value:"", type:"text"}) 
+    const [messages, setDisplayMessage] = useState([]) 
+    const [scroll, setScroll] = useState({scroll:"scroll"}) 
+    const getSession = ()=> {
+        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
+        if(sessionItemDoctor === null && sessionItemUser === null) {
+            window.history.back();
+        }else if(sessionItemUser === null && sessionItemDoctor !== null){
+            sessionItemDoctor.isUser = false;
+            return session = sessionItemDoctor;
+        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+            sessionItemUser.isUser = true;
+            return session = sessionItemUser;
+        }
+    }
+    const scrollHandler =()=>{
+        //scroll.scroll.scrollIntoView({behavior:"smooth"})
+       // window.HTMLElement.prototype.scrollIntoView = function(){}
+    }
+    const setMessageHandler =(event)=>{
+        setMessage ({id:"msg", value:event.target.value, type:"text"})
+    }
+    
+    const socket = io("http://localhost:8080");
+    const submitChatMessage=(event)=>{
+        event.preventDefault();
+        getSession();
+        let messageData ={};
+        console.log(session)
+        messageData = {"message": message.value, "from":session._id, "to":to};  
+        
+         socket.emit("send message", messageData);
+    }
+
+    socket.on("get message",(dataset)=>{
+        scrollHandler();
+        const newMessages = [...messages];
+        newMessages.push(dataset)
+        setDisplayMessage(newMessages);
+        setMessage ({id:"msg", value:"", type:"text"}) 
+    })
+    
+    const fetchChatMessage =()=>{       
+       const messageData = {"from":session._id, "to":to};  
+        socket.emit("fetch message", messageData);
+    }
+
+    socket.on("fetch message",(dataset)=>{
+        scrollHandler();
+        setDisplayMessage(dataset);
+    })
+
+    useEffect(()=>{
+        getSession();
+        fetchChatMessage();
+    }, []);
+    const displayMessages = messages.map((message, index)=>{
+        getSession();    
+        let float;
+        let tick;
+        let  Color;
+        let cardColor;
+        let cardBodyColor;  
+        let dilivery; 
+            if (message.dilivery === true) {
+                dilivery =  <i className="fa fa-check" aria-hidden="true"></i>
+            }else{
+                dilivery =  <i className="fa fa-check text-dark" aria-hidden="true"></i>
+            }
+
+        if (message.from === session._id) {
+             float = "float-right";
+             tick = dilivery;
+              Color = " medik-color";
+             cardColor = "";
+             cardBodyColor = "";
+             name = session.name
+
+        } else{
+             float = "float-left";
+             tick = "";
+              Color = "text-dark";
+             cardColor = " b-medik";
+             cardBodyColor = "text-white";
+        }
+           return <div className={"max-width  "+float} key={message._id}>
+                <div className={"card "+cardColor}>
+                    <div className={"card-body "+cardBodyColor}>
+                    <i className={"card-text "+Color}>{name}</i>
+                        <p className="card-text">{message.message}</p>
+                        <span className={"card-text "+float+" "+Color}><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment fromNow>{message.createdAt}</Moment> {tick}</span>
+                    </div>
+                </div>
+            </div>
+
+
+    })
     return(
         <div className="overflow-hidden">
             <div className="container-fluid bg-dark">
@@ -33,68 +134,17 @@ const Chat =()=>{
                                        </div>
                                     </div>
                                 </div>
-                               <div className="chat">
-                                    <div className="max-width float-left">
-                                        <div className="card b-medik">
-                                            <div className="card-body text-white">
-                                                <i className="card-text text-dark">Dr Anthony</i>
-                                                <p className="card-text">Hello, I was wondering if we could chat concerning  my health.</p>
-                                                <span className="card-text text-dark float-left"><i className="fa fa-clock-o" aria-hidden="true"></i> 10 mins ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="max-width float-right">
-                                        <div className="card">
-                                            <div className="card-body">
-                                            <i className="card-text medik-color">You</i>
-                                                <p className="card-text">Hello I am Dr Mike.</p>
-                                                <span className="card-text float-right medik-color"><i className="fa fa-clock-o" aria-hidden="true"></i> 4 mins ago <i className="fa fa-check" aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="max-width float-left">
-                                        <div className="card b-medik">
-                                            <div className="card-body text-white">
-                                                <i className="card-text text-dark">Dr Anthony</i>
-                                                <p className="card-text"> its so good to hear from you today.</p>
-                                                <span className="card-text float-left text-dark"><i className="fa fa-clock-o" aria-hidden="true"></i> 10 mins ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="max-width float-right">
-                                        <div className="card">
-                                            <div className="card-body ">
-                                                <p className="card-text">Hello Dr Mike! its so good to hear from you today. I was wondering if we could chat concerning  my health.</p>
-                                                <span className="card-text float-right medik-color"><i className="fa fa-clock-o" aria-hidden="true"></i> 4 mins ago <i className="fa fa-check" aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="max-width float-left">
-                                        <div className="card b-medik">
-                                            <div className="card-body text-white">
-                                                <i className="card-text text-dark">Dr Anthony</i>
-                                                <p className="card-text">Hello Dr Mike! its so good to hear from you today. I was wondering if we could chat concerning  my health.</p>
-                                                <span className="card-text float-left text-dark"><i className="fa fa-clock-o" aria-hidden="true"></i> 10 mins ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="max-width float-right">
-                                        <div className="card">
-                                            <div className="card-body ">
-                                                <p className="card-text">Hello Dr Mike! .</p>
-                                                <span className="card-text float-right medik-color"><i className="fa fa-clock-o" aria-hidden="true"></i> 4 mins ago <i className="fa fa-check" aria-hidden="true"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                               <div className="chat top-padding-md">
+                                   {displayMessages}
                                </div>
-                                <div className="clearfix"></div>
+                                <div className="clearfix bottom-padding-lg" id={scroll.scroll}></div>
                                 <div className="card bg-dark chat-static chat-static-buttom">
                                    <div className="card-body">
-                                        <form>
+                                        <form onSubmit={submitChatMessage}>
                                             <div className="row">
                                                <div className="col-10">
                                                     <div className="form-group">
-                                                        <textarea className="form-control chat-message" placeholder="Start a new message" rows="1"></textarea>
+                                                        <textarea id={message.id} onChange={(event) => setMessageHandler(event,message.id)} type={message.type} value={message.value}  className="form-control chat-message" placeholder="Start a new message" rows="1"></textarea>
                                                     </div>
                                                </div>
                                                <div className="col-2">

@@ -26,14 +26,13 @@ class DoctorDashboard extends Component {
     }
     authentication = () => {
         const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
-        const welcome = {};
-
-        welcome.name = sessionItem.name;
         if(sessionItem === null) {window.location = "/doctor/login?Hi-Visitor-you-have-to-login-before-you-can-access-a-page-on-the-platform"}
         else {
+            const welcome = {};
+            welcome.name = sessionItem.name;
             this.setState({display:"display-none"})
             this.setState({welcome:welcome})
-            console.log(welcome);
+
         }
     }
     onLoadHandler = (event) => {
