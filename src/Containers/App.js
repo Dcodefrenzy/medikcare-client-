@@ -69,6 +69,17 @@ import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewC
 			this.displayNotification();
 		}	
 	}
+
+	/*	componentDidMount() {
+		Notification.requestPermission(function(status) {
+			console.log('Notification permission status:', status);
+		});
+		if (Notification.permission === 'granted') {
+			console.log("granted already.")
+		}else{
+			this.displayNotification();
+		}	
+	}*/
 	render() {
 		return (
 			<Router>
