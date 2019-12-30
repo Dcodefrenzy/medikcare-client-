@@ -67,9 +67,7 @@ import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewC
 			console.log("granted already.")
 		}else{
 			this.displayNotification();
-		}
-		//this.displayNotification();
-	
+		}	
 	}
 	render() {
 		return (
