@@ -1,6 +1,7 @@
 import React from 'react';
-import connects  from "../Assets/svgs/connects.svg"
-import ideas  from "../Assets/svgs/ideas.svg"
+import connects  from "../Assets/svgs/connects.svg";
+import ideas  from "../Assets/svgs/ideas.svg";
+import { Link } from 'react-router-dom';
 const Milestones = (props) => {
   return (
     <section className="overflow">
@@ -37,8 +38,10 @@ const Milestones = (props) => {
     			</div>
     			<div className="col-11 col-sm-12 col-md-8">
     				<h4>Try Us Now,</h4>
-    			    <h2>Get Started In 10mins</h2>
-    			    <button className="btn btn-lg btn-medik">Get Started.</button>
+    			    <h2>Get Started In 10mins</h2>	
+						<Link to="/registration">
+							<button className="home-buttons nav-link btn-lg btn-medik">Get Started</button>
+						</Link>
     			    
     			</div>
     			<div className="col-2 col-sm-12 col-md-2">

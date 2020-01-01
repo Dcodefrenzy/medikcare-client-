@@ -13,14 +13,15 @@ const NavBar = () => {
      		</div>
      		<div className=" col-12 col-sm-8 col-md-8">
      		<ul className="nav float-right">
-     		    <li className="nav-item"><a className="nav-link medik-color" href="">Why medikCare</a></li>
+				<Link to="/">    			
+     				<li className="nav-item nav-link medik-color">Home</li>
+				</Link>
      		      <li className="nav-item dropdown medik-color">
 				    <a className="nav-link dropdown-toggle" role="button">Health Plans</a>
 				    <div className="dropdown-menu">
 				      <a className="dropdown-item medik-color" href="#">Individuals</a>
 				    </div>
-				  </li>
-				<li className="nav-item"><a className="nav-link medik-color" href="">FAQ</a></li> 
+				  </li> 
 				<Link to="/login">    			
      				<li className="nav-item nav-link medik-color">Login</li>
 				</Link>

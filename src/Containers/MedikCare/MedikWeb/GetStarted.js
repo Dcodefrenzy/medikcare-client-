@@ -1,5 +1,6 @@
 import React from 'react';
-import started1  from '../Assets/svgs/started2.svg'
+import started1  from '../Assets/svgs/started2.svg';
+import { Link } from 'react-router-dom';
 
 const GetStarted = (props) => {
   return (
@@ -17,8 +18,10 @@ const GetStarted = (props) => {
     					<h5><i className="square card"></i> Post a health question.</h5>
     					<p>Ask a doctor anything and get response in not more than 10mins.</p>
     					<h5><i className="square card"></i> Get a treatment plan.</h5>
-    					<p>Get a treatment plan that suits you.</p>
-    					<button className="btn btn-lg btn-medik">Get Started</button>
+    					<p>Get a treatment plan that suits you.</p>	
+						<Link to="/registration">
+							<button className="home-buttons nav-link btn-lg btn-medik">Get Started</button>
+						</Link>
     				</div>
     			</div>
     		</div>

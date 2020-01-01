@@ -12,8 +12,8 @@ const Footer = (props) => {
                     <div className="col-6 col-sm-6 col-md-3"> 
                         <div>
                             <ul>
-                                MedikCare
-                                <li><a href="">About</a></li>
+                                MedikCare 
+                                <li><a href="">Why medikCare</a></li>
                                 <li><a href="">Services</a></li>
                                 <li><a href="">Prcing</a></li>
                                 <li><a href="">Privacy</a></li>
