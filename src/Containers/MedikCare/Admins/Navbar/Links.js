@@ -6,7 +6,7 @@ const NavBarLink = (props) => {
     
     const setLogoutHandler=(event)=>{
         event.preventDefault();
-        const url = "http://192.168.33.12:3000/api/v1/admins/logout";
+        const url = "/api/v1/admins/logout";
         fetch(url, {
             method: "PATCH",
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}

@@ -57,7 +57,7 @@ class AdminList extends Component {
         }else if(sessionItem.level !== 1) {
             window.location = "/page-not-found";
         }else { 
-        const url = "http://192.168.33.12:3000/api/v1/admins/";
+        const url = "/api/v1/admins/";
             fetch(url, {
                 method: "GET",
                 headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
@@ -124,7 +124,7 @@ class AdminList extends Component {
         const adminData = {};
         this.setState({display:"display-block"})
         adminData.deleteCode = deleteCode===0?1:0;
-        const url = "http://192.168.33.12:3000/api/v1/admins/suspend/"+id;
+        const url = "/api/v1/admins/suspend/"+id;
         
         fetch(url, {
             method: "PATCH",

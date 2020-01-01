@@ -7,7 +7,7 @@ const NavbarLinks = () => {
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     const setLogoutHandler=(event)=>{
         event.preventDefault();
-        const url = "http://192.168.33.12:3000/api/v1/doctor/logout";
+        const url = "/api/v1/doctor/logout";
         fetch(url, {
             method: "PATCH",
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}

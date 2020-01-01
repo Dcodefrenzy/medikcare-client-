@@ -32,7 +32,7 @@ const UpdatePassword = (props) => {
        let passwordData ={};
         passwordData = {"oldPassword": oldPassword.value,"newPassword": newPassword.value};
         console.log(passwordData)
-        const url = "http://192.168.33.12:3000/api/v1/admins/password/change";
+        const url = "/api/v1/admins/password/change";
         fetch(url, {
             method: "PATCH",
             body:JSON.stringify(passwordData),

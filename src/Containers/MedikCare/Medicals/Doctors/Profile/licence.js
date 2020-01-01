@@ -15,7 +15,7 @@ const updateAnnualPracticingLicence = (props) => {
 
 
     const setUserDisplayHadler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/doctor/profile";
+        const url = "/api/v1/doctor/profile";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
@@ -46,7 +46,7 @@ const updateAnnualPracticingLicence = (props) => {
         const formData = new FormData();
         
         formData.append('annualPracticingLicence', file.file);
-        const url = "http://192.168.33.12:3000/api/v1/doctors/records/file/update";
+        const url = "/api/v1/doctors/records/file/update";
         fetch(url, {
             method: "POST",
             body:formData,

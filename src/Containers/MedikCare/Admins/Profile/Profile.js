@@ -28,7 +28,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
     }
 
     const setUserDisplayHadler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/admins/profile";
+        const url = "/api/v1/admins/profile";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
@@ -56,7 +56,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
         const last  = lastName.value === ""?admin.lastname:lastName.value;
        let adminData ={};
        adminData = {"firstname": first,"lastname": last};
-        const url = "http://192.168.33.12:3000/api/v1/admins/profile/update";
+        const url = "/api/v1/admins/profile/update";
         fetch(url, {
             method: "PATCH",
             body:JSON.stringify(adminData),
@@ -74,7 +74,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
     }
 
     const setAdminLogs=(event)=>{
-        const url = "http://192.168.33.12:3000/api/v1/logs/admin"
+        const url = "/api/v1/logs/admin"
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}

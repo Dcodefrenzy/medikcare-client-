@@ -18,7 +18,7 @@ const chatCurrentsession = (props) =>{
     const fetchDoctorsHandeller = () => {
 
         console.log(id)
-         const url = "http://192.168.33.12:3000/api/v1/doctors/records/user/doctor/"+id;
+         const url = "/api/v1/doctors/records/user/doctor/"+id;
          fetch(url, {
              method:"GET",
              headers:{"Content-Type":"application/json", "u-auth":session.token}

@@ -14,7 +14,7 @@ const ChatSession = (props) =>{
 
     const fetchDoctorsHandeller = () => {
        const id = props.match.params.id
-        const url = "http://192.168.33.12:3000/api/v1/doctors/records/user/doctor/"+id;
+        const url = "/api/v1/doctors/records/user/doctor/"+id;
         fetch(url, {
             method:"GET",
             headers:{"Content-Type":"application/json", "u-auth":session.token}
@@ -50,7 +50,7 @@ const ChatSession = (props) =>{
     }
     socket.on('create session', (from, to)=>{
         const id = props.match.params.id
-        const url = "http://192.168.33.12:3000/api/v1/doctor/chat/session/"+to;
+        const url = "/api/v1/doctor/chat/session/"+to;
         fetch(url, {
             method:"GET",
             headers:{"Content-Type":"application/json", "u-auth":session.token}

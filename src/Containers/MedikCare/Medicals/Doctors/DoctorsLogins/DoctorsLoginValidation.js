@@ -80,7 +80,7 @@ class DoctorLoginValidation extends Component  {
         event.preventDefault();
         this.setState({display:"display-block"})
        const doctorData = {};
-       const url = "http://192.168.33.12:3000/api/v1/doctor/login";
+       const url = "/api/v1/doctor/login";
         for (let formId in this.state.loginForm) {
             doctorData[formId] = this.state.loginForm[formId].value;
         }

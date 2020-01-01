@@ -56,10 +56,10 @@ class HealthQuestions extends Component {
         let url = "";
         let sessionItem;
         if(this.sessionItemUser === null && this.sessionItemAdmin !== null){
-            url = "http://192.168.33.12:3000/api/v1/question/doctor/questions";
+            url = "/api/v1/question/doctor/questions";
             sessionItem = this.sessionItemAdmin;
         }else if(this.sessionItemUser !== null && this.sessionItemAdmin === null) {
-            url = "http://192.168.33.12:3000/api/v1/question/user/questions";
+            url = "/api/v1/question/user/questions";
             sessionItem = this.sessionItemUser;
         }
         fetch(url, {

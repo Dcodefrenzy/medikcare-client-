@@ -17,7 +17,7 @@ const mainActivity = (props) => {
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none"})
 
     const setLogsHandler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/logs/user";
+        const url = "/api/v1/logs/user";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
@@ -34,7 +34,7 @@ const mainActivity = (props) => {
         })
     }
     const setLogsUpdateHandler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/logs/update/user";
+        const url = "/api/v1/logs/update/user";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}

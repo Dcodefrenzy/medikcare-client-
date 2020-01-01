@@ -28,7 +28,7 @@ const ChatDashbordNewChat = (props) =>{
     }
 
     const fetchDoctorsHandeller = () => {
-        const url = "http://192.168.33.12:3000/api/v1/doctor/user/doctors";
+        const url = "/api/v1/doctor/user/doctors";
         fetch(url, {
             method:"GET",
             headers:{"Content-Type":"application/json", "u-auth":session.token}

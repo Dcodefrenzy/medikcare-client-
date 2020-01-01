@@ -67,7 +67,7 @@ class Question extends Component {
              questionData[key] = this.state.question[key].value;
          }
          console.log(questionData)
-         const url = "http://192.168.33.12:3000/api/v1/question/ask";
+         const url = "/api/v1/question/ask";
          fetch(url,{
              method:"POST",
              body:JSON.stringify(questionData),

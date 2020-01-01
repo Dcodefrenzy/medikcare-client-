@@ -19,7 +19,7 @@ const UsersListTh = (props) => {
         }else if(sessionItem.level !== 1) {
             window.location = "/page-not-found";
         }else {
-            const url = "http://192.168.33.12:3000/api/v1/user/users";
+            const url = "/api/v1/user/users";
             fetch(url, {
                 method: "GET",
                 headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}

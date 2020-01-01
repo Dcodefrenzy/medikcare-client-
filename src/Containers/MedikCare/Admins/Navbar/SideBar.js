@@ -9,7 +9,7 @@ const SideBar = () => {
   const [file, setFile]  = useState({})
 
   const setUserDisplayHadler=()=>{
-    const url = "http://192.168.33.12:3000/api/v1/admins/profile";
+    const url = "/api/v1/admins/profile";
     fetch(url, {
         method: "GET",
         headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}

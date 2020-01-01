@@ -18,7 +18,7 @@ class VerificationSuccess extends Component {
 
     verifyUserMailHandler = () => {
         let token = this.props.match.params.id;
-        const url = "http://192.168.33.12:3000/api/v1/admins/admin-verify";
+        const url = "/api/v1/admins/admin-verify";
         if (!token) {
             console.log(token)
             window.location = "/page-not-found";

@@ -173,7 +173,7 @@ class RegistrationValidation extends Component {
          event.preventDefault();
         this.setState({display:"display-block"})
          const userData = {};
-         const url = "http://192.168.33.12:3000/api/v1/user/register";
+         const url = "/api/v1/user/register";
          for (const userId in this.state.registerForm) { 
             userData[userId] = this.state.registerForm[userId].value;
                  

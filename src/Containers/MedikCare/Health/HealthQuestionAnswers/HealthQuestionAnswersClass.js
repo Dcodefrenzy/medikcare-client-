@@ -104,7 +104,7 @@ class HealthQuestionAnswersClass extends Component {
         const answer={};
         answer.answer = this.state.answer.value;
         const id = this.props.match.params.id;
-        const url = "http://192.168.33.12:3000/api/v1/answer/"+id;
+        const url = "/api/v1/answer/"+id;
        const token = this.sessionItemDoctor.token;
         fetch(url, {
             method:"POST",
@@ -145,10 +145,10 @@ class HealthQuestionAnswersClass extends Component {
         let id = this.props.match.params.id;
 
         if(this.sessionItemUser === null && this.sessionItemDoctor !== null){
-            url = "http://192.168.33.12:3000/api/v1/question/doctor/question/answers/"+id;
+            url = "/api/v1/question/doctor/question/answers/"+id;
             sessionItem = this.sessionItemDoctor;
         }else if(this.sessionItemUser !== null && this.sessionItemDoctor === null) {
-            url = "http://192.168.33.12:3000/api/v1/question/user/question/answers/"+id;
+            url = "/api/v1/question/user/question/answers/"+id;
             sessionItem = this.sessionItemUser;
         }
         fetch(url, {
@@ -181,10 +181,10 @@ class HealthQuestionAnswersClass extends Component {
         this.setState({appriciationButton:appriciationButton})
         this.setState({spinner:"display-show"});
         if(this.sessionItemUser === null && this.sessionItemDoctor !== null){
-            url = "http://192.168.33.12:3000/api/v1/answer/agrees/"+event.target.id;
+            url = "/api/v1/answer/agrees/"+event.target.id;
             sessionItem = this.sessionItemDoctor;
         }else if(this.sessionItemUser !== null && this.sessionItemDoctor === null) {
-            url = "http://192.168.33.12:3000/api/v1/answer/thankyou/"+event.target.id;
+            url = "/api/v1/answer/thankyou/"+event.target.id;
             sessionItem = this.sessionItemUser;
         }
         fetch(url, {

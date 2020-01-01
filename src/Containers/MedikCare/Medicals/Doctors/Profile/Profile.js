@@ -78,7 +78,7 @@ const doctorProfile = (props) => {
     }
 
     const setUserDisplayHadler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/doctor/profile";
+        const url = "/api/v1/doctor/profile";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
@@ -116,7 +116,7 @@ const doctorProfile = (props) => {
         const newGender  = gender.value === ""?user.gender:gender.value;
        let userData ={};
        userData = {"firstname": first,"lastname": last, "age":newAge, "gender":newGender};
-       const url = "http://192.168.33.12:3000/api/v1/doctor/profile/update";
+       const url = "/api/v1/doctor/profile/update";
        fetch(url, {
            method: "PATCH",
            body:JSON.stringify(userData),
@@ -145,7 +145,7 @@ const doctorProfile = (props) => {
         const newfolioNumber = folioNumber.value !== ""?folioNumber.value:doctorPersonalRecord.folioNumber===undefined?"N/A":doctorPersonalRecord.folioNumber;  
         
         const personal = {"address":add, "degree":deg, "year":newYear, "medicalSchool":newmedicalSchool, "specialty":newSpecialty,"folioNumber":newfolioNumber}
-        const url = "http://192.168.33.12:3000/api/v1/doctors/records/update"
+        const url = "/api/v1/doctors/records/update"
         fetch(url, {
             method: "PATCH",
             body:JSON.stringify(personal),

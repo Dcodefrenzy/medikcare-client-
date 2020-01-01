@@ -15,7 +15,7 @@ const updateImage = (props) => {
 
 
     const setUserDisplayHadler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/admins/profile";
+        const url = "/api/v1/admins/profile";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
@@ -45,7 +45,7 @@ const updateImage = (props) => {
         const formData = new FormData()
         
         formData.append('image', file.file)
-        const url = "http://192.168.33.12:3000/api/v1/admins/image/update";
+        const url = "/api/v1/admins/image/update";
         fetch(url, {
             method: "POST",
             body:formData,

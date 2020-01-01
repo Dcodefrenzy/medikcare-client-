@@ -270,7 +270,7 @@ class DoctorsRegistrationValidation extends Component {
             doctorData[doctorId] =  this.state.registerForm[doctorId].value;     
          }
          console.log(doctorData);
-         const url = "http://192.168.33.12:3000/api/v1/doctor/register";
+         const url = "/api/v1/doctor/register";
          fetch(url, {
             method: "POST",
             body:JSON.stringify(doctorData),

@@ -99,7 +99,7 @@ const userProfile = (props) => {
         const newGender  = gender.value === ""?user.gender:gender.value;
        let userData ={};
        userData = {"firstname": first,"lastname": last, "age":newAge, "gender":newGender};
-       const url = "http://192.168.33.12:3000/api/v1/user/profile/update";
+       const url = "/api/v1/user/profile/update";
        fetch(url, {
            method: "PATCH",
            body:JSON.stringify(userData),
@@ -126,7 +126,7 @@ const userProfile = (props) => {
         const newkinNumber = kinNumber.value !== ""?kinNumber.value:PersonalRecord.kinNumber===undefined?0:PersonalRecord.kinNumber; 
 
         const personal = {"address":add, "status":stat, "kinName":newkinName, "kinNumber":newkinNumber}
-        const url = "http://192.168.33.12:3000/api/v1/user/personalrecords/update"
+        const url = "/api/v1/user/personalrecords/update"
         fetch(url, {
             method: "PATCH",
             body:JSON.stringify(personal),

@@ -17,7 +17,7 @@ const DashboardDetails = (props) => {
 	const [display, setDisplay]  = useState({display:"block"});
   
 	const setUserDisplayHandler=()=>{
-	  const url = "http://192.168.33.12:3000/api/v1/user/profile";
+	  const url = "/api/v1/user/profile";
 	  fetch(url, {
 		  method: "GET",
 		  headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
@@ -35,7 +35,7 @@ const DashboardDetails = (props) => {
 	  })
   }
   const setLogsHandler=()=>{
-	const url = "http://192.168.33.12:3000/api/v1/logs/unread/user";
+	const url = "/api/v1/logs/unread/user";
 	fetch(url, {
 		method: "GET",
 		headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
