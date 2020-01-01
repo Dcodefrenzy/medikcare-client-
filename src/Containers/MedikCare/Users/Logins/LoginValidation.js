@@ -80,7 +80,7 @@ class LoginValidation extends Component  {
         event.preventDefault();
         this.setState({display:"display-block"})
        const userData = {};
-       const url = "/api/v1/user/login";
+       const url = "/app/api/v1/user/login";
         for (let formId in this.state.loginForm) {
             userData[formId] = this.state.loginForm[formId].value;
         }
