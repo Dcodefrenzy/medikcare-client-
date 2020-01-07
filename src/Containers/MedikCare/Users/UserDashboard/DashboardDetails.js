@@ -30,7 +30,11 @@ const DashboardDetails = (props) => {
 		  }else if (response.status === 200) {
 			  setDisplay({display:"display-none"});
 				setUser(response.message);
-			  setFile(response.message.image);
+                if (response.message.image) {
+                    setFile(response.message.image);
+                }else{
+                    setFile({filename:"user.png"});
+                }
 		  }
 	  })
   }
