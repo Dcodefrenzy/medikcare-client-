@@ -67,7 +67,7 @@ const userProfile = (props) => {
     }
 
     const setUserDisplayHadler=()=>{
-        const url = "http://192.168.33.12:3000/api/v1/user/profile";
+        const url = "/api/v1/user/profile";
         fetch(url, {
             method: "GET",
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
