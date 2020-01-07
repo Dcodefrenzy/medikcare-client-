@@ -7,7 +7,7 @@ class VerificationSuccess extends Component {
     constructor(props) {
         super(props)
         this.state= {
-            display: "display-block",
+            display: "display-none",
             verification: {
                 display:"display-block",
                 message:"",
@@ -17,6 +17,11 @@ class VerificationSuccess extends Component {
                 type:"email",
                 value: "",
                 id: "email"
+            },
+            
+            emailError: {
+                display: "display-none",
+                value: "",
             },
         }
     }
@@ -42,12 +47,12 @@ class VerificationSuccess extends Component {
             if(response.status === 201) {
                sessionStorage.setItem("user", JSON.stringify(response));
                window.location = "/user/verification?verification-sent-successfully";
-            }else if(response.status === 403) {
+            }else if(response.status === 404) {
                 const passwordError = {};
                this.setState({display:"display-none"})
                passwordError.display = "display-block";
-               passwordError.value =response.message;
-              this.setState({loginError: passwordError});
+               passwordError.value ="Email do not exist please register.";
+              this.setState({emailError: passwordError});
             }else if(response.status === 400) {  
                 const displayPopMessage ={};             
            displayPopMessage.card = "card bg-danger text-white";
@@ -77,7 +82,7 @@ class VerificationSuccess extends Component {
         .then(response =>{
             this.setState({display:"display-none"})
             if(response.status === 401) {
-                const verification = {display:"display-block", message:response.message, dashboardDisplay:"display-none"}
+                const verification = {display:"display-block", message:"Token expired please resend mail.", dashboardDisplay:"display-none"}
                 this.setState({verification:verification});
             }else if(response.status === 200) {
                 sessionStorage.setItem("user", JSON.stringify(response));
@@ -103,7 +108,8 @@ class VerificationSuccess extends Component {
                                         <h3 className="medik-color">Verification</h3>
                                         <p>{this.state.verification.message}</p>
                                         <img src={Verified} alt="verification for user" className="home-svg" />
-                                        <div className="col-10 offset-4 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4">
+                                        <div className="col-12 offset-0 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4">
+                                        <span className={this.state.emailError.display}>{this.state.emailError.value} <Link to="/registration">HERE</Link></span>
                                             <form onSubmit={this.resendEmailHandler} className={this.state.verification.display}>
                                                 <input type="email" placeholder="Enter your mail" className="form-control" onChange={(event) => this.setEmail(event,this.state.email.id)} id={this.state.email.id} value={this.state.email.value} required />
                                                 <input type="submit" value="Re-Send Mail" className="btn btn-sm btn-medik" />
