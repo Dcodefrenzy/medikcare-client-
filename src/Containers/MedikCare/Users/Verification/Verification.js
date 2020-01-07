@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Verified  from "../../Assets/svgs/verified.svg"
-
+import { Link } from 'react-router-dom';
 class Verification extends Component {
     constructor(props) {
         super(props)
@@ -20,8 +20,11 @@ class Verification extends Component {
                                     <h3 className="medik-color">Verification</h3>
                                     <p>A link has been sent to your mail please verify and get started</p>
                                     <img src={Verified} alt="verification for user" className="home-svg" />
-                                    <p>If you did not get a mail from us, you can resend by clicking the button below</p>
-                                   <div className="col-10 offset-3 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4"> <button className="btn btn-medik">Re-send Verification</button></div>
+                                   <div className="col-10 offset-3 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4"> 
+                                        <Link to="/user/dashboard">
+                                                <button className="btn btn-medik">Go to dashboard</button>
+                                            </Link>
+                                   </div>
                                 </div>
                             </div>
                         </div>

@@ -90,7 +90,7 @@ const DashboardDetails = (props) => {
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3 className="text-dark">HEALTH QUESTIONS</h3>
-								<p className="text-dark">Post health questions and get answers quickly.</p>
+								<p className="text-dark top-margin-sm">Post health questions and get answers quickly.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Post</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -105,7 +105,7 @@ const DashboardDetails = (props) => {
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3>CONSULTATION</h3>
-								<p className="text-dark">Discuss with verified doctors online.</p>
+								<p className="text-dark top-margin-sm">Discuss with verified doctors online.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Talk</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -119,7 +119,7 @@ const DashboardDetails = (props) => {
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3>HEALTH VLOG</h3>
-								<p className="text-dark">Watch videos that explain healthy living.</p>
+								<p className="text-dark top-margin-sm">Watch videos that explain healthy living.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Vlog</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -133,7 +133,7 @@ const DashboardDetails = (props) => {
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3>BOOK SESSIONS</h3>
-								<p className="text-dark">Book physical appointments with our Doctors.</p>
+								<p className="text-dark top-margin-sm">Book physical appointments with our Doctors.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Book</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -147,7 +147,7 @@ const DashboardDetails = (props) => {
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3>HEALTH GOALS</h3>
-								<p className="text-dark">Set health goals and crush them hard.</p>
+								<p className="text-dark top-margin-sm">Set health goals and crush them hard.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Goal</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -161,7 +161,7 @@ const DashboardDetails = (props) => {
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3>HEALTH ARTICLES</h3>
-								<p className="text-dark">Learn about your health by reading health articles</p>
+								<p className="text-dark top-margin-sm">Learn about your health by reading health articles</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Articles</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">

@@ -9,13 +9,59 @@ class VerificationSuccess extends Component {
         this.state= {
             display: "display-block",
             verification: {
-                display:"display-none",
+                display:"display-block",
                 message:"",
                 dashboardDisplay:"display-block",
             },
+            email : {
+                type:"email",
+                value: "",
+                id: "email"
+            },
         }
     }
+      setEmail=(event)=>{ 
+          const email = {"value":event.target.value, id:"email", "type":"email"};
+        this.setState({email:email});
+    }
 
+    resendEmailHandler = ( event ) => {
+        event.preventDefault();
+        this.setState({display:"display-block"})
+       let userData = {};
+       const url = "/api/v1/user/mail/resend";
+    const email = this.state.email.value;
+       userData = {"email":email};
+        fetch(url, {
+            method: "POST",
+            body:JSON.stringify(userData),
+            headers: {'Content-Type': "application/json"}
+        })
+        .then(res => res.json())
+        .then(response => {
+            if(response.status === 201) {
+               sessionStorage.setItem("user", JSON.stringify(response));
+               window.location = "/user/verification?verification-sent-successfully";
+            }else if(response.status === 403) {
+                const passwordError = {};
+               this.setState({display:"display-none"})
+               passwordError.display = "display-block";
+               passwordError.value =response.message;
+              this.setState({loginError: passwordError});
+            }else if(response.status === 400) {  
+                const displayPopMessage ={};             
+           displayPopMessage.card = "card bg-danger text-white";
+           displayPopMessage.display = "row";
+           displayPopMessage.message =response.message;
+           this.setState({display:"display-none"})
+           this.setState({popMessage:displayPopMessage});
+            }
+        })
+        .catch(e => {
+        if(e) {window.location = "/login?something-went-wrong-please-check-your-internet-connection-and-try-again."}
+        });
+    }
+    
     verifyUserMailHandler = () => {
         let token = this.props.match.params.id;
         const url = "/api/v1/user/user-verify";
@@ -59,7 +105,7 @@ class VerificationSuccess extends Component {
                                         <img src={Verified} alt="verification for user" className="home-svg" />
                                         <div className="col-10 offset-4 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4">
                                             <form onSubmit={this.resendEmailHandler} className={this.state.verification.display}>
-                                                <input type="email" placeholder="Enter your mail" className="form-control" required />
+                                                <input type="email" placeholder="Enter your mail" className="form-control" onChange={(event) => this.setEmail(event,this.state.email.id)} id={this.state.email.id} value={this.state.email.value} required />
                                                 <input type="submit" value="Re-Send Mail" className="btn btn-sm btn-medik" />
                                             </form>
                                             <Link to="/user/dashboard" className={this.state.verification.dashboardDisplay}>
