@@ -46,7 +46,7 @@
     "type": "git",
     "url": "https://github.com/Dcodefrenzy"
   },
-  "proxy": "http://192.168.33.12:5858",
+  "proxy": "http://192.168.33.11:5858",
   "keywords": [
     "Health",
     "care",

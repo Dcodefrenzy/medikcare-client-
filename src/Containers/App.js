@@ -37,6 +37,8 @@ import mainActivity from './MedikCare/Users/Activities/MainActivity';
 import chatCurrentsession from './MedikCare/Chat/ChatDashboard/ChatCurrentSession';
 import ChatDashbordActivities from './MedikCare/Chat/ChatDashboard/ChatDashBoardActivities';
 import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChat';
+import AdminForgetPassword from './MedikCare/Admins/Password/ForgetPassword';
+import AdminNewPassword from './MedikCare/Admins/Password/NewPassword';
 
 
 
@@ -115,7 +117,12 @@ import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewC
 						<Route path="/admin/doctors" exact component={DoctorsListTh} />
 						<Route path="/admin/password/change" exact component={UpdatePassword} />
 						<Route path="/admin/Profile" exact component={adminProfile} />
-						<Route path="admin/image/update" exact component={updateImage} />
+						<Route path="/admin/image/update" exact component={updateImage} />
+						<Route path="/admin/forget/password" exact component={AdminForgetPassword} />
+						<Route path="/admin/forget-password/:id" exact component={AdminNewPassword} />
+						
+						
+						
 						
 						<Route path="/health/questions" exact component={HealthQuestions} />
 						<Route path="/health/questions/answers/:id" exact component={HealthQuestionAnswersClass} />

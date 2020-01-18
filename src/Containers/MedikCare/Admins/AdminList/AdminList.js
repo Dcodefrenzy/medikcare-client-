@@ -154,7 +154,7 @@ class AdminList extends Component {
 
     render() {
                 const adminDetals = this.state.adminList.map((admin, index) => {
-                    const fa = admin.deleteAdmin === 0 ? "fa fa-trash text-danger":"fa fa-trash text-success";
+                    const fa = admin.deleteAdmin === false ? "fa fa-trash text-danger":"fa fa-trash text-success";
                          return   <AdminListTh 
                             key={admin._id} 
                             sn={index + 1} 

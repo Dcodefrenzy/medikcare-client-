@@ -22,13 +22,13 @@ const DoctorsListTh = (props) => {
         }else if(sessionItem.level !== 1) {
             window.location = "/page-not-found";
         }else {
-            const url = "http://192.168.33.12:3000/api/v1/doctor/admin/doctors";
+            const url = "/api/v1/doctor/admin/doctors";
             fetch(url, {
                 method: "GET",
                 headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
             })
             .then(res => res.json())
-            .then(response => {console.log(response)
+            .then(response => {
                 if(response.status === 401) {
                     sessionStorage.removeItem("admin");
                     window.location = "/admin/login?Session expired please login."
@@ -51,7 +51,7 @@ const DoctorsListTh = (props) => {
             }else if(sessionItem.level !== 1) {
                 window.location = "/page-not-found";
             }else {
-                const url = "http://192.168.33.12:3000/api/v1/doctors/records/admin/doctor/"+event.target.id;
+                const url = "/api/v1/doctors/records/admin/doctor/"+event.target.id;
                 fetch(url, {
                     method: "GET",
                     headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
@@ -71,7 +71,7 @@ const DoctorsListTh = (props) => {
             }
         }
     const verifyDoctor =(event)=>{
-        const url = "http://192.168.33.12:3000/api/v1/doctor/admin/verify/"+event.target.id;
+        const url = "/api/v1/doctor/admin/verify/"+event.target.id;
         fetch(url, {
             method: "PATCH",
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
