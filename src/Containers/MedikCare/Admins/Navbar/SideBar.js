@@ -22,7 +22,7 @@ const SideBar = () => {
         }else if (response.status === 200) {
               setAdmin(response.message);
             if (response.message.image) {
-                
+                setFile(response.message.image);
             }else{
                 setFile({filename:"user.png"});
             }

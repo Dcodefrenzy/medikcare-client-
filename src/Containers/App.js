@@ -39,6 +39,14 @@ import ChatDashbordActivities from './MedikCare/Chat/ChatDashboard/ChatDashBoard
 import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChat';
 import AdminForgetPassword from './MedikCare/Admins/Password/ForgetPassword';
 import AdminNewPassword from './MedikCare/Admins/Password/NewPassword';
+import UserForgetPassword from './MedikCare/Users/Password/ForgetPassword';
+import UserUpdatePassword from './MedikCare/Users/Password/UpdatePassword';
+import UserNewPassword from './MedikCare/Users/Password/NewPassword';
+import DoctorForgetPassword from './MedikCare/Medicals/Doctors/Password/ForgetPassword';
+import DoctorNewPassword from './MedikCare/Medicals/Doctors/Password/NewPassword';
+import DoctorUpdatePassword from './MedikCare/Medicals/Doctors/Password/UpdatePassword';
+import UserSettings from './MedikCare/Users/Settings/Settings';
+import DoctorSettings from './MedikCare/Medicals/Doctors/Settings/Settings';
 
 
 
@@ -99,6 +107,11 @@ import AdminNewPassword from './MedikCare/Admins/Password/NewPassword';
 						<Route path="/user/profile" exact component={userProfile} />
 						<Route path="/user/image/update" exact component={updateUserImage} />
 						<Route path="/user/main-activity" exact component={mainActivity} />
+						<Route path="/user/password/change" exact component={UserUpdatePassword} />
+						<Route path="/user/forget/password" exact component={UserForgetPassword} />
+						<Route path="/user/forget-password/:id" exact component={UserNewPassword} />
+						<Route path="/user/settings" exact component={UserSettings} />
+						
 
 						<Route path="/doctor/registration" exact component={DoctorsRegistrationValidation} />
 						<Route path="/doctor/login" exaxt component={DoctorLoginValidation} />
@@ -108,7 +121,15 @@ import AdminNewPassword from './MedikCare/Admins/Password/NewPassword';
 						<Route path="/doctor/profile" exact component={doctorProfile} />
 						<Route path="/doctor/image/update" exact component={updateDoctorImage} />
 						<Route path="/doctor/upload/annual-practicing-licence/file" exact component={updateAnnualPracticingLicence} />
+						<Route path="/doctor/password/change" exact component={DoctorUpdatePassword} />
+						<Route path="/doctor/forget/password" exact component={DoctorForgetPassword} />
+						<Route path="/doctor/forget-password/:id" exact component={DoctorNewPassword} />
+						<Route path="/doctor/settings" exact component={DoctorSettings} />
 						
+						
+					
+						
+
 						<Route path="/admin/dashboard" exact component={AdminDashboard} />
 						<Route path="/admin/register" exact component={AdminRegister} />
 						<Route path="/admin/login" exact component={AdminLogin} />
