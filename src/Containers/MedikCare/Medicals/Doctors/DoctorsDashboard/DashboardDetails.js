@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import health_questions  from '../../../Assets/svgs/answers.svg';
 import chat  from '../../../Assets/svgs/waitingList.svg';
 import todo  from '../../../Assets/svgs/blog.svg';
@@ -6,6 +6,38 @@ import conversiation  from '../../../Assets/svgs/appointment.svg';
 import { Link } from 'react-router-dom'
 
 const DoctorDashboardDetails = (props) => {
+	const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
+	const sendNotification=()=>{
+
+		const OneSignal = window.OneSignal || []; 
+		OneSignal.push(function() { 
+			OneSignal.getUserId().then(function(userId) {
+	
+				if (userId) {	
+				const url = "/api/v1/doctor/update/notification/"+userId;
+				fetch(url, {
+					method: "PATCH",
+					headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
+				})
+				.then(res => res.json())
+				.then(response => { 
+					if(response.status === 401) {
+					sessionStorage.removeItem("doctor");
+						window.location = "/doctor/login?Session expired please login."
+					}else if (response.status === 200) {
+						
+					}
+				})
+				}
+				
+			
+			})
+		});
+	}
+	useEffect(()=>{
+		sendNotification();
+	  }, [])
+	
     return(
         <section className="user-section">
     	<div className="container home-content">

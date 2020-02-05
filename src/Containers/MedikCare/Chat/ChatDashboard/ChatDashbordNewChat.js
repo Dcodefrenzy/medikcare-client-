@@ -3,27 +3,19 @@ import { SessionContext } from './ChatDashboard';
 import io from 'socket.io-client';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
-import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
-import Loading from '../../Loading/Loading';
+
 
 
 
 const ChatDashbordNewChat = (props) =>{
     const [doctors, displayDoctors] = useState([])
-    
+    const session = JSON.parse(sessionStorage.getItem("user"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:""})
-        let session;
+  
     const getSession = ()=> {
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
-        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
-        if(sessionItemDoctor === null && sessionItemUser === null) {
+        if( sessionItemUser === null) {
             window.history.back();
-        }else if(sessionItemUser === null && sessionItemDoctor !== null){
-            sessionItemDoctor.isUser = false;
-            return session = sessionItemDoctor;
-        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
-            sessionItemUser.isUser = true;
-            return session = sessionItemUser;
         }
     }
 
@@ -56,7 +48,8 @@ const ChatDashbordNewChat = (props) =>{
         socket.emit("check session", session._id);
     }
     socket.on("check session", (checkSession)=>{
-        if(!checkSession) {
+        console.log(checkSession)
+        if(!checkSession ) {
             fetchDoctorsHandeller();
         }else{
             let id ="";

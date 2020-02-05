@@ -26,6 +26,40 @@ const Chat =(props)=>{
             return session = sessionItemUser;
         }
     }
+
+    const notify = (data)=>{
+        
+        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
+        let url = "";
+         if(sessionItemUser === null && sessionItemDoctor !== null){
+            url =  "/api/v1/user/notify-user";
+        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+            url = "/api/v1/doctor/notify-doctor";
+        }
+        console.log(data)
+        fetch(url, {
+            method:"POST",
+            body:JSON.stringify(data),
+            headers:{'Content-Type': "application/json", "u-auth":session.token}
+        })
+        .then(res => res.json())
+        .then(response =>{
+            if(response.status === 401) {
+                if(session.isUser === false){
+                 sessionStorage.removeItem("doctor");
+                   window.location = "/doctor/login?Session expired please login.";
+                }else if(session.isUser === true) {
+                sessionStorage.removeItem("user");
+                window.location = "/login?Session expired please login.";
+                }
+            }else if(response.status === 200){
+                console.log("sent notification")
+            }else if (response.status === 403) {
+                console.log(response.message);
+            }
+        })
+    }
     const scrollHandler =()=>{
         //scroll.scroll.scrollIntoView({behavior:"smooth"})
        // window.HTMLElement.prototype.scrollIntoView = function(){}
@@ -39,17 +73,16 @@ const Chat =(props)=>{
         event.preventDefault();
         getSession();
         let messageData ={};
-        console.log(session)
-        messageData = {"message": message.value, "from":session._id, "to":to};  
+        
+        messageData = {"message": message.value, "from":session._id, "to":to}; 
+        notify(messageData); 
         
          socket.emit("send message", messageData);
     }
 
     socket.on("get message",(dataset)=>{
-        scrollHandler();
-        const newMessages = [...messages];
-        newMessages.push(dataset)
-        setDisplayMessage(newMessages);
+       
+        setDisplayMessage(dataset);
         setMessage ({id:"msg", value:"", type:"text"}) 
     })
     
@@ -62,7 +95,6 @@ const Chat =(props)=>{
         scrollHandler();
         setDisplayMessage(dataset);
     })
-
     useEffect(()=>{
         getSession();
         fetchChatMessage();

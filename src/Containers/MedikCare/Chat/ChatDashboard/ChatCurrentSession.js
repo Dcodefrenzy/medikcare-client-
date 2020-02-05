@@ -14,6 +14,12 @@ const chatCurrentsession = (props) =>{
     const session = JSON.parse(sessionStorage.getItem("user"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:"display-none"})
 
+    const getSession = ()=> {
+        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+        if( sessionItemUser === null) {
+            window.location ="/not-found"
+        }
+    }
 
     const fetchDoctorsHandeller = () => {
 
@@ -26,10 +32,7 @@ const chatCurrentsession = (props) =>{
          .then(res => res.json())
          .then(response =>{console.log(response)
              if(response.status === 401) {
-                 if(session.isUser === false){
-                  sessionStorage.removeItem("doctor");
-                    window.location = "/doctor/login?Session expired please login.";
-                 }else if(session.isUser === true) {
+                 if(session.isUser === true) {
                  sessionStorage.removeItem("user");
                  window.location = "/login?Session expired please login.";
                  }
@@ -61,6 +64,7 @@ const chatCurrentsession = (props) =>{
 
 
     useEffect(()=>{
+        getSession();
         fetchDoctorsHandeller();
     }, [])
 

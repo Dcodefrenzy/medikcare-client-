@@ -1,4 +1,4 @@
-import React, {useState, useEffect, createContext} from "react" ;
+import React, {useState, useEffect} from "react" ;
 import Loading from '../../Loading/Loading';
 import SideBar from '../Navbar/SideBar';
 import ItemNotFound from '../../ItemNotFound/ItemNotFound';
@@ -33,7 +33,6 @@ const DoctorsListTh = (props) => {
                     sessionStorage.removeItem("admin");
                     window.location = "/admin/login?Session expired please login."
                 }else if(response.status === 403) {
-                    const displayBlock = "display-block";
                     setTableDisplay ({tableDisplay:"display-none", noItems:"block"})
                 }else if(response.status === 200) {
                     const displayNone = "display-none";

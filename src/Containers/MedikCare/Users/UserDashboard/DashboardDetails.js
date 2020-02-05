@@ -55,7 +55,37 @@ const DashboardDetails = (props) => {
 		}
 	})
 }
-  
+const sendNotification=()=>{
+
+	const OneSignal = window.OneSignal || []; 
+	OneSignal.push(function() { 
+		OneSignal.getUserId().then(function(userId) {
+
+			if (userId) {	
+			const url = "/api/v1/user/update/notification/"+userId;
+			fetch(url, {
+				method: "PATCH",
+				headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
+			})
+			.then(res => res.json())
+			.then(response => { 
+				if(response.status === 401) {
+				sessionStorage.removeItem("user");
+					window.location = "/login?Session expired please login."
+				}else if (response.status === 200) {
+					
+				}
+			})
+			}
+			
+		
+		})
+	});
+}
+
+
+
+
   useEffect(()=>{
 	setUserDisplayHandler();
   }, [])
@@ -63,6 +93,7 @@ const DashboardDetails = (props) => {
     
   useEffect(()=>{
 	setLogsHandler();
+	sendNotification();
   }, [])
 
     return(

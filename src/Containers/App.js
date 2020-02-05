@@ -47,37 +47,37 @@ import DoctorNewPassword from './MedikCare/Medicals/Doctors/Password/NewPassword
 import DoctorUpdatePassword from './MedikCare/Medicals/Doctors/Password/UpdatePassword';
 import UserSettings from './MedikCare/Users/Settings/Settings';
 import DoctorSettings from './MedikCare/Medicals/Doctors/Settings/Settings';
+import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChatDoctor';
 
 
 
  class App extends Component {
-	
-	  displayNotification = ()=> {
-		if (Notification.permission == 'granted') {
-		  navigator.serviceWorker.getRegistration().then(function(reg) {
-			var options = {
-				body: 'First notification!',
-				actions: [
-				  {action: 'explore', title: 'Go to the site', icon: 'img/check.png'},
-				  {action: 'close', title: 'No thank you', icon: 'MedikImage/MED2.png'},
-				]
-			  };
-			  
-			  var text = {task:'HEY! Your task is now overdue.',icon: 'MedikImage/MED2.png'};
-			reg.showNotification(text, options);
-		  });
-		}
+ 
+	checkNotification = ()=> {
+		const OneSignal = window.OneSignal || [];
+		OneSignal.push(function() {
+            OneSignal.on('subscriptionChange', function (isSubscribed) {
+                if(isSubscribed===true){
+                    OneSignal.getUserId().then(function(userId) {
+						OneSignal.sendTag("key", userId).then(function(tagsSent) {
+							// Callback called when tags have finished sending
+							console.log("send Tag")
+						  });
+                    })
+                }
+                else if(isSubscribed===false){
+                  console.log("User isnt subscribed");
+                }
+                else{
+                    console.log('Unable to process the request');
+                }
+            });
+		});
+		
 	  }
 
 	componentDidMount() {
-		Notification.requestPermission(function(status) {
-			console.log('Notification permission status:', status);
-		});
-		if (Notification.permission === 'granted') {
-			console.log("granted already.")
-		}else{
-			this.displayNotification();
-		}	
+	this.checkNotification();	
 	}
 
 	/*	componentDidMount() {
@@ -155,6 +155,7 @@ import DoctorSettings from './MedikCare/Medicals/Doctors/Settings/Settings';
 						<Route path="/chat/:id" exact component={Chat} />
 						<Route path="/chat/session/:id" exact component={ChatSession} />
 						<Route path="/chat/current/session/:id" exact component={chatCurrentsession} />
+						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
 						
 						
 

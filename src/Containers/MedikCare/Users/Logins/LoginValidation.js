@@ -47,6 +47,10 @@ class LoginValidation extends Component  {
             },
         }
     }
+    getNotificationId = ()=>{
+    
+    
+    }
     
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedLoginForm = {
@@ -79,39 +83,50 @@ class LoginValidation extends Component  {
      formLoginHandler = ( event ) => {
         event.preventDefault();
         this.setState({display:"display-block"})
+        
        const userData = {};
        const url = "/api/v1/user/login";
         for (let formId in this.state.loginForm) {
             userData[formId] = this.state.loginForm[formId].value;
         }
-        fetch(url, {
-            method: "POST",
-            body:JSON.stringify(userData),
-            headers: {'Content-Type': "application/json"}
-        })
-        .then(res => res.json())
-        .then(response => {
-            if(response.status === 200) {
-               sessionStorage.setItem("user", JSON.stringify(response));
-               window.location = "/user/dashboard?login successful";
-            }else if(response.status === 403) {
-                const passwordError = {};
-               this.setState({display:"display-none"})
-               passwordError.display = "display-block";
-               passwordError.value =response.message;
-              this.setState({loginError: passwordError});
-            }else if(response.status === 400) {  
-                const displayPopMessage ={};             
-           displayPopMessage.card = "card bg-danger text-white";
-           displayPopMessage.display = "row";
-           displayPopMessage.message =response.message;
-           this.setState({display:"display-none"})
-           this.setState({popMessage:displayPopMessage});
-            }
-        })
-        .catch(e => {
-        if(e) {window.location = "/login?something-went-wrong-please-check-your-internet-connection-and-try-again."}
+
+        const OneSignal = window.OneSignal || [];  
+        OneSignal.push(function() { 
+            OneSignal.getUserId().then(function(userId) {
+                userData['playerId'] = userId;
+                fetch(url, {
+                    method: "POST",
+                    body:JSON.stringify(userData),
+                    headers: {'Content-Type': "application/json"}
+                })
+                .then(res => res.json())
+                .then(response => {
+                    if(response.status === 200) {
+                       sessionStorage.setItem("user", JSON.stringify(response));
+                       window.location = "/user/dashboard?login successful";
+                    }else if(response.status === 403) {
+                        const passwordError = {};
+                       this.setState({display:"display-none"})
+                       passwordError.display = "display-block";
+                       passwordError.value =response.message;
+                      this.setState({loginError: passwordError});
+                    }else if(response.status === 400) {  
+                        const displayPopMessage ={};             
+                   displayPopMessage.card = "card bg-danger text-white";
+                   displayPopMessage.display = "row";
+                   displayPopMessage.message =response.message;
+                   this.setState({display:"display-none"})
+                   this.setState({popMessage:displayPopMessage});
+                    }
+                })
+                .catch(e => {
+                if(e) {window.location = "/login?something-went-wrong-please-check-your-internet-connection-and-try-again."}
+                });
+               
+        
+            })
         });
+       
     }
     onLoadHandler = (event) => {
        if(window.location.href.includes('?')) {
@@ -129,6 +144,7 @@ class LoginValidation extends Component  {
    
    componentDidMount() {
        this.onLoadHandler();
+       this.getNotificationId();
       }
 
 

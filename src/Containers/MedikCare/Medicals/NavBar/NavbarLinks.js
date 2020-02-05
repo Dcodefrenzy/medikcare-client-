@@ -37,7 +37,9 @@ const NavbarLinks = () => {
                         </Link>
                     </div>
                     <div className="col-2">
-                        <li><i className="fa fa-envelope"></i>Chat</li>
+                        <Link to="/chat/doctors/doctor">
+                            <li><i className="fa fa-envelope"></i>Chat</li>
+                        </Link>
                     </div>
                     <div className="col-2">
                         <Link to="/doctor/settings">
