@@ -48,7 +48,7 @@ const ChatDashbordNewChat = (props) =>{
         socket.emit("check session", session._id);
     }
     socket.on("check session", (checkSession)=>{
-        console.log(checkSession)
+        //console.log(checkSession)
         if(!checkSession ) {
             fetchDoctorsHandeller();
         }else{
@@ -85,7 +85,7 @@ const ChatDashbordNewChat = (props) =>{
                             <i className="fa fa-star fa-2x" aria-hidden="true"></i>
                         </span> 
                         <Link to={"/chat/session/"+doctor._id}>
-                            <i className="fa fa-envelope fa-2x float-right" aria-hidden="true" />                   
+                            <i className="fa fa-envelope fa-2x float-right text-white" aria-hidden="true" />                   
                         </Link>   
                     </div>
                 </div>
@@ -100,9 +100,9 @@ const ChatDashbordNewChat = (props) =>{
                             <div className="card b-medik position-fixed fixed-top">
                                 <div className="card-body text-white">
                                     <div className="row justify-content-between">
-                                        <div className="col-3">
-                                            <i className="fa fa-arrow-left fa-lg" aria-hidden="false"> Back</i>
-                                        </div>
+                                        <Link to="/user/dashboard">
+                                            <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"> Back</i>
+                                        </Link>
                                         <div className="col-3">
                                             <Link to="/chat/dashboard">
                                                 <i  id="bell" className="fa fa-bell fa-3x text-white" aria-hidden="true"></i>
@@ -130,11 +130,6 @@ const ChatDashbordNewChat = (props) =>{
                                         <div className="">
                                             <h1 className="text-dark text-center">Doctors</h1>
                                                     {doctor}
-                                                <div className="card b-medik top-margin-sm">
-                                                    <div className="card-body text-white">
-                                                    <h1 className="text-center">More..</h1>
-                                                    </div>
-                                                </div>
                                         </div>
                                     </section>
                                 </div>

@@ -50,27 +50,28 @@ const ChatSession = (props) =>{
     }
     socket.on('create session', (from, to)=>{
         const id = props.match.params.id
-        const url = "/api/v1/doctor/chat/session/"+to;
-        fetch(url, {
-            method:"GET",
-            headers:{"Content-Type":"application/json", "u-auth":session.token}
-        })
-        .then(res => res.json())
-        .then(response =>{
-            if(response.status === 401) {
-                if(session.isUser === false){
-                 sessionStorage.removeItem("doctor");
-                   window.location = "/doctor/login?Session expired please login.";
-                }else if(session.isUser === true) {
-                sessionStorage.removeItem("user");
-                window.location = "/login?Session expired please login.";
+        const url = "/api/v1/doctor/chat/session/"+id;
+    
+            fetch(url, {
+                method:"GET",
+                headers:{"Content-Type":"application/json", "u-auth":session.token}
+            })
+            .then(res => res.json())
+            .then(response =>{
+                if(response.status === 401) {
+                    if(session.isUser === false){
+                     sessionStorage.removeItem("doctor");
+                       window.location = "/doctor/login?Session expired please login.";
+                    }else if(session.isUser === true) {
+                    sessionStorage.removeItem("user");
+                    window.location = "/login?Session expired please login.";
+                    }
+                }else if(response.status === 200){
+                    
+                setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
+                    window.location = "/chat/"+response._id;
                 }
-            }else if(response.status === 200){
-                
-            setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
-                window.location = "/chat/"+response._id;
-            }
-        })
+            })
         
     })
 

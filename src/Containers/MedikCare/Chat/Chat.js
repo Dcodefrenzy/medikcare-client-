@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react" ;
 import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { Link } from 'react-router-dom';
 
 
 
@@ -9,13 +10,14 @@ import 'moment-timezone';
 const Chat =(props)=>{
     const to  = props.match.params.id
     let session;
+    let dashboardLink;
     
+    const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+    const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [message, setMessage] = useState({id:"msg", value:"", type:"text"}) 
     const [messages, setDisplayMessage] = useState([]) 
     const [scroll, setScroll] = useState({scroll:"scroll"}) 
     const getSession = ()=> {
-        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
-        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
         if(sessionItemDoctor === null && sessionItemUser === null) {
             window.history.back();
         }else if(sessionItemUser === null && sessionItemDoctor !== null){
@@ -25,6 +27,12 @@ const Chat =(props)=>{
             sessionItemUser.isUser = true;
             return session = sessionItemUser;
         }
+    }
+
+    if (sessionItemUser === null && sessionItemDoctor !== null) {
+          dashboardLink ="/chat/doctors/doctor";
+    }else if (sessionItemUser !== null && sessionItemDoctor === null) {
+         dashboardLink ="/chat/doctors"
     }
 
     const notify = (data)=>{
@@ -81,9 +89,17 @@ const Chat =(props)=>{
     }
 
     socket.on("get message",(dataset)=>{
-       
+       if (dataset === false & sessionItemUser.isUser === true) {
+        setDisplayMessage([]);
+           window.location = "/chat/doctors";
+       }else if (dataset === false & sessionItemUser.isUser != true) {
+        setDisplayMessage([]);
+        window.location = "/chat/doctors/doctor";
+    }else{
+        
         setDisplayMessage(dataset);
         setMessage ({id:"msg", value:"", type:"text"}) 
+    }
     })
     
     const fetchChatMessage =()=>{       
@@ -93,8 +109,33 @@ const Chat =(props)=>{
 
     socket.on("fetch message",(dataset)=>{
         scrollHandler();
+        if (dataset === false & sessionItemUser.isUser === true) {
+            setDisplayMessage([]);
+            window.location = "/chat/doctors";
+        }else if (dataset === false & sessionItemUser.isUser != true) {
+            setDisplayMessage([]);
+            window.location = "/chat/doctors/doctor";
+        }else{
+            
         setDisplayMessage(dataset);
+        }
     })
+
+
+    const endSession=(event)=>{
+        event.preventDefault();
+        const session = JSON.parse(sessionStorage.getItem("user"));
+        const sessionData = {"from":session._id, "to":to};  
+        socket.emit("end session", sessionData);
+    }
+    socket.on("end session", (dataset, sessionData)=>{
+        if (sessionItemUser.isUser = true) {
+        window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
+        }else {
+            window.location = "/chat/report"+dataset.from+"/"+sessionData._id;
+        }
+    })
+
     useEffect(()=>{
         getSession();
         fetchChatMessage();
@@ -151,13 +192,15 @@ const Chat =(props)=>{
                                     <div className="card-body text-white">
                                        <div className="row justify-content-center">
                                            <div className="col-10">
-                                                <i className="fa fa-arrow-left fa-lg" aria-hidden="false"> Back</i>
+                                               <Link to={dashboardLink}>
+                                                <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"> Back</i>
+                                                </Link>
                                            </div>
                                             <div className="col-2">
-                                                <div className="dropdown">
+                                                <div className="dropdown dropleft ">
                                                     <i className="fa fa-ellipsis-v  fa-3x" aria-hidden="true" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></i>
                                                     <div className="dropdown-menu">
-                                                        <a className="dropdown-item" href="#">End Chat</a>
+                                                        <div><a onClick={(event)=>endSession(event)} className="dropdown-item" href="#">End Chat</a></div>
                                                         <div className="dropdown-divider"></div>
                                                         <a className="dropdown-item" href="#">Back</a>
                                                     </div>

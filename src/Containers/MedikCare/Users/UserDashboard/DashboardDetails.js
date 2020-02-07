@@ -132,10 +132,11 @@ const sendNotification=()=>{
 					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
+				<Link to="/chat/doctors" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>CONSULTATION</h3>
+    							<h3 className="text-dark">CONSULTATION</h3>
 								<p className="text-dark top-margin-sm">Discuss with verified doctors online.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Talk</button>
     						</div>
@@ -144,6 +145,7 @@ const sendNotification=()=>{
     						</div>
     					</div>
     				</div>
+					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
     				<div className="card">

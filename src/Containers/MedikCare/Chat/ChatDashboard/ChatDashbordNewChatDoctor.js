@@ -21,13 +21,12 @@ const ChatDashbordNewChatDoctor = (props) =>{
             window.location = "/doctor/login?Session expired please login.";
         }
     }
-    
-    const socket = io("http://localhost:8080");
+    const socketUrl = "http://localhost:8080" || "chat";
+    const socket = io(socketUrl);
    const fetchDoctorsSessions =()=>{
         socket.emit("fetch session", sessionItemDoctor._id);
     }
-    socket.on("fetch session", (sessions)=>{ 
-        console.log(sessions)      
+    socket.on("fetch session", (sessions)=>{     
         setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
         displaySession(sessions);
     })

@@ -219,6 +219,9 @@ body {
   .padding-sm {
 	  padding: 10px 0px;
   }
+  .padding-lg {
+	  padding: 50px;
+  }
   .feather {
 	width: 16px;
 	height: 16px;

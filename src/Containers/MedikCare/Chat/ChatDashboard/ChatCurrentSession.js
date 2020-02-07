@@ -8,6 +8,7 @@ import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
 
 const chatCurrentsession = (props) =>{
     const id = props.match.params.id
+
     const [doctor, displayDoctor] = useState([]);
     const [doctorInfo, displayDoctorInfo] = useState([]);
     const [file, setFile] = useState({});
@@ -22,15 +23,13 @@ const chatCurrentsession = (props) =>{
     }
 
     const fetchDoctorsHandeller = () => {
-
-        console.log(id)
          const url = "/api/v1/doctors/records/user/doctor/"+id;
          fetch(url, {
              method:"GET",
              headers:{"Content-Type":"application/json", "u-auth":session.token}
          })
          .then(res => res.json())
-         .then(response =>{console.log(response)
+         .then(response =>{
              if(response.status === 401) {
                  if(session.isUser === true) {
                  sessionStorage.removeItem("user");
@@ -57,9 +56,10 @@ const chatCurrentsession = (props) =>{
         const sessionData = {"from":session._id, "to":id};  
         socket.emit("end session", sessionData);
     }
-    socket.on("end session", (dataset)=>{
+    socket.on("end session", (dataset, sessionData)=>{
         console.log(dataset)
-        //window.location = "/chat/doctors"
+        console.log(sessionData)
+        window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
     })
 
 

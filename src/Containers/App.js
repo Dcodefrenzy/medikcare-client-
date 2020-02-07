@@ -48,6 +48,7 @@ import DoctorUpdatePassword from './MedikCare/Medicals/Doctors/Password/UpdatePa
 import UserSettings from './MedikCare/Users/Settings/Settings';
 import DoctorSettings from './MedikCare/Medicals/Doctors/Settings/Settings';
 import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChatDoctor';
+import ChatFeedbackUser from './MedikCare/Chat/ChatDashboard/ChatFeedbackUser';
 
 
 
@@ -124,10 +125,8 @@ import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbo
 						<Route path="/doctor/password/change" exact component={DoctorUpdatePassword} />
 						<Route path="/doctor/forget/password" exact component={DoctorForgetPassword} />
 						<Route path="/doctor/forget-password/:id" exact component={DoctorNewPassword} />
-						<Route path="/doctor/settings" exact component={DoctorSettings} />
+						<Route path="/doctor/settings" exact component={DoctorSettings} />						
 						
-						
-					
 						
 
 						<Route path="/admin/dashboard" exact component={AdminDashboard} />
@@ -156,6 +155,7 @@ import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbo
 						<Route path="/chat/session/:id" exact component={ChatSession} />
 						<Route path="/chat/current/session/:id" exact component={chatCurrentsession} />
 						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
+						<Route path="/chat/feedback/:id/:sessionId" exact  component={ChatFeedbackUser} />
 						
 						
 
