@@ -8,12 +8,16 @@ const ChatReportDoctor = (props) => {
     const chatSessionId = props.match.params.sessionId;
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     const [medikImprove, setMedikImprove] = useState({id:"medikImprove",value:""})
-    const [doctorImprove, setDoctorImprove] = useState({id:"doctorImprove",value:""})
+    const [diagnose, setDiagnose] = useState({id:"diagnose",value:""})
+    const [test, setTest] = useState({id:"test",value:""})
+    const [medication, setMedication] = useState({id:"medication",value:""})
     const [improve, setImprove] = useState({id:"improve",value:""})
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none", formDisplay:""})
         
     const setMedikImproveHandler =(event)=>{ setMedikImprove({id:"medikImprove", value:event.target.value}) }
-    const setDoctorImproveHandler =(event)=>{ setDoctorImprove({id:"doctorImprove", value:event.target.value}) }
+    const setDiagnoseHandler =(event)=>{ setDiagnose({id:"diagnose", value:event.target.value}) }
+    const setTestHandler =(event)=>{ setTest({id:"test", value:event.target.value}) }
+    const setMedicationHandler =(event)=>{ setMedication({id:"medication", value:event.target.value}) }
     const setImproveHandler =(event)=>{ setImprove({id:"improve", value:event.target.value}) }
 
 /*    const submitChatMetricHandler=(event)=>{
@@ -102,12 +106,12 @@ const ChatReportDoctor = (props) => {
                                     <div className="col-12 col-sm-12 col-md-12">
                                         <h2>Feedback Time!</h2>
                                         <p className="top-margin-sm">Please spare a minute to fill this</p>
-                                    <form onSubmit={submitChatMetricHandler}>
+                                    <form onSubmit="">
                                     <div className="row">
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Diagnoses <span className="text-danger"></span></label>
-                                                   <textarea id={diagnose.id} onChange={(event)=>setDiagnosesHandler(event, diagnose.id)} className="form-control" placeholder="eg, malaria"></textarea>
+                                                   <textarea id={diagnose.id} onChange={(event)=>setDiagnoseHandler(event, diagnose.id)} className="form-control" placeholder="eg, malaria"></textarea>
                                                 </div>
                                              
                                             </div> 

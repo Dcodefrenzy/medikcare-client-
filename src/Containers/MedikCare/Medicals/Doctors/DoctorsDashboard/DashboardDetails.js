@@ -59,17 +59,19 @@ const DoctorDashboardDetails = (props) => {
 					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
+				<Link to="/chat/doctors/doctor" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>Waiting List</h3>
-                                <button className="btn btn-sm btn-medik top-margin-md">Patience</button>
+    							<h3 className="text-dark">Patient Waiting List</h3>
+                                <button className="btn btn-sm btn-medik top-margin-md">Patient</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ chat } alt="consult using our application with doctors" className='home-svg'/>
     						</div>
     					</div>
     				</div>
+					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
     				<div className="card">

@@ -49,6 +49,7 @@ import UserSettings from './MedikCare/Users/Settings/Settings';
 import DoctorSettings from './MedikCare/Medicals/Doctors/Settings/Settings';
 import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChatDoctor';
 import ChatFeedbackUser from './MedikCare/Chat/ChatDashboard/ChatFeedbackUser';
+import ChatReportDoctor from './MedikCare/Chat/ChatDashboard/ChatReportDoctor';
 
 
 
@@ -156,6 +157,7 @@ import ChatFeedbackUser from './MedikCare/Chat/ChatDashboard/ChatFeedbackUser';
 						<Route path="/chat/current/session/:id" exact component={chatCurrentsession} />
 						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
 						<Route path="/chat/feedback/:id/:sessionId" exact  component={ChatFeedbackUser} />
+						<Route path="/chat/report/:id/:sessionId" exact component={ChatReportDoctor} />
 						
 						
 
