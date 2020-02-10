@@ -42,8 +42,15 @@ const ChatDashbordNewChat = (props) =>{
             }
         })
     }
+    let port ="";
+    if (process.env.NODE_ENV !== 'production') {
+		 port =  "http://localhost:8080"
+	  }else if(process.env.NODE_ENV === 'production'){
+         port =    "/chat";
+      }
+
     
-    const socket = io("http://localhost:8080");
+    const socket = io(port);
    const checkSession =()=>{
         socket.emit("check session", session._id);
     }

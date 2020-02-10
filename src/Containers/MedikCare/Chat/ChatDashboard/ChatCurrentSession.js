@@ -48,8 +48,15 @@ const chatCurrentsession = (props) =>{
              }
          })
      }
-    
-    const socket = io("http://localhost:8080");
+     let port ="";
+     if (process.env.NODE_ENV !== 'production') {
+          port =  "http://localhost:8080"
+       }else if(process.env.NODE_ENV === 'production'){
+          port =    "/chat";
+       }
+ 
+     
+     const socket = io(port);
     const endSession=(event)=>{
         event.preventDefault();
         const session = JSON.parse(sessionStorage.getItem("user"));

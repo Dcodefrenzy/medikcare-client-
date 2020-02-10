@@ -41,8 +41,16 @@ const ChatSession = (props) =>{
                 //setFile(response.message._doctorId.image)
             }
         })
-    }
-    const socket = io("http://localhost:8080");
+    }       
+    let port ="";
+    if (process.env.NODE_ENV !== 'production') {
+		 port =  "http://localhost:8080"
+	  }else if(process.env.NODE_ENV === 'production'){
+         port =    "/chat";
+      }
+
+    
+    const socket = io(port);
     const startSessionHander = (event, id)=>{
             event.preventDefault();
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})

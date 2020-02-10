@@ -20,9 +20,16 @@ const ChatDashbordNewChatDoctor = (props) =>{
         if(sessionItemDoctor === null) {
             window.location = "/doctor/login?Session expired please login.";
         }
-    }
-    const socketUrl = "http://localhost:8080" || "chat";
-    const socket = io(socketUrl);
+    }       
+    let port ="";
+    if (process.env.NODE_ENV !== 'production') {
+		 port =  "http://localhost:8080"
+	  }else if(process.env.NODE_ENV === 'production'){
+         port =    "/chat";
+      }
+
+    
+    const socket = io(port);
    const fetchDoctorsSessions =()=>{
         socket.emit("fetch session", sessionItemDoctor._id);
     }
