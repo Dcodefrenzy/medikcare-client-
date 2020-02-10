@@ -154,6 +154,7 @@ const sendNotification=()=>{
     							<h3>HEALTH VLOG</h3>
 								<p className="text-dark top-margin-sm">Watch videos that explain healthy living.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Vlog</button>
+								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ chat1 } alt="treatment-plan" className='home-svg'/>
@@ -165,9 +166,10 @@ const sendNotification=()=>{
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>BOOK SESSIONS</h3>
+    							<h3>SESSIONS Appointments</h3>
 								<p className="text-dark top-margin-sm">Book physical appointments with our Doctors.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Book</button>
+								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ conversiation } alt="book-sessions" className='home-svg'/>
@@ -182,6 +184,7 @@ const sendNotification=()=>{
     							<h3>HEALTH GOALS</h3>
 								<p className="text-dark top-margin-sm">Set health goals and crush them hard.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Goal</button>
+								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ goals } alt="health-goals" className='home-svg'/>
@@ -196,6 +199,7 @@ const sendNotification=()=>{
     							<h3>HEALTH ARTICLES</h3>
 								<p className="text-dark top-margin-sm">Learn about your health by reading health articles</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Articles</button>
+								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ todo } alt="articles" className='home-svg'/>

@@ -65,10 +65,11 @@ useEffect(()=>{
     							            <img src={ Payment } alt="health-questions" className='home-svg'/>
                                         </div>
                                        <div className="col-8 col-sm-8 col-md-8">
-                                            <Link>
+                                            
     							            <h3>Payment</h3>
 								            <p className="text-dark top-margin-sm">update your password to a new one.</p>
-                                            </Link>
+                                            <span>Coming Soon!</span>
+                                           
                                        </div>
                                     </div>
                                 </div>
@@ -78,10 +79,10 @@ useEffect(()=>{
     							            <img src={ Record } alt="health-questions" className='home-svg'/>
                                         </div>
                                        <div className="col-8 col-sm-8 col-md-8">
-                                            <Link>
+                                            
     							            <h3>Medical Record</h3>
 								            <p className="text-dark top-margin-sm">Download your medcal records here.</p>
-                                            </Link>
+                                            <span>Coming Soon!</span>
                                        </div>
                                     </div>
                                 </div>

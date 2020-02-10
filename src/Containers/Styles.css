@@ -321,6 +321,12 @@ body {
 .top-margin-md {
 	margin-top: 40px;
 }
+.bottom-margin-sm {
+	margin-bottom: 20px;
+}
+.bottom-margin-lg {
+	margin-bottom: 90px;
+}
 .note {
 	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 	font-weight: 200;

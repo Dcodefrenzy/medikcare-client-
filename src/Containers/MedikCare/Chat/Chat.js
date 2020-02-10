@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from "react" ;
+import React, {useState, useEffect, useRef} from "react" ;
 import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
+ 
 
 
 
@@ -16,7 +17,11 @@ const Chat =(props)=>{
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [message, setMessage] = useState({id:"msg", value:"", type:"text"}) 
     const [messages, setDisplayMessage] = useState([]) 
-    const [scroll, setScroll] = useState({scroll:"scroll"}) 
+    const [scroll, setScroll] = useState({id:"scroll"}) 
+
+    const element = useRef(null);
+
+
     const getSession = ()=> {
         if(sessionItemDoctor === null && sessionItemUser === null) {
             window.history.back();
@@ -34,7 +39,11 @@ const Chat =(props)=>{
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
          dashboardLink ="/chat/doctors"
     }
-
+    const scrollToBottom = ()=>{
+          
+        element.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+     
+    }
     const notify = (data)=>{
         
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
@@ -89,57 +98,64 @@ const Chat =(props)=>{
     }
 
     socket.on("get message",(dataset)=>{
-       if (dataset === false & sessionItemUser.isUser === true) {
-        setDisplayMessage([]);
-           window.location = "/chat/doctors";
-       }else if (dataset === false & sessionItemUser.isUser != true) {
+       if (dataset === false && sessionItemUser) {
         setDisplayMessage([]);
         window.location = "/chat/doctors/doctor";
+       }else if (dataset === false && sessionItemDoctor) {
+        setDisplayMessage([]);
+        window.location = "/chat/doctors";
     }else{
         
         setDisplayMessage(dataset);
         setMessage ({id:"msg", value:"", type:"text"}) 
+        scrollToBottom();
     }
     })
     
     const fetchChatMessage =()=>{       
+  
        const messageData = {"from":session._id, "to":to};  
         socket.emit("fetch message", messageData);
     }
 
     socket.on("fetch message",(dataset)=>{
-        scrollHandler();
-        if (dataset === false & sessionItemUser.isUser === true) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors";
-        }else if (dataset === false & sessionItemUser.isUser != true) {
+        if (dataset === false && sessionItemUser) {
             setDisplayMessage([]);
             window.location = "/chat/doctors/doctor";
+        }else if (dataset === false && sessionItemDoctor) {
+            setDisplayMessage([]);
+            window.location = "/chat/doctors";
         }else{
             
+           
         setDisplayMessage(dataset);
+        scrollToBottom();
         }
     })
 
 
     const endSession=(event)=>{
         event.preventDefault();
-        const session = JSON.parse(sessionStorage.getItem("user"));
+        console.log(session)
         const sessionData = {"from":session._id, "to":to};  
         socket.emit("end session", sessionData);
     }
     socket.on("end session", (dataset, sessionData)=>{
-        if (sessionItemUser.isUser = true) {
-        window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
-        }else {
-            window.location = "/chat/report"+dataset.from+"/"+sessionData._id;
+        if (sessionItemDoctor) {
+            window.location = "/chat/report/"+dataset.from+"/"+sessionData._id;
+        }else if(sessionItemUser){
+            window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
         }
     })
 
     useEffect(()=>{
         getSession();
         fetchChatMessage();
+      
     }, []);
+
+
+
     const displayMessages = messages.map((message, index)=>{
         getSession();    
         let float;
@@ -169,7 +185,7 @@ const Chat =(props)=>{
              cardColor = " b-medik";
              cardBodyColor = "text-white";
         }
-           return <div className={"max-width  "+float} key={message._id}>
+           return <div className={"bottom-margin-lg max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
                     <i className={"card-text "+Color}>{name}</i>
@@ -211,6 +227,10 @@ const Chat =(props)=>{
                                 </div>
                                <div className="chat top-padding-md">
                                    {displayMessages}
+                                   
+                                
+                                
+                                <div className="clearfix" ref={element}> hello</div>
                                </div>
                                 <div className="clearfix bottom-padding-lg" id={scroll.scroll}></div>
                                 <div className="card bg-dark chat-static chat-static-buttom">
@@ -234,6 +254,7 @@ const Chat =(props)=>{
                     </div>
                 </div>
             </div>
+            
         </div>
     )
 }

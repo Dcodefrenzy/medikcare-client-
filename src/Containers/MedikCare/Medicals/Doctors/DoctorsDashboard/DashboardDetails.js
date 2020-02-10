@@ -80,6 +80,7 @@ const DoctorDashboardDetails = (props) => {
     							<h3>PYSICAL CONSULTATION</h3>
 
                                 <button className="btn btn-sm btn-medik top-margin-md">Appointments</button>
+								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ conversiation } alt="consult using our application with doctors" className='home-svg'/>
@@ -93,6 +94,7 @@ const DoctorDashboardDetails = (props) => {
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
     							<h3>HEALTH ARTICLES</h3>
                                 <button className="btn btn-sm btn-medik top-margin-md">Articles</button>
+								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ todo } alt="articles" className='home-svg'/>

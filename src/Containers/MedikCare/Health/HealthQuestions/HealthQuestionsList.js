@@ -11,13 +11,14 @@ const HealthQuestionsList = (props) => {
         const answersLength = props.answers.reverse().filter((answer)=>{
             return answer._questionId === question._id;    
         })
+        console.log(question)
         const link = "/health/questions/answers/"+ question._id
         const date = <Moment fromNow>{question.createdAt}</Moment>
         return <Link to={link} className="href" key={question._id}>
                     <div className="border-bottom padding-sm">
                         <h3 className="text-chocolate"><i className="fa fa-user"></i> {question.topic}</h3>
                         <i className="fa fa-clock-o medik-color"> {date}</i>
-                        <p className="text-dark">{question.description.slice(0, 50)+"....."}</p>
+                        <p className="text-dark">{question.description}</p>
                          <i className="fa fa-envelope text-dark"> {answersLength.length} Doctors Response</i>
                     </div>
                 </Link>
