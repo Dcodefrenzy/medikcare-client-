@@ -50,9 +50,9 @@ const chatCurrentsession = (props) =>{
      }
      let port ="";
      if (process.env.NODE_ENV !== 'production') {
-          port =  "http://localhost:8080/chat"
+          port =  "http://localhost:7979/chat";
        }else if(process.env.NODE_ENV === 'production'){
-          port =    "/chat";
+          port =    "http://localhost:7979/chat";
        }
  
      
