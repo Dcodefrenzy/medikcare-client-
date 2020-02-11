@@ -46,11 +46,11 @@ const ChatDashbordNewChat = (props) =>{
     if (process.env.NODE_ENV !== 'production') {
 		 port =  "http://localhost:7979/chat";
 	  }else if(process.env.NODE_ENV === 'production'){
-         port =    "/chat/socket.io";
+         port =    "/chat";
       }
 
     
-    const socket = io(port);
+    const socket = io("/chat");
    const checkSession =()=>{
         socket.emit("check session", session._id);
     }
