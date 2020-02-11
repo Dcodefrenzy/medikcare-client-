@@ -88,7 +88,7 @@ const Chat =(props)=>{
     if (process.env.NODE_ENV !== 'production') {
 		 port =  "http://localhost:7979/chat"
 	  }else if(process.env.NODE_ENV === 'production'){
-         port =    "http://localhost:7979/chat";
+         port =    "/chat/socket.io";
       }
 
     
