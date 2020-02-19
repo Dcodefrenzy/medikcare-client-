@@ -99,7 +99,7 @@ const Chat =(props)=>{
         let messageData ={};
         
         messageData = {"message": message.value, "from":session._id, "to":to}; 
-        notify(messageData); 
+      
         
          socket.emit("send message", messageData);
     }
@@ -112,7 +112,8 @@ const Chat =(props)=>{
         setDisplayMessage([]);
         window.location = "/chat/doctors";
     }else{
-        
+        messageData = {"message": message.value, "from":session._id, "to":dataset.to}; 
+        notify(messageData); 
         setDisplayMessage(dataset);
         setMessage ({id:"msg", value:"", type:"text"}) 
         scrollToBottom();
