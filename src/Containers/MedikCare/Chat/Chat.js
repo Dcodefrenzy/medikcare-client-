@@ -92,7 +92,7 @@ const Chat =(props)=>{
       }
 
     
-    const socket = io(port);
+    const socket = io(port,{transports: ['websocket']});
     const submitChatMessage=(event)=>{
         event.preventDefault();
         getSession();
