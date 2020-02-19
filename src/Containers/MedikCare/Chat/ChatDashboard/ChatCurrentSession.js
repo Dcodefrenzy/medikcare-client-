@@ -56,7 +56,8 @@ const chatCurrentsession = (props) =>{
        }
  
      
-     const socket = io(port);
+     
+    const socket = io(port,{transports: ['websocket']});
     const endSession=(event)=>{
         event.preventDefault();
         const session = JSON.parse(sessionStorage.getItem("user"));

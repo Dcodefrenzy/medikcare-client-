@@ -50,7 +50,7 @@ const ChatSession = (props) =>{
       }
 
     
-    const socket = io(port);
+      const socket = io(port,{transports: ['websocket']});
     const startSessionHander = (event, id)=>{
             event.preventDefault();
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})

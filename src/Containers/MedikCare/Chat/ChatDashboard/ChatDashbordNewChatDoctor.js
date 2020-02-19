@@ -29,7 +29,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
       }
 
     
-    const socket = io(port);
+      const socket = io(port,{transports: ['websocket']});
    const fetchDoctorsSessions =()=>{
         socket.emit("fetch session", sessionItemDoctor._id);
     }
