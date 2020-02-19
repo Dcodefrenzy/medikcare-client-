@@ -86,9 +86,9 @@ const Chat =(props)=>{
     }
     let port ="";
     if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979/socket"
+		 port =  "http://localhost:7979/socket.io"
 	  }else if(process.env.NODE_ENV === 'production'){
-         port =    "https://www.medikcare.com/socket";
+        port =    "";
       }
 
     

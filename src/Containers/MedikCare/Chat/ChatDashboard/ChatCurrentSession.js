@@ -52,7 +52,7 @@ const chatCurrentsession = (props) =>{
      if (process.env.NODE_ENV !== 'production') {
           port =  "http://localhost:7979/socket";
        }else if(process.env.NODE_ENV === 'production'){
-          port =    "https://www.medikcare.com/socket";
+        port =    "";
        }
  
      
