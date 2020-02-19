@@ -23,9 +23,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
     }       
     let port ="";
     if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979/socket.io";
+		 port =  "http://localhost:7979/socket";
 	  }else if(process.env.NODE_ENV === 'production'){
-         port =    "/socket.io";
+         port =    "https://www.medikcare.com/socket";
       }
 
     
