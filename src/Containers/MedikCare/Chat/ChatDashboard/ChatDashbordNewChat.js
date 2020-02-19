@@ -50,7 +50,7 @@ const ChatDashbordNewChat = (props) =>{
       }
 
     
-    const socket = io("/chat");
+    const socket = io(port);
    const checkSession =()=>{
         socket.emit("check session", session._id);
     }

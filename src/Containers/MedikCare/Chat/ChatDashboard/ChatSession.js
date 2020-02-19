@@ -20,7 +20,7 @@ const ChatSession = (props) =>{
             headers:{"Content-Type":"application/json", "u-auth":session.token}
         })
         .then(res => res.json())
-        .then(response =>{console.log(response)
+        .then(response =>{//console.log(response)
             if(response.status === 401) {
                 if(session.isUser === false){
                  sessionStorage.removeItem("doctor");
