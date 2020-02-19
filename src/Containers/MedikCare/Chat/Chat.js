@@ -112,9 +112,10 @@ const Chat =(props)=>{
         setDisplayMessage([]);
         window.location = "/chat/doctors";
     }else{
+        console.log(dataset)
+        setDisplayMessage(dataset);
        let  messageData = {"message": message.value, "from":session._id, "to":dataset.to}; 
         notify(messageData); 
-        setDisplayMessage(dataset);
         setMessage ({id:"msg", value:"", type:"text"}) 
         scrollToBottom();
     }
