@@ -324,6 +324,9 @@ body {
 .bottom-margin-sm {
 	margin-bottom: 20px;
 }
+.bottom-margin-md {
+	margin-bottom: 40px;
+}
 .bottom-margin-lg {
 	margin-bottom: 90px;
 }

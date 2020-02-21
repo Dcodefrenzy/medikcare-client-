@@ -102,6 +102,7 @@ const Chat =(props)=>{
       
         
          socket.emit("send message", messageData);
+         setMessage ({id:"msg", value:"", type:"text"});
     }
 
     socket.on("get message",(dataset)=>{
@@ -112,8 +113,8 @@ const Chat =(props)=>{
         setDisplayMessage([]);
         window.location = "/chat/doctors";
     }else{
-        console.log(dataset)
-        setDisplayMessage(dataset);
+        messages.push(dataset)
+        setDisplayMessage(messages);
        let  messageData = {"message": message.value, "from":session._id, "to":dataset.to}; 
         notify(messageData); 
         setMessage ({id:"msg", value:"", type:"text"}) 
@@ -194,7 +195,7 @@ const Chat =(props)=>{
              cardColor = " b-medik";
              cardBodyColor = "text-white";
         }
-           return <div className={"bottom-margin-lg max-width  "+float} key={message._id}>
+           return <div className={"bottom-margin-md max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
                     <i className={"card-text "+Color}>{name}</i>
