@@ -102,7 +102,6 @@ const Chat =(props)=>{
       
         
          socket.emit("send message", messageData);
-         setMessage ({id:"msg", value:"", type:"text"});
     }
 
     socket.on("get message",(dataset)=>{
@@ -113,8 +112,9 @@ const Chat =(props)=>{
         setDisplayMessage([]);
         window.location = "/chat/doctors";
     }else{
-        messages.push(dataset)
-        setDisplayMessage(messages);
+        
+        setMessage ({id:"msg", value:"", type:"text"})
+        setDisplayMessage(dataset);
        let  messageData = {"message": message.value, "from":session._id, "to":dataset.to}; 
         notify(messageData); 
         setMessage ({id:"msg", value:"", type:"text"}) 
