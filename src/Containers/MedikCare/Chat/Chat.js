@@ -115,7 +115,7 @@ const Chat =(props)=>{
         
         setMessage ({id:"msg", value:"", type:"text"})
         setDisplayMessage(dataset);
-       let  messageData = {"message": message.value, "from":session._id, "to":dataset.to}; 
+       let  messageData = {"message": message.value, "from":session._id, "to":to}; 
         notify(messageData); 
         setMessage ({id:"msg", value:"", type:"text"}) 
         scrollToBottom();
