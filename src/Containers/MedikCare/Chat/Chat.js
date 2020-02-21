@@ -99,9 +99,8 @@ const Chat =(props)=>{
         
         messageData = {"message": message.value, "from":session._id, "to":to}; 
       
-        setDisplayNotifyMessage({value:message.value})
+       // setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
-        setMessage ({id:"msg", value:"", type:"text"}) 
     }
 
     socket.on("get message",(dataset)=>{
@@ -117,6 +116,8 @@ const Chat =(props)=>{
         setDisplayMessage(dataset);
        let  messageData = {"message": notifyMessages.value, "from":session._id, "to":to}; 
         notify(messageData); 
+        
+        setMessage ({id:"msg", value:"", type:"text"}) 
         scrollToBottom();
     }
     })
@@ -236,8 +237,6 @@ const Chat =(props)=>{
                                 </div>
                                <div className="chat top-padding-md">
                                    {displayMessages}
-                                   
-                                
                                 
                                 <div className="clearfix" ref={element}></div>
                                </div>
