@@ -79,8 +79,6 @@ const Chat =(props)=>{
         })
     }
     const scrollHandler =()=>{
-        //scroll.scroll.scrollIntoView({behavior:"smooth"})
-       // window.HTMLElement.prototype.scrollIntoView = function(){}
     }
     const setMessageHandler =(event)=>{
         setMessage ({id:"msg", value:event.target.value, type:"text"})
