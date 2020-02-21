@@ -17,6 +17,7 @@ const Chat =(props)=>{
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [message, setMessage] = useState({id:"msg", value:"", type:"text"}) 
     const [messages, setDisplayMessage] = useState([]) 
+    const [notifyMessages, setDisplayNotifyMessage] = useState({ value:""}) 
     const [scroll, setScroll] = useState({id:"scroll"}) 
 
     const element = useRef(null);
@@ -100,8 +101,9 @@ const Chat =(props)=>{
         
         messageData = {"message": message.value, "from":session._id, "to":to}; 
       
-        
+        setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
+        setMessage ({id:"msg", value:"", type:"text"}) 
     }
 
     socket.on("get message",(dataset)=>{
@@ -115,9 +117,8 @@ const Chat =(props)=>{
         
         setMessage ({id:"msg", value:"", type:"text"})
         setDisplayMessage(dataset);
-       let  messageData = {"message": message.value, "from":session._id, "to":to}; 
+       let  messageData = {"message": notifyMessages.value, "from":session._id, "to":to}; 
         notify(messageData); 
-        setMessage ({id:"msg", value:"", type:"text"}) 
         scrollToBottom();
     }
     })
@@ -240,7 +241,7 @@ const Chat =(props)=>{
                                    
                                 
                                 
-                                <div className="clearfix" ref={element}> hello</div>
+                                <div className="clearfix" ref={element}></div>
                                </div>
                                 <div className="clearfix bottom-padding-lg" id={scroll.scroll}></div>
                                 <div className="card bg-dark chat-static chat-static-buttom">
