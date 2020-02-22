@@ -106,6 +106,7 @@ const Chat =(props)=>{
         setMessage ({id:"msg", value:"", type:"text"}) 
         messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id})
         setDisplayMessage(messages);
+        scrollToBottom();
     }
 
     socket.on("get message",(dataset)=>{
