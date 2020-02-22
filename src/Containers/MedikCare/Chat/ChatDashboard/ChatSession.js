@@ -44,13 +44,32 @@ const ChatSession = (props) =>{
     }       
     let port ="";
     if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979/socket.io"
+		 port =  "http://localhost:7979"
 	  }else if(process.env.NODE_ENV === 'production'){
          port =    "";
       }
 
     
       const socket = io(port,{transports: ['websocket']});
+      const checkSession =()=>{
+        socket.emit("check session", session._id);
+    }
+    socket.on("check session", (checkSession)=>{
+        //console.log(checkSession)
+        if(!checkSession ) {
+            fetchDoctorsHandeller();
+        }else{
+            let id ="";
+            if (session._id === checkSession.from) {
+                id = checkSession.to;
+                window.location = "/chat/current/session/"+id;
+            }else if(session._id === checkSession.to) {
+                id = checkSession.from;      
+            window.location = "/chat/current/session/"+id;
+            }
+        }
+        
+    })
     const startSessionHander = (event, id)=>{
             event.preventDefault();
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})
@@ -85,6 +104,7 @@ const ChatSession = (props) =>{
 
     useEffect(()=>{
         fetchDoctorsHandeller();
+        checkSession();
     }, [])
 
     return(  

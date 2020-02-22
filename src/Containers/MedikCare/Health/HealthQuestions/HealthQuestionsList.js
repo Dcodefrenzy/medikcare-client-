@@ -11,7 +11,7 @@ const HealthQuestionsList = (props) => {
         const answersLength = props.answers.reverse().filter((answer)=>{
             return answer._questionId === question._id;    
         })
-        console.log(question)
+       
         const link = "/health/questions/answers/"+ question._id
         const date = <Moment fromNow>{question.createdAt}</Moment>
         return <Link to={link} className="href" key={question._id}>

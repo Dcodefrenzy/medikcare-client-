@@ -55,7 +55,7 @@ const Chat =(props)=>{
         }else if(sessionItemUser !== null && sessionItemDoctor === null) {
             url = "/api/v1/doctor/notify-doctor";
         }
-        console.log(data)
+        //console.log(data)
         fetch(url, {
             method:"POST",
             body:JSON.stringify(data),
@@ -87,7 +87,7 @@ const Chat =(props)=>{
     }
     let port ="";
     if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979/socket.io"
+		 port =  "http://localhost:7979"
 	  }else if(process.env.NODE_ENV === 'production'){
             port =    "";
       }
@@ -104,6 +104,8 @@ const Chat =(props)=>{
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
         setMessage ({id:"msg", value:"", type:"text"}) 
+        messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id})
+        setDisplayMessage(messages);
     }
 
     socket.on("get message",(dataset)=>{
@@ -147,7 +149,7 @@ const Chat =(props)=>{
 
     const endSession=(event)=>{
         event.preventDefault();
-        console.log(session)
+        //console.log(session)
         const sessionData = {"from":session._id, "to":to};  
         socket.emit("end session", sessionData);
     }

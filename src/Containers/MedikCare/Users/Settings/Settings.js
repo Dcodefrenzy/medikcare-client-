@@ -34,10 +34,10 @@ useEffect(()=>{
                         <div className="card">
                                 <div className="card-body">
                                     <div className="row">
-                                        <div className="col-2 col-sm-2 col-md-2">
+                                        <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Profile } alt="health-questions" className='home-svg'/>
                                         </div>
-                                       <div className="col-8 col-sm-8 col-md-8">
+                                       <div className="col-7 col-sm-8 col-md-8">
                                             <Link to="/user/profile">   
     							            <h3>Personal Information</h3>
 								            <p className="text-dark top-margin-sm">update your profile details here.</p>
@@ -48,10 +48,10 @@ useEffect(()=>{
                                 <div className="card-body">
                                     <div className="row">
                                         
-                                         <div className="col-2 col-sm-2 col-md-2">
+                                         <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Lock } alt="health-questions" className='home-svg'/>
                                         </div>
-                                       <div className="col-8 col-sm-8 col-md-8">
+                                       <div className="col-7 col-sm-8 col-md-8">
                                             <Link to="/user/password/change">
     							            <h3>Password Change</h3>
 								            <p className="text-dark top-margin-sm">update your password to a new one.</p>
@@ -61,10 +61,10 @@ useEffect(()=>{
                                 </div>
                                 <div className="card-body">
                                     <div className="row">
-                                         <div className="col-2 col-sm-2 col-md-2">
+                                         <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Payment } alt="health-questions" className='home-svg'/>
                                         </div>
-                                       <div className="col-8 col-sm-8 col-md-8">
+                                       <div className="col-7 col-sm-8 col-md-8">
                                             
     							            <h3>Payment</h3>
 								            <p className="text-dark top-margin-sm">update your password to a new one.</p>
@@ -75,10 +75,10 @@ useEffect(()=>{
                                 </div>
                                 <div className="card-body">
                                     <div className="row">
-                                         <div className="col-2 col-sm-2 col-md-2">
+                                         <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Record } alt="health-questions" className='home-svg'/>
                                         </div>
-                                       <div className="col-8 col-sm-8 col-md-8">
+                                       <div className="col-7 col-sm-8 col-md-8">
                                             
     							            <h3>Medical Record</h3>
 								            <p className="text-dark top-margin-sm">Download your medcal records here.</p>

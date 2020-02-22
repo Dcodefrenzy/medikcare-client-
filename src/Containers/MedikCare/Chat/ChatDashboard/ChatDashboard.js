@@ -41,8 +41,8 @@ const ChatDashboard = (props) =>{
             <div className="container">
                 <div className="row">
                     <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
-                        <div className="card b-medik">
-                            <div className="card-body">
+                        <div className="b-medik">
+                            <div className="">
                                 <div className="card b-medik position-fixed fixed-top">
                                     <div className="card-body text-white">
                                     <div className="row justify-content-between">
