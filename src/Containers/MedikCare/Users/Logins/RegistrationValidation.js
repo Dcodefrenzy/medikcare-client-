@@ -184,13 +184,13 @@ class RegistrationValidation extends Component {
                 headers: {'Content-Type': "application/json"},
          })
          .then(res => res.json()) 
-        .then(response => {
+        .then(response => {console.log(response);
             let phonenumberError = {};
             let emailError = {};
             let firstNameError  = {};
             let lastNameError = {};
             let passwordError = {};
-            console.log(response);
+            
             if(response.status === 201) {
                 sessionStorage.setItem("user", JSON.stringify(response));
                window.location = "/user/verification?User-registration-successful";
