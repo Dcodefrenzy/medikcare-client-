@@ -219,11 +219,6 @@ class RegistrationValidation extends Component {
                  phonenumberError.display = "display-block";
                  phonenumberError.value =response.message.phoneNumber.message;
                 this.setState({phonenumberError: phonenumberError});
-            }else if(response.message.name === 'MongoError' && response.message.keyPattern.phonenumber){
-                         
-                 phonenumberError.display = "display-block";
-                 phonenumberError.value ="Phone Number Already Exist";
-                this.setState({phonenumberError: phonenumberError});
             }else { this.setState({phonenumberError: phonenumberError}); }
             if(response.message.password) {
                 passwordError.display = "display-block";
@@ -237,7 +232,7 @@ class RegistrationValidation extends Component {
                 }
                 displayPopMessage.card = "card bg-danger text-white";
                 displayPopMessage.display = "row";
-                displayPopMessage.message = "Either this email or this phone number has been used to create an account.";
+                displayPopMessage.message = "Either this email or this phone number has been used to create an account please login if you already have an account with us.";
                 this.setState({popMessage:displayPopMessage});
             }
 
