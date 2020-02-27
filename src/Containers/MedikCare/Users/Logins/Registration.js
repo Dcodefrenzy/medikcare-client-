@@ -17,6 +17,8 @@ const UserRegistration = (props) => {
                           <div className="card">
                               <div className="card-header b-medik medik-color-secondary home-content"><h1>User Registration</h1></div>
                               <div className="card-body">
+                                  
+                            <p className={props.errorDisplay}>{props.errorMessage}</p>
                                 <form onSubmit={props.submit}> 
                                         <div className="row">
                                             <div className="col-12 col-sm-6 col-md-6">

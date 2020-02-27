@@ -232,7 +232,7 @@ class RegistrationValidation extends Component {
                 }
                 displayPopMessage.card = "card bg-danger text-white";
                 displayPopMessage.display = "row";
-                displayPopMessage.message = "Either this email or this phone number has been used to create an account please login if you already have an account with us.";
+                displayPopMessage.message = "Either this email or this phone number has been used to create an account. please login if you already have an account with us.";
                 this.setState({popMessage:displayPopMessage});
             }
 
@@ -264,8 +264,11 @@ class RegistrationValidation extends Component {
                 <NavBar />
                 <section className="container-fluid">
                 <Loading display={this.state.display}/>
-                <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
-                <UserRegistration 
+               <UserRegistration 
+                
+                errorMessage={this.state.popMessage.message}
+                errorDisplay={this.state.popMessage.display}
+
                  firstnameId={this.state.registerForm.firstname.id} 
                  firstnameValue={this.state.registerForm.firstname.value}
                  firstnameChange={(event) => this.inputChangedHandler(event, this.state.registerForm.firstname.id)}
