@@ -7,7 +7,7 @@ import LoginSession from "../../Users/Logins/LoginSession";
 const ChatFeedbackUser = (props) => {
     const to = props.match.params.id;
     const chatSessionId = props.match.params.sessionId;
-    const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
+    const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     const [medikImprove, setMedikImprove] = useState({id:"medikImprove",value:""})
     const [doctorImprove, setDoctorImprove] = useState({id:"doctorImprove",value:""})
     const [improve, setImprove] = useState({id:"improve",value:""})
@@ -88,7 +88,7 @@ const ChatFeedbackUser = (props) => {
     <div className={props.display}>
         <div className="col-10 col-sm-12 col-md-12 bg-dark padding-lg">
            
-            <div className="card fixed b-medik">
+            <div className="card b-medik">
                 <section className="section">
                     <div className="row justify-content-center align-items-center text-white">
                         

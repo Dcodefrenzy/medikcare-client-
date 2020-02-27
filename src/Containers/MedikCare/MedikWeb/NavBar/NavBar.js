@@ -8,7 +8,9 @@ const NavBar = () => {
      	<nav className="navbar navbar-style row">
      		<div className="col-12 col-sm-4 col-md-4">
      		<ul className="nav">
+			 <Link to="/index">
      			<li className="nav-item"><img  width="30%" src={"/MedikImage/MED3.png"} alt="logo"/></li>
+			</Link>
      		</ul>
      		</div>
      		<div className=" col-12 col-sm-8 col-md-8">
