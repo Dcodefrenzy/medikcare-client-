@@ -55,11 +55,11 @@ const UserRegistration = (props) => {
                                                     <span id={props.ageErrorId} className={props.ageClass}>{props.ageErrorValue}</span>
                                                 </div>
                                             </div>
-                                            <div className="col-12 col-sm-12 col-md-12">
+                                            <div className="col-12 col-sm-6 col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="referral">Gender</label>
                                                     <select className="form-control" name="referral" id={props.gender} onChange={props.genderChange}  required>
-                                                        <option>Select</option>
+                                                        <option value="">Select</option>
                                                         <option value="Female">Female</option>
                                                         <option value="Male">Male</option>
                                                         <option value="Others">Others</option>
@@ -85,7 +85,7 @@ const UserRegistration = (props) => {
                                             <div className="form-group">
                                                 <label htmlFor="referral">How did you hear about us?</label>
                                                 <select className="form-control" name="referral" id={props.socialMediaId} onChange={props.socialMediaChange} required>
-                                                    <option>Select</option>
+                                                    <option value="">Select</option>
                                                     <option value="1">Twitter</option>
                                                     <option value="2">Facebook</option>
                                                     <option value="3">Instagram</option>

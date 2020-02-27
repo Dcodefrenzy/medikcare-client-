@@ -321,6 +321,9 @@ body {
 .top-margin-md {
 	margin-top: 40px;
 }
+.top-margin-lg {
+	margin-top: 90px;
+}
 .bottom-margin-sm {
 	margin-bottom: 20px;
 }
@@ -481,7 +484,9 @@ body {
 .img-round {
 	border-radius: 100%;
 }
-
+.opacity {
+	opacity: 0.9;
+}
 @media (max-width:768px) {
 	.fixed-navbar-header {
 		display: none;

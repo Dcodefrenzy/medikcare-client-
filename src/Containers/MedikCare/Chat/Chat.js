@@ -110,22 +110,22 @@ const Chat =(props)=>{
     }
 
     socket.on("get message",(dataset)=>{
-       if (dataset === false && sessionItemUser) {
-        setDisplayMessage([]);
-        window.location = "/chat/doctors/doctor";
-       }else if (dataset === false && sessionItemDoctor) {
-        setDisplayMessage([]);
-        window.location = "/chat/doctors";
-    }else{
-        
-        setMessage ({id:"msg", value:"", type:"text"})
-        setDisplayMessage(dataset);
-       let  messageData = {"message": notifyMessages.value, "from":session._id, "to":to}; 
-        notify(messageData); 
-        scrollToBottom();
-    }
-    })
-    
+        if (dataset === false && sessionItemUser) {
+         setDisplayMessage([]);
+         window.location = "/chat/doctors/doctor";
+        }else if (dataset === false && sessionItemDoctor) {
+         setDisplayMessage([]);
+         window.location = "/chat/doctors";
+     }else{
+         
+         setMessage ({id:"msg", value:"", type:"text"})
+         setDisplayMessage(dataset);
+        let  messageData = {"message": notifyMessages.value, "from":session._id, "to":to}; 
+         notify(messageData); 
+         scrollToBottom();
+     }
+     })
+     
     const fetchChatMessage =()=>{       
   
        const messageData = {"from":session._id, "to":to};  
@@ -199,7 +199,7 @@ const Chat =(props)=>{
              cardColor = " b-medik";
              cardBodyColor = "text-white";
         }
-           return <div className={"bottom-margin-md max-width  "+float} key={message._id}>
+           return <div className={"bottom-margin-sm max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
                     <i className={"card-text "+Color}>{name}</i>
@@ -239,14 +239,11 @@ const Chat =(props)=>{
                                        </div>
                                     </div>
                                 </div>
-                               <div className="chat top-padding-md">
+                               <div className="chat top-padding-sm">
                                    {displayMessages}
-                                   
-                                
-                                
-                                <div className="clearfix" ref={element}>scroll</div>
+                                <div className="top-padding-md clearfix" ref={element}>start</div>
                                </div>
-                                <div className="clearfix bottom-padding-lg" id={scroll.scroll}></div>
+                                <div className="clearfix bottom-padding-lg top-padding-md" id={scroll.scroll}></div>
                                 <div className="card bg-dark chat-static chat-static-buttom">
                                    <div className="card-body">
                                         <form onSubmit={submitChatMessage}>

@@ -236,12 +236,14 @@ class RegistrationValidation extends Component {
             }else {this.setState({passwordError:passwordError})} 
 
             }else  if(response.status === 401) {
-                sessionStorage.removeItem("admin")
-                window.location = "/admin/login?Your-session-has-ended-please-login.";
+                sessionStorage.removeItem("user")
+                window.location = "/login?Your-session-has-ended-please-login.";
             }
         })
          .catch(e => {
-            if(e) {window.location = "/registration?something-went-wrong-please-check-your-internet-connection-and-try-again."}
+            if(e) {
+                    //window.location = "/registration?something-went-wrong-please-check-your-internet-connection-and-try-again."
+                    }
          })
      }
      onLoadHandler = (event) => {

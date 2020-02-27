@@ -1,5 +1,6 @@
 import React, {useState, useEffect, createContext} from "react" ;
 import { Link } from 'react-router-dom';
+import LoginSession from "../../Users/Logins/LoginSession";
 
 
 
@@ -75,6 +76,7 @@ const ChatFeedbackUser = (props) => {
     return(
     <div className={props.display}>
         <div className="col-10 col-sm-12 col-md-12 bg-dark padding-lg">
+           
             <div className="card fixed b-medik">
                 <section className="section">
                     <div className="row justify-content-center align-items-center text-white">
@@ -98,6 +100,7 @@ const ChatFeedbackUser = (props) => {
                     </div>
                 </div>
                     <div className={`top-margin-sm ${alert.formDisplay}`}>
+                    <LoginSession />
                                 <div className="card-body">
                                     <div className="col-12 col-sm-12 col-md-12">
                                         <h2>Feedback Time!</h2>

@@ -84,10 +84,6 @@ class DoctorLoginValidation extends Component  {
         for (let formId in this.state.loginForm) {
             doctorData[formId] = this.state.loginForm[formId].value;
         }
-        const OneSignal = window.OneSignal || [];  
-        OneSignal.push(function() { 
-            OneSignal.getUserId().then(function(userId) {
-                doctorData['playerId'] = userId;
         fetch(url, {
             method: "POST",
             body:JSON.stringify(doctorData),
@@ -115,10 +111,7 @@ class DoctorLoginValidation extends Component  {
         })
         .catch(e => {
         if(e) {window.location = "/doctor/login?something-went-wrong-please-check-your-internet-connection-and-try-again."}
-        });          
-        
-        })
-    });
+        });
     }
     onLoadHandler = (event) => {
        if(window.location.href.includes('?')) {
