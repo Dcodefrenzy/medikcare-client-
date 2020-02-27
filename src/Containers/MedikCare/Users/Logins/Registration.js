@@ -50,8 +50,8 @@ const UserRegistration = (props) => {
                                             </div>
                                             <div className="col-12 col-sm-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="phoneNumber">Age</label>
-                                                    <input type="date" name="age" min="1" max="3" className="form-control"  aria-describedby="age" placeholder="Please enter your age" id={props.ageId} onChange={props.ageChange} value={props.ageValue}  required/>
+                                                    <label htmlFor="phoneNumber">Date of birth</label>
+                                                    <input type="date" name="age" min="1" max="3" className="form-control"  aria-describedby="age" placeholder="Please enter your date of birth." id={props.ageId} onChange={props.ageChange} value={props.ageValue}  required/>
                                                     <span id={props.ageErrorId} className={props.ageClass}>{props.ageErrorValue}</span>
                                                 </div>
                                             </div>

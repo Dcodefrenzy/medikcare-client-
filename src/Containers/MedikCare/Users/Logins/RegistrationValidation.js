@@ -201,23 +201,23 @@ class RegistrationValidation extends Component {
                 firstNameError.display ="display-block";
                 firstNameError.value = response.message.firstname.message;
                 this.setState({firstNameError: firstNameError});
-            }else { this.setState({firstNameError: firstNameError}); }
+                }else { this.setState({firstNameError: firstNameError}); }
                 //last name
-            if(response.message.lastname) {
+                if(response.message.lastname) {
                 lastNameError.display ="display-block";
                 lastNameError.value = response.message.lastname.message;
                 this.setState({lastNameError: lastNameError});
-            } else { this.setState({lastNameError: lastNameError}); }
+                } else { this.setState({lastNameError: lastNameError}); }
             //email
-            if(response.message.email) {
+                if(response.message.email) {
                 emailError.display ="display-block";
                 emailError.value = response.message.email.message;
                 this.setState({emailError: emailError});
-            }else if(response.message.name === 'MongoError' && response.message.keyPattern.email){
+                }else if(response.message.name === 'MongoError' && response.message.keyPattern.email){
                 emailError.display ="display-block";
                 emailError.value = "Mail Already Exist";
                 this.setState({emailError: emailError});
-            } else { this.setState({emailError: emailError}); }
+                } else { this.setState({emailError: emailError}); }
             //phone number
             if(response.message.phoneNumber) {      
                  phonenumberError.display = "display-block";
@@ -234,16 +234,19 @@ class RegistrationValidation extends Component {
                 passwordError.value = response.message.password.message;
                 this.setState({passwordError:passwordError})
             }else {this.setState({passwordError:passwordError})} 
+            if (response.message.code === 11000 && response.message.name === "MongoError") {
+                
+            const displayPopMessage = {
+                ...this.state.popMessage
+                }
+                displayPopMessage.card = "card bg-danger text-white";
+                displayPopMessage.display = "row";
+                displayPopMessage.message = "Either this email or this phone number has been used to create an account.";
+                this.setState({popMessage:displayPopMessage});
+            }
 
-            }else  if(response.status === 401) {
-                sessionStorage.removeItem("user")
-                window.location = "/login?Your-session-has-ended-please-login.";
             }
         })
-         .catch(e => {
-            if(e) {console.log("error")
-                    }
-         })
      }
      onLoadHandler = (event) => {
         if(window.location.href.includes('?')) {
