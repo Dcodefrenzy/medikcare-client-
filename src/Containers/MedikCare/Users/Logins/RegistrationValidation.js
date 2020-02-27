@@ -241,8 +241,7 @@ class RegistrationValidation extends Component {
             }
         })
          .catch(e => {
-            if(e) {
-                    //window.location = "/registration?something-went-wrong-please-check-your-internet-connection-and-try-again."
+            if(e) {console.log("error")
                     }
          })
      }
