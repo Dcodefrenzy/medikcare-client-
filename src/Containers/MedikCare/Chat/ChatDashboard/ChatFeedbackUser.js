@@ -7,16 +7,21 @@ import LoginSession from "../../Users/Logins/LoginSession";
 const ChatFeedbackUser = (props) => {
     const to = props.match.params.id;
     const chatSessionId = props.match.params.sessionId;
-    const sessionItem = JSON.parse(sessionStorage.getItem("user"));
+    const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     const [medikImprove, setMedikImprove] = useState({id:"medikImprove",value:""})
     const [doctorImprove, setDoctorImprove] = useState({id:"doctorImprove",value:""})
     const [improve, setImprove] = useState({id:"improve",value:""})
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none", formDisplay:""})
+    const [loginSession, setLoginSession] = useState({display:"display-none"})
         
     const setMedikImproveHandler =(event)=>{ setMedikImprove({id:"medikImprove", value:event.target.value}) }
     const setDoctorImproveHandler =(event)=>{ setDoctorImprove({id:"doctorImprove", value:event.target.value}) }
     const setImproveHandler =(event)=>{ setImprove({id:"improve", value:event.target.value}) }
-
+    const checkSession = ()=>{
+        if (sessionItem === null) {
+            setLoginSession({display:"row"})
+        }
+    }
     const submitChatMetricHandler=(event)=>{
         event.preventDefault(); 
         let metricTitle;
@@ -73,6 +78,12 @@ const ChatFeedbackUser = (props) => {
             }
         })
     }
+
+
+    useEffect(()=>{
+        checkSession();
+    }, [])
+
     return(
     <div className={props.display}>
         <div className="col-10 col-sm-12 col-md-12 bg-dark padding-lg">
@@ -100,7 +111,7 @@ const ChatFeedbackUser = (props) => {
                     </div>
                 </div>
                     <div className={`top-margin-sm ${alert.formDisplay}`}>
-                    <LoginSession />
+                    <LoginSession display={loginSession.display} />
                                 <div className="card-body">
                                     <div className="col-12 col-sm-12 col-md-12">
                                         <h2>Feedback Time!</h2>

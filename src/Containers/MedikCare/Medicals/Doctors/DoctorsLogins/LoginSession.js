@@ -1,7 +1,7 @@
 import React, {useState, useEffect, createContext} from "react" ;
 import { Link } from 'react-router-dom';
 
-const LoginSession = (props) => {
+const DoctorLoginSession = (props) => {
     
     const [email, setEmail] = useState({id:"email", value:"", type:"email"});
     const [password, setPassword] = useState({id:"password", value:"", type:"password"});
@@ -22,7 +22,7 @@ const LoginSession = (props) => {
         event.preventDefault();
         setAlert({formDisplay:"display-none", spinnerDisplay:""})
         const userData = {"email":email.value, "password":password.value};
-       const url = "/api/v1/user/login";
+       const url = "/api/v1/doctor/login";
         fetch(url, {
             method: "POST",
             body:JSON.stringify(userData),
@@ -34,7 +34,7 @@ const LoginSession = (props) => {
                 setAlert({formDisplay:"", spinnerDisplay:"display-none"})
                 
                 setError({display:"text-success block", value:"Login successful."})
-                sessionStorage.setItem("user", JSON.stringify(response));
+                sessionStorage.setItem("doctor", JSON.stringify(response));
                 location.reload();
                 console.log("yay worked!")
              }else if(response.status === 403) {
@@ -95,4 +95,4 @@ const LoginSession = (props) => {
     )
 }
 
-export default LoginSession;
+export default DoctorLoginSession;

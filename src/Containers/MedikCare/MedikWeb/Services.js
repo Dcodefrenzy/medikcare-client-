@@ -19,7 +19,7 @@ const Services = (props) => {
     						</div>
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6 service-content">
     							<h3>POST A HEALTH QUESTION</h3>
-    							<p>Ask a doctor anythingConfidential and secure.</p>
+    							<p>Ask a doctor anything confidential and secure.</p>
     							<button className="btn btn-sm btn-medik">Read More</button>
     						</div>
     					</div>

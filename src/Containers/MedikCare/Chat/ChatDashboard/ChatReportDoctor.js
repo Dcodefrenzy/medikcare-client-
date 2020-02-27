@@ -2,6 +2,7 @@ import React, {useState, useEffect, createContext} from "react" ;
 import { Link } from 'react-router-dom';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import DoctorLoginSession from "../../Medicals/Doctors/DoctorsLogins/LoginSession";
 
 
 
@@ -14,15 +15,21 @@ const ChatReportDoctor = (props) => {
     const [test, setTest] = useState({id:"test",value:""})
     const [medication, setMedication] = useState({id:"medication",value:""})
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none", formDisplay:""})
+    const [loginSession, setLoginSession] = useState({display:"display-none"})
         
     const setDiagnoseHandler =(event)=>{ setDiagnose({id:"diagnose", value:event.target.value}) }
     const setTestHandler =(event)=>{ setTest({id:"test", value:event.target.value}) }
     const setMedicationHandler =(event)=>{ setMedication({id:"medication", value:event.target.value}) }
+    const checkSession = ()=>{
+        if (sessionItem === null) {
+            setLoginSession({display:"row"})
+        }
+    }
 
    const submitChatMetricHandler=(event)=>{
         event.preventDefault(); 
-        
-
+    
+        setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
         const report = {"diagnose":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem}
         const url = "/api/v1/doctor/report/add"
         fetch(url, {
@@ -37,9 +44,15 @@ const ChatReportDoctor = (props) => {
                 window.location = "/login?Session expired please login."
             }else if (response.status === 201) {
                 setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
+            }else if (response.status === 200) {
+                setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
             }
         })
     }
+    
+    useEffect(()=>{
+        checkSession();
+    }, [])
     return(
     <div className={props.display}>
         <div className="col-12 col-sm-12 col-md-12 bg-dark padding-lg">
@@ -66,6 +79,7 @@ const ChatReportDoctor = (props) => {
                     </div>
                 </div>
                     <div className={` ${alert.formDisplay}`}>
+                        <DoctorLoginSession display={loginSession.display}/>
                                 <div className="card-body">
                                     <div className="col-12 col-sm-12 col-md-12">
                                         <h2>Feedback Time!</h2>
@@ -75,20 +89,20 @@ const ChatReportDoctor = (props) => {
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Diagnoses <span className="text-danger"></span></label>
-                                                   <textarea id={diagnose.id} onChange={(event)=>setDiagnoseHandler(event, diagnose.id)} className="form-control" placeholder="eg, malaria"></textarea>
+                                                   <textarea id={diagnose.id} onChange={(event)=>setDiagnoseHandler(event, diagnose.id)} className="form-control" placeholder="eg, malaria" required></textarea>
                                                 </div>
                                              
                                             </div> 
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Tests <span className="text-danger"></span></label>
-                                                   <textarea id={test.id} onChange={(event)=>setTestHandler(event, test.id)} className="form-control" placeholder="eg 1) kidney function test."></textarea>
+                                                   <textarea id={test.id} onChange={(event)=>setTestHandler(event, test.id)} className="form-control" placeholder="eg 1) kidney function test." required></textarea>
                                                 </div> 
                                             </div> 
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Medications <span className="text-danger"></span></label>
-                                                   <textarea id={medication.id} onChange={(event)=>setMedicationHandler(event, medication.id)} className="form-control" placeholder="eg, 1) paracetamol "></textarea>
+                                                   <textarea id={medication.id} onChange={(event)=>setMedicationHandler(event, medication.id)} className="form-control" placeholder="eg, 1) paracetamol" required></textarea>
                                                 </div> 
                                             </div> 
                                         </div>
