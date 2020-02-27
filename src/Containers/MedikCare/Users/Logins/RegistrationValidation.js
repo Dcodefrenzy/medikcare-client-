@@ -213,10 +213,6 @@ class RegistrationValidation extends Component {
                 emailError.display ="display-block";
                 emailError.value = response.message.email.message;
                 this.setState({emailError: emailError});
-                }else if(response.message.name === 'MongoError' && response.message.keyPattern.email){
-                emailError.display ="display-block";
-                emailError.value = "Mail Already Exist";
-                this.setState({emailError: emailError});
                 } else { this.setState({emailError: emailError}); }
             //phone number
             if(response.message.phoneNumber) {      
