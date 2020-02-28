@@ -205,9 +205,7 @@ class AdminList extends Component {
                                         <thead className="thead-dark">
                                             <tr>
                                                 <th scope="col">S/N</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Phonumber</th>
+                                                <th scope="col">Fullname</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

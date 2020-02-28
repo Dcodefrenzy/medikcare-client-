@@ -1,4 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 
 const AdminDetails = (props) => {
@@ -22,7 +25,7 @@ const AdminDetails = (props) => {
                                         <p>Email: {props.email}</p>
                                         <p>Phonenumber {props.phonenumber}</p>
                                         <p>Verification: {props.verification}</p>
-                                        <p>Date Created: {props.dateCreated}</p>
+                                        <p>Date Created: <Moment fromNow>{props.dateCreated}</Moment></p>
                                         <p>Created by: {props.createdBy}</p>
                                         </div>
                                        </div>

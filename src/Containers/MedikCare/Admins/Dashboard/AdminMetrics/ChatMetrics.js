@@ -90,7 +90,7 @@ const ChatMetrics = () => {
     ['WhatsApp', whatapp.length],
   ]}
   options={{
-    title: 'My Daily Activities',
+    title: 'Users Metrics',
     // Just add this option
     is3D: true,
   }}

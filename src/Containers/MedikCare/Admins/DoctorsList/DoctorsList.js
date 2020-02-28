@@ -19,8 +19,6 @@ const DoctorsListTh = (props) => {
    const  fetchUsersHandeller  = ()=>{
         if(sessionItem === null) {
             window.location = "/admin/login?Hi Admin you have to login before you can access a page on the admin platform"
-        }else if(sessionItem.level !== 1) {
-            window.location = "/page-not-found";
         }else {
             const url = "/api/v1/doctor/admin/doctors";
             fetch(url, {
@@ -47,8 +45,6 @@ const DoctorsListTh = (props) => {
            
             if(sessionItem === null) {
                 window.location = "/admin/login?Hi Admin you have to login before you can access a page on the admin platform"
-            }else if(sessionItem.level !== 1) {
-                window.location = "/page-not-found";
             }else {
                 const url = "/api/v1/doctors/records/admin/doctor/"+event.target.id;
                 fetch(url, {
@@ -60,7 +56,7 @@ const DoctorsListTh = (props) => {
                     if(response.status === 401) {
                         sessionStorage.removeItem("admin");
                         window.location = "/admin/login?Session expired please login."
-                    }else if (response.status === 200) {
+                    }else if (response.status === 200) {console.log(response)
                         setUserDetail(response.message)
                         setDoctorDetail(response.message._doctorId)
                         setUserDisplay({display:"display-block"})
@@ -76,7 +72,7 @@ const DoctorsListTh = (props) => {
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
         })
         .then(res => res.json())
-        .then(response => {console.log(response) 
+        .then(response => { 
             if(response.status === 401) {
                 sessionStorage.removeItem("admin");
                 window.location = "/admin/login?Session expired please login."
@@ -107,6 +103,8 @@ const DoctorsListTh = (props) => {
                             image={DoctorsDetail.image}
                             verify ={doctorVerification.verification=== false?<button onClick={(event)=>verifyDoctor(event)} id={DoctorsDetail._id} className="btn btn-sm btn-success">verify</button>:<span className="text-success">Verified</span>}
                             verification={DoctorsDetail.verification===true?"verified" : "Not Verified"} 
+                            verificationButton={userDetail.verification===true?"display-none":""}
+                            _id={DoctorsDetail._id}
                             profileCompleted={DoctorsDetail.profileCompleted===true?"Completed" : "Not Completed"}
                             address={userDetail.address}
                             degree={userDetail.degree}
@@ -135,10 +133,8 @@ const DoctorsListTh = (props) => {
                                         <thead className="thead-dark">
                                             <tr>
                                                 <th scope="col">S/N</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
+                                                <th scope="col">Fullname</th>
                                                 <th scope="col">Gender</th>
-                                                <th scope="col">Phonumber</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -147,10 +143,8 @@ const DoctorsListTh = (props) => {
                                                const fa = user.verification === true ? "fa fa-check text-success":"fa fa-check text-warning";
                                               return  <tr key={user._id}>
                                                     <th scope="col">{index+1} <i className={fa}></i></th>
-                                                    <td scope="col">{user.firstname}</td>
-                                                    <td scope="col">{user.lastname}</td>
+                                                    <td scope="col">{user.firstname} {user.lastname}</td>
                                                     <td scope="col">{user.gender}</td>
-                                                    <td scope="col">{"+234"+user.phonenumber}</td>
                                                     <td scope="col" onClick={(event)=>setUserDisplayHadler(event)} id={user._id} className="fa fa-eye text-primary"></td>
                                                 </tr>
                                             })}
