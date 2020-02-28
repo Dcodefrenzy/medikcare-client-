@@ -52,7 +52,10 @@ class AdminDashboard extends Component {
             <div>
                 <Loading display={this.state.display}/>
                 <NavBar />
+                <div className="col-10 col-sm-12">
                 <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
+                
+                </div>
                 <div className="container-fluid">
                     <div className="row">
                          <SideBar />
