@@ -107,6 +107,16 @@ const ChatMetrics = () => {
     ['x', 'User Growth'],
     ['Jan', jan.length],
     ["Feb", feb.length],
+    ["Mar", mar.length],
+    ["Apr", apr.length], 
+    ["May", may.length],
+    ["Jun", jun.length],
+    ["Jul", jul.length],
+    ["Aug", aug.length],
+    ["Sept", sept.length],
+    ["Oct", oct.length],
+    ["Nov", nov.length],
+    ["Dec", dec.length],
 
 
   ]}
