@@ -50,6 +50,7 @@ import DoctorSettings from './MedikCare/Medicals/Doctors/Settings/Settings';
 import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChatDoctor';
 import ChatFeedbackUser from './MedikCare/Chat/ChatDashboard/ChatFeedbackUser';
 import ChatReportDoctor from './MedikCare/Chat/ChatDashboard/ChatReportDoctor';
+import UserReports from './MedikCare/Users/Reports/UserReports';
 
 
 
@@ -113,6 +114,8 @@ import ChatReportDoctor from './MedikCare/Chat/ChatDashboard/ChatReportDoctor';
 						<Route path="/user/forget/password" exact component={UserForgetPassword} />
 						<Route path="/user/forget-password/:id" exact component={UserNewPassword} />
 						<Route path="/user/settings" exact component={UserSettings} />
+						<Route path="/user/reports" exact component={UserReports} />
+						
 						
 
 						<Route path="/doctor/registration" exact component={DoctorsRegistrationValidation} />

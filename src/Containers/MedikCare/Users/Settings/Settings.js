@@ -59,6 +59,21 @@ useEffect(()=>{
                                        </div>
                                     </div>
                                 </div>
+                                <Link to="/user/reports">
+                                <div className="card-body">
+                                    <div className="row">
+                                         <div className="col-3 col-sm-2 col-md-2">
+    							            <img src={ Record } alt="health-questions" className='home-svg'/>
+                                        </div>
+                                       <div className="col-7 col-sm-8 col-md-8">
+                                            
+    							            <h3>Medical Record</h3>
+								            <p className="text-dark top-margin-sm">Download your medcal records here.</p>
+
+                                       </div>
+                                    </div>
+                                </div>
+                                </Link>
                                 <div className="card-body">
                                     <div className="row">
                                          <div className="col-3 col-sm-2 col-md-2">
@@ -70,19 +85,6 @@ useEffect(()=>{
 								            <p className="text-dark top-margin-sm">update your password to a new one.</p>
                                             <span>Coming Soon!</span>
                                            
-                                       </div>
-                                    </div>
-                                </div>
-                                <div className="card-body">
-                                    <div className="row">
-                                         <div className="col-3 col-sm-2 col-md-2">
-    							            <img src={ Record } alt="health-questions" className='home-svg'/>
-                                        </div>
-                                       <div className="col-7 col-sm-8 col-md-8">
-                                            
-    							            <h3>Medical Record</h3>
-								            <p className="text-dark top-margin-sm">Download your medcal records here.</p>
-                                            <span>Coming Soon!</span>
                                        </div>
                                     </div>
                                 </div>

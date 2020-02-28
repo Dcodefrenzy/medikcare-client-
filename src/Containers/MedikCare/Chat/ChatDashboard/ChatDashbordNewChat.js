@@ -84,6 +84,8 @@ const ChatDashbordNewChat = (props) =>{
                     <i className={`fa fa-circle ${online} float-right`} aria-hidden="true"></i>
                         <h3 className="card-text text-dark"><i className="fa fa-user text-dark" aria-hidden="true"></i> Dr {doctor.firstname+" "+doctor.lastname}</h3>
                         <p className="">Medicine and Surgery</p>
+                        
+                    <i className={` float-right`} aria-hidden="true"> <b>&#8358; 300</b></i>
                         <span className="card-text">
                             <i className="fa fa-star fa-2x" aria-hidden="true"></i> 
                             <i className="fa fa-star fa-2x" aria-hidden="true"></i>
@@ -93,7 +95,7 @@ const ChatDashbordNewChat = (props) =>{
                         </span> 
                         <Link to={"/chat/session/"+doctor._id}>
                             <i className="fa fa-envelope fa-2x float-right text-white" aria-hidden="true" />                   
-                        </Link>   
+                        </Link>    
                     </div>
                 </div>
         })

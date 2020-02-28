@@ -30,7 +30,7 @@ const ChatReportDoctor = (props) => {
         event.preventDefault(); 
     
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
-        const report = {"diagnose":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem}
+        const report = {"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem}
         const url = "/api/v1/doctor/report/add"
         fetch(url, {
             method: "POST",
@@ -82,7 +82,7 @@ const ChatReportDoctor = (props) => {
                         <DoctorLoginSession display={loginSession.display}/>
                                 <div className="card-body">
                                     <div className="col-12 col-sm-12 col-md-12">
-                                        <h2>Feedback Time!</h2>
+                                        <h2>Patient Medical Report</h2>
                                         <p className="top-margin-sm">Please spare a minute to fill this</p>
                                     <form onSubmit={submitChatMetricHandler}>
                                     <div className="row">
