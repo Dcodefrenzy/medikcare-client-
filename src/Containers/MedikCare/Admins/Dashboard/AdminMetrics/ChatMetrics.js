@@ -18,11 +18,11 @@ const ChatMetrics = () => {
       .then(res => res.json())
       .then(response => {
           if (response.status === 200) {
-            console.log(response)
+           // console.log(response)
             setAdsMetrics(response.message);
           }else{
             setAdsMetrics({userMetric:0,doctorMetric:0,adsMetric:0,questionMetric:0,answerMetric:0});
-              console.log(response)
+              //console.log(response)
           }
       })
   }
@@ -35,7 +35,7 @@ const ChatMetrics = () => {
      .then(res => res.json())
      .then(response => {
          if (response.status === 200) {
-          
+          //console.log(response.users)
            setuserGrowths(response.users);
          }
      })
@@ -54,19 +54,20 @@ const ChatMetrics = () => {
  const friends = adsMetrics.filter(ads => ads.socialMedia === 5)
  const whatapp = adsMetrics.filter(ads => ads.socialMedia === 6)
  //for user growth chart
- let jan = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 1)
- const feb = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 2)
- const mar = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 3)
- const apr = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 4)
- const may = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 5)
- const jun = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 6)
- const jul = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 7)
- const aug = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 8)
- const sept = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 9)
- const oct = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 10)
- const nov = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 11)
- const dec = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 12)
-
+ //const u =userGrowths.map(user=>new Date(user.dateCreated).getUTCMonth());
+ let jan = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 0)
+ const feb = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 1)
+ const mar = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 2)
+ const apr = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 3)
+ const may = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 4)
+ const jun = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 5)
+ const jul = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 6)
+ const aug = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 7)
+ const sept = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 8)
+ const oct = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 9)
+ const nov = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 10)
+ const dec = userGrowths.filter(user=>new Date(user.dateCreated).getMonth() === 11)
+//console.log(u)
 
     return (
 
@@ -106,7 +107,6 @@ const ChatMetrics = () => {
     ['x', 'User Growth'],
     ['Jan', jan.length],
     ["Feb", feb.length],
-    ['', '']
 
 
   ]}
