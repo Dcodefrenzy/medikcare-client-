@@ -76,7 +76,7 @@ const ChatMetrics = () => {
           <div className="row justify-content-center metric-card ">
             <div className="col-12 col-sm-12 col-md-12 col-lg-6">
             <Chart
-  width={'500px'}
+  width={'100%'}
   height={'400px'}
   chartType="PieChart"
   loader={<div>Loading Chart</div>}
@@ -99,7 +99,7 @@ const ChatMetrics = () => {
             </div>
             <div className="col-12 col-sm-12 col-md-12 col-lg-6">
             <Chart
-  width={'500px'}
+  width={'100%'}
   height={'400px'}
   chartType="LineChart"
   loader={<div>Loading Chart</div>}
