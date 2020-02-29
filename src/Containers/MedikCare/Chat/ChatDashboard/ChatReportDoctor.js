@@ -28,7 +28,6 @@ const ChatReportDoctor = (props) => {
 
    const submitChatMetricHandler=(event)=>{
         event.preventDefault(); 
-        sessionItem.token
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
         const report = {"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem}
         const url = "/api/v1/doctor/report/add"
