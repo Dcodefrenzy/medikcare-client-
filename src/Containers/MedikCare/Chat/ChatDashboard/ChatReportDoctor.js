@@ -28,7 +28,7 @@ const ChatReportDoctor = (props) => {
 
    const submitChatMetricHandler=(event)=>{
         event.preventDefault(); 
-    
+        sessionItem.token
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
         const report = {"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem}
         const url = "/api/v1/doctor/report/add"
@@ -40,8 +40,8 @@ const ChatReportDoctor = (props) => {
         .then(res => res.json())
         .then(response => { console.log(response)
             if(response.status === 401) {
-                sessionStorage.removeItem("user");
-                window.location = "/login?Session expired please login."
+                sessionStorage.removeItem("doctor");
+                //window.location = "/doctor/login?Session expired please login."
             }else if (response.status === 201) {
                 setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
             }else if (response.status === 200) {
