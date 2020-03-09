@@ -17,7 +17,7 @@ const UserDetails = (props) => {
        })
        .then(res=>res.json())
        .then(response=>{
-           if (response.status === 200) {   
+           if (response.status === 200) {  
              setSpinner({display:"text-success",text:"Mail Send"})
            }else {
              setSpinner({display:"text-danger",text:"Could not send mail please try again latter."})
@@ -26,7 +26,7 @@ const UserDetails = (props) => {
     }
     return (
         <div className={" " + props.display}>     
-            <section className="admin-details-fixed">
+            <div className="admin-details-fixed top-padding-lg">
                 <div className="col-11 col-sm-12 col-md-8 offset-md-2">
                         <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-12">
@@ -37,7 +37,7 @@ const UserDetails = (props) => {
                                     <div className="card-header b-medik"></div>
                                     <div className="card-body">
                                        <div className="row">
-                                       <div className="col-12 col-sm-6 col-md-6"><p><img src={props.image} alt="user-profile" /></p></div>
+                                       <div className="col-12 col-sm-6 col-md-6"><p><img src={"/Images/"+props.image} width="50%" alt="user-profile" /></p></div>
                                         <div className="col-12 col-sm-6 col-md-6">
                                         <p>Name: {props.name}</p>
                                         <p>Gender: {props.gender}</p>
@@ -56,7 +56,7 @@ const UserDetails = (props) => {
                             </div>
                         </div>
                 </div>
-            </section>
+            </div>
         </div>
     )
 }

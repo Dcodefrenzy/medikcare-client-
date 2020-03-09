@@ -100,6 +100,7 @@ class AdminList extends Component {
         event.preventDefault();
         const adminDetails =  this.state.adminList.filter(admin => admin._id ===id );
         adminDetails[0].display = "display-block";
+        console.log(adminDetails[0])
             this.setState({adminDetails:adminDetails[0]});   
     }
     

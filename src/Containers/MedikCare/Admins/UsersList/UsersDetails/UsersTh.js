@@ -51,6 +51,7 @@ const UsersListTh = (props) => {
                 })
                 .then(res => res.json())
                 .then(response => {
+                    console.log(response)
                     setUserDetail(response.message)
                     setUserDisplay({display:"display-block"})
                 })

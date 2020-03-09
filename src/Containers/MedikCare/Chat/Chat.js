@@ -12,6 +12,7 @@ const Chat =(props)=>{
     const to  = props.match.params.id
     let session;
     let dashboardLink;
+    let userUrl;
     
     const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
@@ -19,13 +20,14 @@ const Chat =(props)=>{
     const [messages, setDisplayMessage] = useState([]) 
     const [notifyMessages, setDisplayNotifyMessage] = useState({ value:""}) 
     const [scroll, setScroll] = useState({id:"scroll"}) 
+    const [userDetail,setUserDetail] = useState({});
 
     const element = useRef(null);
 
 
     const getSession = ()=> {
         if(sessionItemDoctor === null && sessionItemUser === null) {
-            window.history.back();
+            window.location ="/not-found"
         }else if(sessionItemUser === null && sessionItemDoctor !== null){
             sessionItemDoctor.isUser = false;
             return session = sessionItemDoctor;
@@ -37,13 +39,31 @@ const Chat =(props)=>{
 
     if (sessionItemUser === null && sessionItemDoctor !== null) {
           dashboardLink ="/chat/doctors/doctor";
+          userUrl = "/api/v1/doctor/user"+to;
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
-         dashboardLink ="/chat/doctors"
+         dashboardLink ="/chat/doctors";
+         userUrl = "/api/v1/user/doctor"+to;
     }
     const scrollToBottom = ()=>{
           
         element.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
      
+    }
+
+    const getUserDetailsHandller = ()=>{
+
+        fetch(userUrl, {
+            method:"GET",
+            headers: {'Content-Type': "application/json", "u-auth":session.token}
+        })
+        .then(res=>res.json())
+        .then(response=>{
+            if (response.status ===200) {
+                setUserDetail(response.message);
+            }else{
+                setUserDetail({"name":"user"});
+            }
+        })
     }
     const notify = (data)=>{
         
@@ -119,15 +139,12 @@ const Chat =(props)=>{
      }else{
          
          setMessage ({id:"msg", value:"", type:"text"})
-         setDisplayMessage(dataset);
-        let  messageData = {"message": notifyMessages.value, "from":session._id, "to":to}; 
-         notify(messageData); 
+         setDisplayMessage(dataset); 
          scrollToBottom();
      }
      })
      
     const fetchChatMessage =()=>{       
-  
        const messageData = {"from":session._id, "to":to};  
         socket.emit("fetch message", messageData);
     }
@@ -140,8 +157,8 @@ const Chat =(props)=>{
             setDisplayMessage([]);
             window.location = "/chat/doctors";
         }else{
-            
-           
+        let  messageData = {"message": dataset[dataset.length-1].value, "from":session._id, "to":to}; 
+        notify(messageData);       
         setDisplayMessage(dataset);
         scrollToBottom();
         }
@@ -190,7 +207,7 @@ const Chat =(props)=>{
               Color = " medik-color";
              cardColor = "";
              cardBodyColor = "";
-             name = session.name
+             name = <i className={"card-text "+Color}>{session.name}</i>
 
         } else{
              float = "float-left";
@@ -198,11 +215,12 @@ const Chat =(props)=>{
               Color = "text-dark";
              cardColor = " b-medik";
              cardBodyColor = "text-white";
+            const name = <i className={"card-text "+Color}>{userDetail.name}</i>
         }
            return <div className={"bottom-margin-sm max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
-                    <i className={"card-text "+Color}>{name}</i>
+                        {name}
                         <p className="card-text">{message.message}</p>
                         <span className={"card-text "+float+" "+Color}><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment fromNow>{message.createdAt}</Moment> {tick}</span>
                     </div>
@@ -250,7 +268,7 @@ const Chat =(props)=>{
                                             <div className="row">
                                                <div className="col-10">
                                                     <div className="form-group">
-                                                        <textarea id={message.id} onChange={(event) => setMessageHandler(event,message.id)} type={message.type} value={message.value}  className="form-control chat-message" placeholder="Start a new message" rows="1"></textarea>
+                                                        <textarea id={message.id} onChange={(event) => setMessageHandler(event,message.id)} type={message.type} value={message.value}  className="form-control chat-message" placeholder="Start a new message" rows="1" required></textarea>
                                                     </div>
                                                </div>
                                                <div className="col-2">

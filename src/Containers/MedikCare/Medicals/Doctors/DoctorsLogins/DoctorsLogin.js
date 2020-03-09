@@ -32,7 +32,7 @@ const DoctorLogin = (props) => {
                                 </div>
                             </div>
                             <div className="col-12 col-sm-12 col-md-12 card-footer">
-                            <span>If you have not sign up with us you can click this link</span> <Link to="/doctor/registration"><button className="btn-sm medik-color-secondary b-medik">Register</button></Link>
+                            <Link to="/index"><button className="btn-sm medik-color-secondary b-medik">Back</button></Link>
                             <p>Forget password? click <Link to="/doctor/forget/password">here</Link></p> 
                             </div>              
                         </form>

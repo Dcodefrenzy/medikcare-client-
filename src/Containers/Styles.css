@@ -94,17 +94,17 @@ section {
 .milestone-content h5 {
 	font-weight: 800;
 	text-align: center;
-		color: white;
-	text-shadow: 5px 5px 5px #9B51E0;
+
 }
 .milestone-content h1{
 	text-align: center;
 	margin: 30px;
-	color: white;
-	text-shadow: 5px 5px 5px #9B51E0;
 }.milestone-content h2,h4{
 	margin: 30px 0px;
 	font-size: 70px;
+}
+.milestone-color{
+	background-color: #f0effa;
 }
 .milestone-width {
 	margin-left: 70px;
@@ -196,14 +196,15 @@ button {
 list-style-type: none;
 font-size: 30px;
 font-weight: bolder;
-color: #BB6BD9;
+color: #9B51E0;
 }
-.footer li>a {
-	color: #9B51E0;
-	font-size: 70%;
+.footer li {
+	font-size: 0.5em;
 	text-decoration: none;
 	font-weight: normal;
+	color: #9B51E0;
 }
+
 .tab {
 	display: none;
 }
@@ -486,6 +487,39 @@ body {
 }
 .opacity {
 	opacity: 0.9;
+}
+.opacity-1 {
+	opacity: 0.1;
+}
+.opacity-2 {
+	opacity: 0.2;
+}
+.opacity-3 {
+	opacity: 0.3;
+}
+.opacity-4 {
+	opacity: 0.4;
+}
+.opacity-5 {
+	opacity: 0.5;
+}
+.opacity-6 {
+	opacity: 0.6;
+}
+.opacity-7 {
+	opacity: 0.7;
+}
+.opacity-8 {
+	opacity: 0.8;
+}
+.overflow-content {
+  height: 200px;
+  overflow: scroll;
+}
+.blog-image img {
+	width: 100%;
+	border: 2px solid rgba(0,0,0,.125);
+	border-radius: 10px;
 }
 @media (max-width:768px) {
 	.fixed-navbar-header {

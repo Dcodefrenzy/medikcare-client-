@@ -51,6 +51,10 @@ import ChatDashbordNewChatDoctor from './MedikCare/Chat/ChatDashboard/ChatDashbo
 import ChatFeedbackUser from './MedikCare/Chat/ChatDashboard/ChatFeedbackUser';
 import ChatReportDoctor from './MedikCare/Chat/ChatDashboard/ChatReportDoctor';
 import UserReports from './MedikCare/Users/Reports/UserReports';
+import AdminBlog from './MedikCare/Admins/Blog/Blog';
+import AdminAddBlog from './MedikCare/Admins/Blog/AddBlog';
+import AdminBlogView from './MedikCare/Admins/Blog/BlogView';
+import Blog from './MedikCare/Blog/Blogs';
 
 
 
@@ -101,6 +105,7 @@ import UserReports from './MedikCare/Users/Reports/UserReports';
 						<Route path="/" exact component={ MedikHome } />
 						<Route path="/index" exact component={ MedikHome } />
 						<Route path="/home" exact component={ MedikHome } />
+						<Route path="/blog" exact component={ Blog } />
 						<Route path="/registration" exact component={RegistrationValidation}/>
 						<Route path="/login" exact component={UserLogin} />
 						<Route path="/user/dashboard" exact component={UserDashboard} />
@@ -144,6 +149,12 @@ import UserReports from './MedikCare/Users/Reports/UserReports';
 						<Route path="/admin/image/update" exact component={updateImage} />
 						<Route path="/admin/forget/password" exact component={AdminForgetPassword} />
 						<Route path="/admin/forget-password/:id" exact component={AdminNewPassword} />
+						<Route path="/admin/blog" exact component={AdminBlog} />
+						<Route path="/admin/blog/add" exact component={AdminAddBlog} />
+						<Route path="/admin/blog/:id" exact component={AdminBlogView} />
+						
+						
+						
 						
 						
 						

@@ -23,7 +23,13 @@ const NavBar = () => {
 				    <div className="dropdown-menu">
 				      <a className="dropdown-item medik-color" href="#">Individuals</a>
 				    </div>
-				  </li> 
+				  </li>
+				  <Link to="#">   			
+     				<li className="nav-item nav-link medik-color">Blog</li>
+				</Link> 
+				  <Link to="/doctor/login">   			
+     				<li className="nav-item nav-link medik-color">Doctors</li>
+				</Link> 
 				<Link to="/login">    			
      				<li className="nav-item nav-link medik-color">Login</li>
 				</Link>

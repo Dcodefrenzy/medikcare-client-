@@ -1,6 +1,7 @@
 import React from 'react';
 import Register  from "../../Assets/svgs/register.svg"
 import { Link } from 'react-router-dom';
+import RegistrationGettingStarted from './RegistrationGettingStarted';
 
 
 const UserRegistration = (props) => {
@@ -8,14 +9,9 @@ const UserRegistration = (props) => {
           
               <div className="container-fluid">
                   <div className="row form">
-                      <div className="col-12 col-sm-12 col-md-6">
-                          <div>
-                              <img src={Register} className="home-svg" alt="register"/>
-                          </div>
-                      </div>
-                      <div className="col-12 col-sm-12 col-md-6">
+                      <div className="col-12 col-sm-12 col-md-6 offset-md-3">
                           <div className="card">
-                              <div className="card-header b-medik medik-color-secondary home-content"><h1>User Registration</h1></div>
+                              <div className="card-header b-medik medik-color-secondary home-content"><h1>Create An Account</h1></div>
                               <div className="card-body">
                                   
                             <p className={props.errorDisplay}>{props.errorMessage}</p>
@@ -46,7 +42,7 @@ const UserRegistration = (props) => {
                                             <div className="col-12 col-sm-6 col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="phoneNumber">Phone Number</label>
-                                                    <input type="number" name="phonenumber"   className="form-control"  aria-describedby="phoneNumber" placeholder="+23400000000" id={props.phonenumberId} onChange={props.phonenumberChange} value={props.phonenumberValue}  required/>
+                                                    <input type="number" name="phonenumber"   className="form-control"  aria-describedby="phoneNumber" placeholder="0900000000" id={props.phonenumberId} onChange={props.phonenumberChange} value={props.phonenumberValue}  required/>
                                                     <span id={props.phonenumberErrorId} className={props.phonenumberClass}>{props.phonenumberErrorValue}</span>
                                                 </div>
                                             </div>

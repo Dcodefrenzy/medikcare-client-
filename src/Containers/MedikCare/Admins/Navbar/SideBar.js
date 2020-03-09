@@ -5,6 +5,9 @@ import NavBarLink from './Links';
 const SideBar = () => {
   
   const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
+  if (sessionItem === null) {
+    window.location = "/admin/login?Please login."
+  }
   const [admin, setAdmin] = useState({});
   const [file, setFile]  = useState({})
 

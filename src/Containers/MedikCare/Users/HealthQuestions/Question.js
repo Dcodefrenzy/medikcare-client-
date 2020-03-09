@@ -76,7 +76,7 @@ class Question extends Component {
              headers:{"Content-Type": "application/json", "u-auth": sessionItem.token}
          })
          .then(res=>res.json())
-         .then(response=>{
+         .then(response=>{console.log(response)
              if(response.status === 401) {
                 sessionStorage.removeItem("user");
                 window.location = "/login?Session expired please login."

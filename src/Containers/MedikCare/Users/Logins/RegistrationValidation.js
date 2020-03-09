@@ -4,6 +4,7 @@ import Footer from '../../MedikWeb/Footer';
 import UserRegistration from './Registration';
 import PopMessage from '../../PopMessage/PopMessage';
 import Loading from '../../Loading/Loading';
+import RegistrationGettingStarted from './RegistrationGettingStarted';
 
 
 class RegistrationValidation extends Component {
@@ -261,8 +262,9 @@ class RegistrationValidation extends Component {
     render() {
         return(
             <div>
-                <NavBar />
-                <section className="container-fluid">
+                
+                <RegistrationGettingStarted />
+                <div className="container-fluid">
                 <Loading display={this.state.display}/>
                <UserRegistration 
                 
@@ -334,8 +336,7 @@ class RegistrationValidation extends Component {
                  submit={this.registerLoginHandler}
                 
                 />
-                </section>
-                <Footer />
+                </div>
             </div>
         )
     }

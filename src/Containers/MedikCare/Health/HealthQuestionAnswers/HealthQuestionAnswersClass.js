@@ -34,6 +34,7 @@ class HealthQuestionAnswersClass extends Component {
                 display:""
             },
             spinner:"display-none",
+            buttonClickedDisplay:"",
         }
     }
 
@@ -101,10 +102,12 @@ class HealthQuestionAnswersClass extends Component {
     }
     answerSubmitHandler=(event)=>{
         event.preventDefault();
+        this.setState({display:"block"})
         const answer={};
         answer.answer = this.state.answer.value;
         const id = this.props.match.params.id;
-        const url = "/api/v1/answer/"+id;
+        const userId = this.state.question._userId;
+        const url = "/api/v1/answer/"+id+"/"+userId;
        const token = this.sessionItemDoctor.token;
         fetch(url, {
             method:"POST",
@@ -112,7 +115,7 @@ class HealthQuestionAnswersClass extends Component {
             headers: {'Content-Type': "application/json", "u-auth": token}
         })
         .then(res => res.json())
-        .then(response => {
+        .then(response => {console.log(response)
             if(response.status === 401) {
                 if(this.sessionItemUser === null && this.sessionItemDoctor !== null){
                     const displayNone = "display-none"
@@ -124,7 +127,7 @@ class HealthQuestionAnswersClass extends Component {
                 window.location = "/login?Session expired please login."
                 }
             }else if(response.status === 201) {
-                window.location = "/health/questions/answers/"+response._questionId+"?"+response.message;
+                window.location = "/health/questions/answers"+response.message;
             }
         })
         .catch(e=>{
@@ -132,7 +135,7 @@ class HealthQuestionAnswersClass extends Component {
                 const displayPopMessage ={};             
                 displayPopMessage.card = "card bg-danger text-white";
                 displayPopMessage.display = "row";
-                displayPopMessage.message = "/health/questions?something-went-wrong-please-check-your-internet-connection-and-try-again.";
+                displayPopMessage.message = "something-went-wrong-please-check-your-internet-connection-and-try-again.";
                 this.setState({display:"display-none"})
                 this.setState({popMessage:displayPopMessage});
                   
@@ -156,7 +159,7 @@ class HealthQuestionAnswersClass extends Component {
             headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
         })
         .then(res=>res.json())
-        .then(response=>{
+        .then(response=>{console.log(response)
             if(response.status === 401) {
                 if(this.sessionItemUser === null && this.sessionItemAdmin !== null){
                     const displayNone = "display-none";
@@ -229,6 +232,7 @@ class HealthQuestionAnswersClass extends Component {
                 doctorid={this.sessionItemDoctor}
                 userid={this.sessionItemUser}
                 buttonClicked={event=>this.buttonClickedHandler(event,this.id)}
+                answerSubmit={this.buttonClickedDisplay}
                 question={this.state.question}
                 answers={this.state.answers}
                  answerForm={this.state.answeFormDIsplay} 

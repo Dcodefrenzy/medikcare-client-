@@ -90,6 +90,7 @@ const DoctorsListTh = (props) => {
     useEffect(()=>{
         fetchUsersHandeller();
     }, [])
+    
     return (
             <div>
                 <Loading display={display.display}/> 
@@ -114,7 +115,7 @@ const DoctorsListTh = (props) => {
                             folio={userDetail.folioNumber}
                             message={verifyDoctorMessage.message}
                             messageDisplay={verifyDoctorMessage.display}
-                            dateCreated={userDetail.datecreated} clicked={(event)=>unsetUserDisplayHandler(event)}/>
+                            dateCreated={userDetail.dateCreated} clicked={(event)=>unsetUserDisplayHandler(event)}/>
  
                  <NavBar />
                  

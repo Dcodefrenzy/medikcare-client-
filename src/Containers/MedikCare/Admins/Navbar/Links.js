@@ -36,6 +36,9 @@ const NavBarLink = (props) => {
         <Link to="/admin/doctors">
         <li className={"nav-item nav-link "+props.color}><i className="fa fa-user-md"></i> Doctors</li>
         </Link>
+        <Link to="/admin/blog">
+        <li className={"nav-item nav-link "+props.color}><i className="fa fa-newspaper-o"></i> Blog</li>
+        </Link>
         <li onClick={(event)=>setLogoutHandler(event)} className={"nav-item nav-link "+props.color}><i className="fa fa-sign-out"></i>Logout</li>
     </ul>
     )
