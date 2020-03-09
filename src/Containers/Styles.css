@@ -521,6 +521,14 @@ body {
 	border: 2px solid rgba(0,0,0,.125);
 	border-radius: 10px;
 }
+.blog-position {
+	position: relative;
+
+}
+.blog-position-text {
+	position: absolute;
+	bottom: 0px;
+}
 @media (max-width:768px) {
 	.fixed-navbar-header {
 		display: none;
