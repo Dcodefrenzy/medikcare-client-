@@ -105,6 +105,8 @@ const UserRegistration = (props) => {
                               </div>
                                 <div className="col-12 col-sm-12 col-md-12 card-footer">
                                     <span>If you have sign up with us you can click this button to login</span> <Link to="/login"><button className="btn-sm medik-color-secondary b-medik">Login</button></Link>
+                                    <Link to="/home"><button className="btn-sm medik-color-secondary b-medik">Home</button></Link>
+                                
                                 </div>
                           </div>
                       </div>

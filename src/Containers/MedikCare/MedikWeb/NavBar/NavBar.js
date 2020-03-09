@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   return (
-     <header className="header">
+     <header className="header z-index">
      	<nav className="navbar navbar-style row">
      		<div className="col-12 col-sm-4 col-md-4">
      		<ul className="nav">

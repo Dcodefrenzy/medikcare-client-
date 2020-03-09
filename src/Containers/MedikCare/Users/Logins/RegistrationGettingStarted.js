@@ -60,7 +60,7 @@ const hideDisplay = (event)=>{
         setCounter(count+1)
         }
         
-      }, 4000);
+      }, 2000);
       return () => clearTimeout(timer);
   }, [count]);
    
@@ -70,7 +70,7 @@ const hideDisplay = (event)=>{
                 <div className={`card opacity-9 fixed  ${gettingStarted.bgColor}`}>
                 </div>
             </div>
-            <div className={`col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed`}>
+            <div className={`col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-lg`}>
                 <main className="opacity">
                     <div className="row align-center">
                         <div className="col-12  col-sm-12 col-md-6 "> 
