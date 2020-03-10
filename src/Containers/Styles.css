@@ -136,6 +136,10 @@ height: 70vh;
 	 bottom: 5px;
 	 margin-right: 10px;
 }
+li {
+	text-decoration: none;
+	list-style: none;
+}
 button {
 	border: 0px;
 }
@@ -525,9 +529,29 @@ body {
 	position: relative;
 
 }
+
+.blog-button-position {
+	display: none;
+}
 .blog-position-text {
 	position: absolute;
 	bottom: 0px;
+}
+.blog-position:hover ~ .blog-button-position{
+	display: block;
+	position: absolute;
+	left: 40%;
+	top: 40%;
+}
+.blog-button-position:hover {
+		display: block;
+	position: absolute;
+	left: 40%;
+	top: 40%;
+}
+
+.main-login{
+	height: 100vh;
 }
 @media (max-width:768px) {
 	.fixed-navbar-header {
@@ -537,6 +561,9 @@ body {
 		font-size: 20px;
 		height: 20px
 	}
+	.client-nav-bar{
+		display: none;
+	}
 
 }
 
@@ -545,6 +572,9 @@ body {
 		display: none;
 	}
 	.admin-nav {
+		display: none;
+	}
+	.client-side-bar{
 		display: none;
 	}
 }

@@ -4,13 +4,57 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import Footer from '../MedikWeb/Footer';
 import NavBar from '../MedikWeb/NavBar/NavBar';
+import SideBar from '../MedikWeb/NavBar/SideBar';
 
 
 const Blog = (props)=>{
 
+    const [blog, setBlog]=useState([]);
+
+   const fetchBlogHandler = ()=>{
+       const url = "/api/v1/blogs/users";
+        fetch(url,{
+            method:"POST",
+            headers: {'Content-Type': "application/json"},
+
+        })
+        .then(res=>res.json())
+        .then(response=>{
+            console.log(response);
+            setBlog(response.message);
+        })
+    }
+
+    useEffect(()=>{
+        fetchBlogHandler();
+    }, [])
+
+    const allBlog =  blog.map((blog)=>{
+        
+        if(!blog.image){
+            blog.blogImage = "user.png"
+        }else{
+            blog.blogImage = blog.image.filename;
+        }
+       return  <div className="col-12 col-sm-12 col-md-6 col-lg-4 bottom-margin-sm" key={blog._id}>
+           <Link to={`/blog/${blog._id}`}>
+            <div className="card  bg-dark">
+                <img src={`Images/${blog.blogImage}`} height="255px" className="blog-position card opacity-5 bg-dark" />
+                <button className="btn btn-medik btn-lg blog-button-position">Read</button>
+                <div className="card-body blog-position-text text-white">
+                <h1>{blog.topic}</h1>
+                <span><i className="card-text fa fa-user"></i> {blog._createdBy}</span>
+                <span className="float-right text-success"><i className="fa fa-clock" ariahidden="true"></i> <Moment fromNow>{blog.dateCreated}</Moment> </span>
+                </div>
+            </div>
+            </Link>
+        </div>
+
+    })
     return (
         <div>
             <NavBar />
+            <SideBar />
             <div className="container user-section">
                 <div className="col-12 col-sm-12 col-md-12 top-margin-lg">
             <div className="row top-margin-lg">
@@ -19,46 +63,7 @@ const Blog = (props)=>{
                 </div>
             </div>
                     <div className="row">
-                        <div className="col-12 col-sm-12 col-md-6 col-lg-4 bottom-margin-sm">
-                            <div className="card  bg-dark">
-                                <img src="Images/user.png" className="blog-position img-thumbnail card opacity-5 bg-dark" />
-                                <div className="card-body blog-position-text text-white">
-                                <h1>Health Care In Nigeria</h1>
-                                <span><i className="card-text fa fa-user"></i> Kolade Fakunle</span>
-                                <span className="float-right text-success"><i className="fa fa-clock" ariahidden="true"></i> 20 mins ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-12 col-md-6 col-lg-4 bottom-margin-sm">
-                            <div className="card  bg-dark">
-                                <img src="Images/user.png" className="blog-position img-thumbnail card opacity-5 bg-dark" />
-                                <div className="card-body blog-position-text text-white">
-                                <h1>Health Care In Nigeria</h1>
-                                <span><i className="card-text fa fa-user"></i> Kolade Fakunle</span>
-                                <span className="float-right text-success"><i className="fa fa-clock" ariahidden="true"></i> 20 mins ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-12 col-md-6 col-lg-4 bottom-margin-sm">
-                            <div className="card bg-dark">
-                                <img src="Images/user.png" className="blog-position img-thumbnail card opacity-5 bg-dark" />
-                                <div className="card-body blog-position-text text-white">
-                                <h1>Health Care In Nigeria</h1>
-                                <span><i className="card-text fa fa-user"></i> Kolade Fakunle</span>
-                                <span className="float-right text-success"><i className="fa fa-clock" ariahidden="true"></i> 20 mins ago</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-sm-12 col-md-6 col-lg-4  bottom-margin-sm">
-                            <div className="card bg-dark text-white">
-                                <img src="Images/user.png" className="blog-position img-thumbnail card opacity-5 bg-dark" />
-                                <div className="card-body blog-position-text text-white">
-                                <h1>Health Care In Nigeria</h1>
-                                <span><i className="card-text fa fa-user"></i> Kolade Fakunle</span>
-                                <span className="float-right text-success"><i className="fa fa-clock" ariahidden="true"></i> 20 mins ago</span>
-                                </div>
-                            </div>
-                        </div>
+                        {allBlog}
                     </div>
                 </div>
             </div>

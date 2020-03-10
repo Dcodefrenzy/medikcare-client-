@@ -141,7 +141,6 @@ class LoginValidation extends Component  {
     render() {
         return(
             <div>
-            <NavBar />
                 <section className="container-fluid">
                     <Loading display={this.state.display}/>
                     <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
@@ -166,7 +165,7 @@ class LoginValidation extends Component  {
                         submit={this.formLoginHandler}
                     />
                 </section>
-                <Footer />
+
             </div>
         )
     }
