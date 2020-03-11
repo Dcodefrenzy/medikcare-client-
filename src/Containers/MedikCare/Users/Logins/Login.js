@@ -9,7 +9,7 @@ const UserLogin = (props) => {
                 <div className={`card opacity fixed b-medik`}>
                 </div>
             </div>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-lg">
+            <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-md">
                     <main className="card top-margin-lg">
                             <div className="card-header  home-content"> 
                              <h1 className="medik-color">User Login</h1>

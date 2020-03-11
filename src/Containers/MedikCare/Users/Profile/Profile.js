@@ -81,9 +81,9 @@ const userProfile = (props) => {
                 setDisplay({display:"display-none"});
                 setUser(response.message);
                 if (response.message.image) {
-                    setFile(response.message.image);
+                    setFile({filename:require(`../../Assets/images/${response.message.image.filename}`)});
                 }else{
-                    setFile({filename:"user.png"});
+                    setFile({filename:"Images/user.png"});
                 }
                 setPersonalRecord(response.PersonalRecord);
             }
@@ -170,7 +170,7 @@ const userProfile = (props) => {
                                     <div className="col-12 col-sm-12 col-md-12">
                                         <div className="row">
                                            <div className="col-5 col-sm-5 col-md-5">
-                                           <img className="img-thumbnail" width="100%" src={process.env.PUBLIC_URL+"/Images/"+file.filename} alt="admin-profile-image"/>
+                                           <img className="img-thumbnail" width="100%" src={file.filename} alt="admin-profile-image"/>
                                            <Link to="/user/image/update">
                                                 <small className="display-block">Click here to add a profile picture</small>
                                            </Link>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, createContext} from "react" ;
 import { Link } from 'react-router-dom';
 import Loading from "../../Loading/Loading";
-
+const images = require.context("../../Assets/images", true)
 
 const updateUserImage = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
@@ -12,7 +12,7 @@ const updateUserImage = (props) => {
     const [admin, setAdmin] = useState({});
     const [file, setFile]  = useState({file:""});
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none"})
-
+    let img;
 
     const setUserDisplayHadler=()=>{
         const url = "/api/v1/user/profile";
@@ -29,9 +29,10 @@ const updateUserImage = (props) => {
                 setDisplay({display:"display-none"});
                 
                 if (response.message.image) {
-                    setAdmin(response.message.image);
+                    //console.log(response.message.image)
+                    setAdmin(require(`../../Assets/images/${response.message.image.filename}`));
                 }else{
-                    setAdmin({filename:"user.png"});
+                    setAdmin("Images/user.png");
                 }
             }
         })
@@ -65,6 +66,7 @@ const updateUserImage = (props) => {
 
 
     }
+    
 
     useEffect(()=>{
         setUserDisplayHadler();
@@ -90,7 +92,7 @@ const updateUserImage = (props) => {
                                         <div className="row justify-content-center">
                                            <div className="col-12 col-sm-12 col-md-12"> 
                                                <div className="text-center">
-                                               <img className="img-thumbnail" width="50%" src={"/Images/"+admin.filename} alt="admin-profile-image"/>
+                                               <img className="img-thumbnail" width="50%" src={admin} alt="admin-profile-image"/>
                                                </div>
                                            </div>
                                         </div>
