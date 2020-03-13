@@ -131,6 +131,7 @@ const AdminBlog = ()=>{
                 <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-12">
+                           <Link to="/admin/blog/add"> <button className="btn btn-sm btn-medik">Add Blog</button></Link>
                             <div className="card">
                                 <div className="card-header b-medik text-white">
                                     <h3>Blog Preview</h3>

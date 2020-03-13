@@ -147,6 +147,23 @@ const sendNotification=()=>{
     				</div>
 					</Link>
     			</div>
+				<Link to="/blog">
+    			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
+    				<div className="card">
+    					<div className="row">
+    						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
+    							<h3 className="text-dark">MedikByte</h3>
+								<p className="text-dark top-margin-sm">Learn about your health by reading health articles</p>
+                                <button className="btn btn-sm btn-medik top-margin-md">Read</button>
+							
+    						</div>
+    						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
+    							 <img src={ todo } alt="articles" className='home-svg'/>
+    						</div>
+    					</div>
+    				</div>
+    			</div>
+				</Link>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
     				<div className="card">
     					<div className="row">
@@ -188,21 +205,6 @@ const sendNotification=()=>{
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ goals } alt="health-goals" className='home-svg'/>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-    			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
-    				<div className="card">
-    					<div className="row">
-    						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>HEALTH ARTICLES</h3>
-								<p className="text-dark top-margin-sm">Learn about your health by reading health articles</p>
-                                <button className="btn btn-sm btn-medik top-margin-md">Articles</button>
-								<p>Coming Soon!</p>
-    						</div>
-    						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
-    							 <img src={ todo } alt="articles" className='home-svg'/>
     						</div>
     					</div>
     				</div>
