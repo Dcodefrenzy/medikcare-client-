@@ -52,7 +52,7 @@ const LoginSession = (props) => {
             <div className="card opacity fixed">
                 <section className="section">
                     
-                <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 top-margin-lg">
+                <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 top-margin-sm">
                 <div className="card bg-dark ">
                             <div className="card-header text-white  home-content">
                                 <h1>Login</h1>

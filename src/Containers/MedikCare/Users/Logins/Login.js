@@ -10,7 +10,7 @@ const UserLogin = (props) => {
                 </div>
             </div>
             <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-md">
-                    <main className="card top-margin-lg">
+                    <main className="card ">
                             <div className="card-header  home-content"> 
                              <h1 className="medik-color">User Login</h1>
                             <span>Please enter your login details.</span> 

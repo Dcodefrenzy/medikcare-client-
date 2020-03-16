@@ -81,7 +81,7 @@ const UsersListTh = (props) => {
                             verification={userDetail.verification===true?"verified" : "Not Verified"} 
                             verificationButton={userDetail.verification===true?"display-none":""}
                             _id={userDetail._id}
-                            dateCreated={userDetail.datecreated} clicked={(event)=>unsetUserDisplayHandler(event)}/>
+                            dateCreated={userDetail.dateCreated} clicked={(event)=>unsetUserDisplayHandler(event)}/>
  
                  <NavBar />
                  <div className="col-12  col-sm-12 col-md-12  col-lg-12  align-center top-padding-sm">

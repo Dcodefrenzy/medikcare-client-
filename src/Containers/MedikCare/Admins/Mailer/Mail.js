@@ -20,21 +20,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
 const [mailTopic, setMailTopic] = useState({value:""})
 const [usersMail, setUsersMail] = useState({value:"", display:"display-none"})
 const [mailArticle, setMailArticle] = useState({value:""});
-const [externalUsers, setExternalUsers] = useState({bool:false});
 
-
-
-
-const externalStateHandler = (event, result)=>{
-        if (result === true) {
-            
-        setUsersMail({value:event.target.value, display:"display-none"})
-        }else{
-        setUsersMail({value:event.target.value, display:""})
-        }
-        setExternalUsers({bool:!result});
-
-}
 
 const validateMailMessage = (event) =>{
     setMailArticle({value:event.editor.getData()})
@@ -43,13 +29,11 @@ const validateMailMessage = (event) =>{
 const validateMailTopic = (event)=>{
     setMailTopic({value:event.target.value})
 }
-const validateUsersMail = (event)=>{
-    setUsersMail({value:event.target.value, display:""})
-}
-const submitBlog = (event)=>{
+
+const submitMail = (event)=>{
     event.preventDefault();
-    const blog = {topic:mailTopic.value, category:usersMail.value, article:mailArticle.value}
-   const url = "/api/v1/blogs/add/";
+    const blog = {topic:mailTopic.value, message:mailArticle.value}
+   const url = "/api/v1/mailler/add/";
     fetch(url, {
         method:"POST",
         body:JSON.stringify(blog),
@@ -59,7 +43,7 @@ const submitBlog = (event)=>{
     .then(response=>{
         if (response.status === 201) {
             console.log(response)
-            window.location ="/admin/blog/"+response.blogId;
+            window.location ="/admin/mail/"+response.maillerId;
         }else{
             console.log(response)
         }
@@ -170,8 +154,8 @@ const allImages = images.map((image)=>{
                                 <div className="card-body">
                                    <div className="row">
                                     <div className="col-12 col-sm-12 col-md-12">
-                                        <h3>Add Blog</h3>
-                                    <form onSubmit={submitBlog}>
+                                        <h3>Add Mail Message</h3>
+                                    <form onSubmit={submitMail}>
                                     <div className="row"> 
                                         <div className="col-12 col-sm-12 col-md-12">
                                             <div className={"alert alert-success "}>
@@ -181,17 +165,6 @@ const allImages = images.map((image)=>{
                                                 <label htmlFor="Topic">Topic</label>
                                                 <input type="text" value={mailTopic.value} onChange={event=>validateMailTopic(event)} className="form-control" placeholder="Eg New Feature Alert!" />
                                                 <span></span>
-                                            </div>
-                                        </div>
-                                                                                     
-                                        <div className="col-12 col-sm-12 col-md-12">
-                                            <div className="form-group">
-                                                <label htmlFor="mails">Do you want to send mail to client outside our app? </label>
-                                            <label className="switch">
-                                                <input type="checkbox" />
-                                                    <span onClick={event=>externalStateHandler(event, externalUsers.bool)} className="slider round"></span>
-                                            </label>
-                                                <textarea className={`form-control ${usersMail.display}`} onChange={event=>validateUsersMail(event)} placeholder="Please here is where you add the mails of external users.Do not forget to add , after every mail"></textarea>
                                             </div>
                                         </div>
                                             <div className="col-12 col-sm-12 col-md-12">

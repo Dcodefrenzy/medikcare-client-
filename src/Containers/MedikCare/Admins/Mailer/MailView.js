@@ -3,17 +3,24 @@ import Loading from '../../Loading/Loading';
 import SideBar from '../Navbar/SideBar';
 import NavBar from '../Navbar/NavBar';
 import CKEditor from 'ckeditor4-react';
+import { Link } from 'react-router-dom';
+import AdminMailUsers from "./MailUsers";
 
 
 
 
-const AdminUpdateMail = ()=>{
+const AdminUpdateMail = (props)=>{
 const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
 const maillerId = props.match.params.id;
 
+
+const [file, setFile]  = useState({file:""});
+const [images, setImages] =useState([]);
+
 const [display, setDisplay] = useState({display:"display-none"});
 const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none"});
-const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none"});
+const   [maillerAlert, setMaillerAlert]= useState({display:"display-none"});
+const [maillerDisplay, setMaillerDisplay] = useState({display:"display-none"})
 
 
 const [mailTopic, setMailTopic] = useState({value:""});
@@ -22,7 +29,11 @@ const [maillerItem, setMaillerItem] = useState({});
 
 
 
-const  previewBlog =()=>{
+const handleMaillerDisplay = (event, display)=>{
+    event.preventDefault();
+    setMaillerDisplay({display:display});
+}
+const  previewMailler =()=>{
     const url = "/api/v1/mailler/"+maillerId;
     fetch(url,{
         method:"GET",
@@ -33,7 +44,7 @@ const  previewBlog =()=>{
         if (response.status === 200) {
          setMaillerItem(response.message);
          setMailTopic({value:response.message.topic});
-         setMailArticle({value:response.message.article});
+         setMailArticle({value:response.message.message});
          
         }
     })
@@ -47,13 +58,11 @@ const validateMailMessage = (event) =>{
 const validateMailTopic = (event)=>{
     setMailTopic({value:event.target.value});
 }
-const validateUsersMail = (event)=>{
-    setUsersMail({value:event.target.value, display:""});
-}
-const submitBlog = (event)=>{
+
+const updateMailler = (event)=>{
     event.preventDefault();
-    const mailler = {topic:mailTopic.value, article:mailArticle.value};
-   const url = "/api/v1/mailler/update/";
+    const mailler = {topic:mailTopic.value, message:mailArticle.value};
+   const url = "/api/v1/mailler/update/"+maillerId;
     fetch(url, {
         method:"POST",
         body:JSON.stringify(mailler),
@@ -63,7 +72,7 @@ const submitBlog = (event)=>{
     .then(response=>{
         if (response.status === 201) {
             console.log(response)
-            window.location ="/admin/mail/"+response.message._id;
+            window.location ="/admin/mail/";
         }else{
             console.log(response)
         }
@@ -114,6 +123,11 @@ const addImage = (event)=>{
     });
 }
 
+useEffect(()=>{
+    previewMailler();
+}, [])
+
+
 const allImages = images.map((image)=>{
     return <img key={image._id} className="img-thumbnail" width="25%" src={"/Images/"+image.filename} alt="admin-profile-image"/>
                                               
@@ -131,8 +145,8 @@ const allImages = images.map((image)=>{
                     <main className="card opacity">
                             <div className="card-header  home-content"> 
                             <i onClick={event=>toggleDisplay(event,false)} className="float-right fa fa-times" arialhidden="true"></i>  
-                                    <h1>Blog Images</h1>
-                                    <span>please upload a blog image.</span> 
+                                    <h1> Images</h1>
+                                    <span>please upload an image.</span> 
                             </div>
                             <form onSubmit={addImage}>          
                                 <div className="col-12 col-sm-12 col-md-12">
@@ -163,7 +177,7 @@ const allImages = images.map((image)=>{
                     </div>
 
           
-       
+            <AdminMailUsers click={event=>handleMaillerDisplay(event, "display-none")}  id={maillerId} display={maillerDisplay.display}/>
             <NavBar />
             <SideBar />
             <div> 
@@ -172,11 +186,11 @@ const allImages = images.map((image)=>{
                         <div className="col-12 col-sm-12 col-md-8">
                             <div className="card top-margin-sm">
                             <div className="card-header b-medik text-white">
-                                    <h3>Blog Preview</h3>
+                                    <h3>Mail Preview</h3>
                                 </div>
                                 <div className="card-body">
-                                    <Link to="/admin/blog">
-                                    <button className="btn btn-sm btn-medik">Back to blog</button>
+                                    <Link to="/admin/mail">
+                                    <button className="btn btn-sm btn-medik">Back to mails</button>
                                     </Link>
                                    <div className="row">
                                     <div className="col-12 col-sm-12 col-md-12">
@@ -189,6 +203,7 @@ const allImages = images.map((image)=>{
                                            </div>
                                             <div className="col-7 col-sm-7 col-md-7">
                                                 <h1>{maillerItem.topic}</h1>
+                                                <button onClick={event=>handleMaillerDisplay(event, "")} className="btn btn-sm btn-success">Send Mail</button>
                                                 <div className="blog-image" dangerouslySetInnerHTML={{ __html: maillerItem.message }} />
                                             </div>
                                         </div>
@@ -198,8 +213,8 @@ const allImages = images.map((image)=>{
                                 <div className="card-body">
                                    <div className="row">
                                     <div className="col-12 col-sm-12 col-md-12">
-                                        <h3>Add Blog</h3>
-                                    <form onSubmit={submitBlog}>
+                                        <h3>Add Mail</h3>
+                                    <form onSubmit={updateMailler}>
                                     <div className="row"> 
                                         <div className="col-12 col-sm-12 col-md-12">
                                             <div className={"alert alert-success "}>
@@ -207,7 +222,7 @@ const allImages = images.map((image)=>{
                                             </div>
                                             <div className="form-group">
                                                 <label htmlFor="Topic">Topic</label>
-                                                <input type="text" value={maillerItem.topic} onChange={event=>validateMailTopic(event)} className="form-control" required />
+                                                <input type="text" value={mailTopic.value} onChange={event=>validateMailTopic(event)} className="form-control" required />
                                                 <span></span>
                                             </div>
                                         </div>
@@ -215,7 +230,7 @@ const allImages = images.map((image)=>{
                                                 <div className="form-group text-dark">  
                                                     <p onClick={event=>toggleDisplayTrue(event,true)} className="btn btn-sm btn-medik">Images</p>
                                                     <CKEditor
-                                                        data={maillerItem.message}
+                                                        data={mailArticle.value}
                                                         onInit={ editor => {
                                                         // You can store the "editor" and use when it is needed.
                                                             console.log( 'Editor is ready to use!', editor );

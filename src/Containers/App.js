@@ -57,6 +57,8 @@ import AdminBlogView from './MedikCare/Admins/Blog/BlogView';
 import Blog from './MedikCare/Blog/Blogs';
 import BlogPost from './MedikCare/Blog/BlogPost';
 import AdminAddMail from './MedikCare/Admins/Mailer/Mail';
+import AdminUpdateMail from './MedikCare/Admins/Mailer/MailView';
+import AdminMailer from './MedikCare/Admins/Mailer/Mails';
 
 
 
@@ -156,6 +158,9 @@ import AdminAddMail from './MedikCare/Admins/Mailer/Mail';
 						<Route path="/admin/blog/add" exact component={AdminAddBlog} />
 						<Route path="/admin/blog/:id" exact component={AdminBlogView} />
 						<Route path="/admin/mail/add" exact component={AdminAddMail} />
+						<Route path="/admin/mail/:id" exact component={AdminUpdateMail} />
+						<Route path="/admin/mail" exact component={AdminMailer} />
+						
 	
 						
 						

@@ -39,10 +39,10 @@ const Chat =(props)=>{
 
     if (sessionItemUser === null && sessionItemDoctor !== null) {
           dashboardLink ="/chat/doctors/doctor";
-          userUrl = "/api/v1/doctor/user"+to;
+          userUrl = "/api/v1/doctor/find-user/"+to;
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
          dashboardLink ="/chat/doctors";
-         userUrl = "/api/v1/user/doctor"+to;
+         userUrl = "/api/v1/user/find-doctor/"+to;
     }
     const scrollToBottom = ()=>{
           
@@ -124,7 +124,8 @@ const Chat =(props)=>{
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
         setMessage ({id:"msg", value:"", type:"text"}) 
-        messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id})
+        messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id});
+        notify(messageData);  
         setDisplayMessage(messages);
         scrollToBottom();
     }
@@ -157,8 +158,7 @@ const Chat =(props)=>{
             setDisplayMessage([]);
             window.location = "/chat/doctors";
         }else{
-        let  messageData = {"message": dataset[dataset.length-1].value, "from":session._id, "to":to}; 
-        notify(messageData);       
+     
         setDisplayMessage(dataset);
         scrollToBottom();
         }
@@ -182,7 +182,7 @@ const Chat =(props)=>{
     useEffect(()=>{
         getSession();
         fetchChatMessage();
-      
+        getUserDetailsHandller();
     }, []);
 
 
@@ -195,6 +195,7 @@ const Chat =(props)=>{
         let cardColor;
         let cardBodyColor;  
         let dilivery; 
+        let name;
             if (message.dilivery === true) {
                 dilivery =  <i className="fa fa-check" aria-hidden="true"></i>
             }else{
@@ -207,7 +208,7 @@ const Chat =(props)=>{
               Color = " medik-color";
              cardColor = "";
              cardBodyColor = "";
-             name = <i className={"card-text "+Color}>{session.name}</i>
+             name = session.name
 
         } else{
              float = "float-left";
@@ -215,12 +216,12 @@ const Chat =(props)=>{
               Color = "text-dark";
              cardColor = " b-medik";
              cardBodyColor = "text-white";
-            const name = <i className={"card-text "+Color}>{userDetail.name}</i>
+             name = userDetail.name
         }
            return <div className={"bottom-margin-sm max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
-                        {name}
+                        <i className={Color}>{name}</i>
                         <p className="card-text">{message.message}</p>
                         <span className={"card-text "+float+" "+Color}><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment fromNow>{message.createdAt}</Moment> {tick}</span>
                     </div>

@@ -73,10 +73,11 @@ const toggleDisplayTrue=(event,result)=>{
     setImages(response.message)
     })
 }
+
 const fileHandler=(event)=>{
     setFile({file:event.target.files[0]})
-
 }
+
 const addImage = (event)=>{
     event.preventDefault();
     

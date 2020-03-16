@@ -25,7 +25,7 @@ const DoctorsDetails = (props) => {
     }
     return (
         <div className={" " + props.display}>     
-            <div className="admin-details-fixed top-padding-lg">
+            <div className="admin-details-fixed top-padding-md">
                 <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                         <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-12">
@@ -38,14 +38,14 @@ const DoctorsDetails = (props) => {
                                        <div className="row">
                                        <div className="col-12 col-sm-6 col-md-6">
                                            <p><img src={"/Images/"+props.image} className="50%" alt="user-profile" /></p>
-                                           <p><b>Name:</b> {props.name}</p>
-                                            <p><b>Gender:</b> {props.gender}</p>
+                                           <p><b>Name:</b> {props.name} <b>Gender:</b> {props.gender}</p>
+                                            
                                             <p><b> Age:</b> <Moment fromNow>{props.age}</Moment></p>
                                             <p><b>Email:</b> {props.email}</p>
                                             <p><b>Phonenumber</b> {props.phonenumber}</p>
                                             <p><b>Verification:</b> {props.verification}</p>
-                                            <p><b>Login Status:</b> {props.loginStatus}</p>
-                                            <p><b>Last Login:</b> <Moment fromNow>{props.lastLogin}</Moment></p>
+                                            <p><b>Login Status:</b> {props.loginStatus} <b>Last Login:</b> <Moment fromNow>{props.lastLogin}</Moment></p>
+                                            
                                             <p><b>Date Created:</b><Moment fromNow>{props.dateCreated}</Moment></p>
                                         </div>
                                         <div className="col-12 col-sm-6 col-md-6">
