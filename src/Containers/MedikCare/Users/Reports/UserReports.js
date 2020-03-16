@@ -42,6 +42,7 @@ useEffect(()=>{
 
   const UserReport =  reports.map((report)=>{
     return  <div className="card bottom-margin-sm" key={report._id}>
+            <Link to={`/user/report/${report._id}`}>
                 <div className="card-body">
                     <div className="row">
                         <div className="col-6 col-sm-6 col-md-4">
@@ -50,14 +51,12 @@ useEffect(()=>{
 
                         <div className="col-6 col-sm-6 col-md-8">
 
-                            <h3 className="text-dark">Diagnoses: {report.medication}</h3>
-                            <p className="text-dark top-margin-sm"><Moment from>{report.dateCreated}</Moment></p>                                                        
-                        <Link to="#">
-                            <span> download coming soon.</span>
-                        </Link>
+                            <h3 className="text-dark">Diagnoses: {report.diagnoses}</h3>
+                            <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>                                                        
                         </div>
                     </div>
                 </div>
+                </Link>
             </div>
           })
 

@@ -59,6 +59,7 @@ import BlogPost from './MedikCare/Blog/BlogPost';
 import AdminAddMail from './MedikCare/Admins/Mailer/Mail';
 import AdminUpdateMail from './MedikCare/Admins/Mailer/MailView';
 import AdminMailer from './MedikCare/Admins/Mailer/Mails';
+import UserReport from './MedikCare/Users/Reports/UserReport';
 
 
 
@@ -125,6 +126,7 @@ import AdminMailer from './MedikCare/Admins/Mailer/Mails';
 						<Route path="/user/forget-password/:id" exact component={UserNewPassword} />
 						<Route path="/user/settings" exact component={UserSettings} />
 						<Route path="/user/reports" exact component={UserReports} />
+						<Route path="/user/report/:id" exact component={UserReport} />
 						
 						
 

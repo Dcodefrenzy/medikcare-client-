@@ -147,8 +147,8 @@ const sendNotification=()=>{
     				</div>
 					</Link>
     			</div>
-				<Link to="/blog">
-    			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
+    			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">	
+				<Link to="/blog" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
@@ -162,8 +162,9 @@ const sendNotification=()=>{
     						</div>
     					</div>
     				</div>
+					</Link>
     			</div>
-				</Link>
+				
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
     				<div className="card">
     					<div className="row">

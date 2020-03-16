@@ -86,7 +86,7 @@ const ChatFeedbackUser = (props) => {
 
     return(
     <div className={props.display}>
-        <div className="col-10 col-sm-12 col-md-12 bg-dark padding-lg">
+        <div className="col-12 col-sm-12 col-md-12 bg-dark padding-lg">
            
             <div className="card b-medik">
                 <section className="section">
