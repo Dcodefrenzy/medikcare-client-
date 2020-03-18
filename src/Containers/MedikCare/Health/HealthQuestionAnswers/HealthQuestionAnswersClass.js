@@ -3,12 +3,15 @@ import HealthQuestionAnswers from './HealthQuestionAnswers';
 import Carosel from '../../Users/Carosel/Carosel';
 import Loading from '../../Loading/Loading';
 import PopMessage from '../../PopMessage/PopMessage';
+import LoginSession from '../../Users/Logins/LoginSession';
 
 class HealthQuestionAnswersClass extends Component {
     constructor() {
         super();
         this.sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
         this.sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
+        
+
 
         this.state= {
             answer:{
@@ -35,14 +38,11 @@ class HealthQuestionAnswersClass extends Component {
             },
             spinner:"display-none",
             buttonClickedDisplay:"",
+            loginSession:"display-none"
         }
     }
 
-    authentication = () => {
-        if(this.sessionItemDoctor === null && this.sessionItemUser === null){
-         window.history.back();
-        }
-    }
+
         
     breadcrumbHandler = () => {
         let homeLink = "";
@@ -153,28 +153,35 @@ class HealthQuestionAnswersClass extends Component {
         }else if(this.sessionItemUser !== null && this.sessionItemDoctor === null) {
             url = "/api/v1/question/user/question/answers/"+id;
             sessionItem = this.sessionItemUser;
+        }else{
+            sessionItem = null;
         }
-        fetch(url, {
-            method:"GET",
-            headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
-        })
-        .then(res=>res.json())
-        .then(response=>{console.log(response)
-            if(response.status === 401) {
-                if(this.sessionItemUser === null && this.sessionItemAdmin !== null){
-                    const displayNone = "display-none";
-                this.setState({ display: displayNone})
-                   sessionStorage.removeItem("doctor");
-                   window.location = "/doctor/login?Session expired please login.";
-                }else if(this.sessionItemUser !== null && this.sessionItemAdmin === null) {
-                sessionStorage.removeItem("user");
-                window.location = "/login?Session expired please login.";
+        if(sessionItem === null){
+            this.setState({loginSession:"row"});
+        }else{
+            fetch(url, {
+                method:"GET",
+                headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
+            })
+            .then(res=>res.json())
+            .then(response=>{console.log(response)
+                if(response.status === 401) {
+                    if(this.sessionItemUser === null && this.sessionItemAdmin !== null){
+                        const displayNone = "display-none";
+                    this.setState({ display: displayNone})
+                       sessionStorage.removeItem("doctor");
+                       window.location = "/doctor/login?Session expired please login.";
+                    }else if(this.sessionItemUser !== null && this.sessionItemAdmin === null) {
+                    sessionStorage.removeItem("user");
+                    window.location = "/login?Session expired please login.";
+                    }
+                }else if(response.status === 200){
+                    this.setState({question:response.question});
+                    this.setState({answers:response.answers});
                 }
-            }else if(response.status === 200){
-                this.setState({question:response.question});
-                this.setState({answers:response.answers});
-            }
-        })
+            })
+        }
+       
     }
     buttonClickedHandler=(event)=>{
         event.preventDefault();
@@ -215,7 +222,10 @@ class HealthQuestionAnswersClass extends Component {
         })
     }
     componentDidMount(){
-        this.authentication();
+        if(this.sessionItemUser === null){
+            this.setState({loginSession:"row"});
+        }
+    
         this.breadcrumbHandler();
         this.displayAnswerFormHandler();
         this.displayAppriciationButtonHandler();
@@ -228,6 +238,7 @@ class HealthQuestionAnswersClass extends Component {
                  <Loading display={this.state.display}/>
                 <Carosel listItem={this.state.carosel} />
                 <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
+                <LoginSession display={this.state.loginSession}/>
                 <HealthQuestionAnswers 
                 doctorid={this.sessionItemDoctor}
                 userid={this.sessionItemUser}

@@ -166,11 +166,6 @@ import UserReport from './MedikCare/Users/Reports/UserReport';
 	
 						
 						
-						
-						
-						
-						
-						
 						<Route path="/health/questions" exact component={HealthQuestions} />
 						<Route path="/health/questions/answers/:id" exact component={HealthQuestionAnswersClass} />
 
