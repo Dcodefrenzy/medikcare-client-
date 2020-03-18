@@ -8,7 +8,7 @@ const DoctorLogin = (props) => {
             <div className="row form">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
                     <div className="card">
-                        <div className="card-header medik-color  home-content"><h1>Doctor Login</h1></div>
+                        <div className="card-header medik-color  home-content"><h1>Login For Doctors</h1></div>
                         
                         <p className={props.errorDisplay}>{props.errorMessage}</p>
                         <form onSubmit={props.submit}>
@@ -32,7 +32,8 @@ const DoctorLogin = (props) => {
                                 </div>
                             </div>
                             <div className="col-12 col-sm-12 col-md-12 card-footer">
-                            <Link to="/index"><button className="btn-sm medik-color-secondary b-medik">Back</button></Link>
+                                <span>Don't have an account? <Link to="/doctor/registration"><button className="btn-sm medik-color-secondary b-medik">Register</button></Link></span>
+                            <p><Link to="/index"><button className="btn-sm medik-color-secondary b-medik">Back Home</button></Link></p>
                             <p>Forget password? click <Link to="/doctor/forget/password">here</Link></p> 
                             </div>              
                         </form>

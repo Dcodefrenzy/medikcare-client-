@@ -32,17 +32,20 @@ const SideBar = () => {
 				                        <li className={`nav-item medik-color bottom-margin-sm`}>Home</li>
 			                        </Link>
 			                        <li className="nav-item dropdown medik-color bottom-margin-sm">
-				                            <span className={` dropdown-toggle`} role="button">Health Plans</span>
+				                            <span className={` dropdown-toggle`} role="button">Doctors</span>
 				                        <div className="dropdown-menu">
-                                        <Link to="/"> <span className="dropdown-item medik-color" href="#">Individuals</span> </Link>
+                                       
+				  		                <Link to="/doctor/registration">   			
+     						                <p className={`card-body nav-item medik-color bottom-margin-sm`}>Register</p>
+						                </Link> 
+				  		                <Link to="/doctor/login">   			
+     						                <p className={`card-body nav-item medik-color bottom-margin-sm`}>Login</p>
+						                </Link>
 				                        </div>
 			                        </li>
 			                        <Link to="blog">   			
 				                        <li className={`nav-item medik-color bottom-margin-sm`}>Blog</li>
-			                        </Link> 
-			                         <Link to="/doctor/login">   			
-				                        <li className={`nav-item medik-color bottom-margin-sm`}>Doctors</li>
-			                        </Link> 
+			                        </Link>
 			                        <Link to="/login">    			
 				                        <li className={`nav-item medik-color bottom-margin-sm`}>Login</li>
 			                        </Link>

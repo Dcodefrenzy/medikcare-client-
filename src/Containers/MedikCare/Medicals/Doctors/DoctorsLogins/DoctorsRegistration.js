@@ -11,6 +11,7 @@ const DoctorsRegistration = (props)=> {
                           <div className="">
                               <div className="medik-color home-content">
                                   <h1>Doctors Registration</h1>
+                                  <small>For doctors only.</small>
                                   <p className="text-dark">Join our pool of doctors that help saves life everyday. Your details will be verified by our management.</p>
                               </div>
                               <div className="">
@@ -161,6 +162,8 @@ const DoctorsRegistration = (props)=> {
                               </div>
                                 <div className="col-12 col-sm-12 col-md-12">
                                     <span>If you have an account with us already you can click this button to login</span> <Link to="/doctor/login"><button className="btn-sm medik-color-secondary b-medik">Login</button></Link>
+                                    <p><Link to="/index"><button className="btn-sm medik-color-secondary b-medik">Back Home</button></Link></p>
+                           
                                 </div>
                           </div>
                       </div>

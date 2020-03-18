@@ -10,17 +10,19 @@ const NavBarHandler = (props)=>{
      				<li className={`nav-item medik-color ${props.link}`}>Home</li>
 				</Link>
      		      <li className="nav-item dropdown medik-color">
-				    <a className={`${props.link} dropdown-toggle`} role="button">Health Plans</a>
+				    <a className={`${props.link} dropdown-toggle`} role="button">For Doctors</a>
 				    <div className="dropdown-menu">
-				      <a className="dropdown-item medik-color" href="#">Individuals</a>
+				  		<Link to="/doctor/registration">   			
+     						<li className={`nav-item medik-color ${props.link}`}>Register</li>
+						</Link> 
+				  		<Link to="/doctor/login">   			
+     						<li className={`nav-item medik-color ${props.link}`}>Login</li>
+						</Link> 
 				    </div>
 				  </li>
 				  <Link to="/blog">   			
      				<li className={`nav-item medik-color ${props.link}`}>Blog</li>
-				</Link> 
-				  <Link to="/doctor/login">   			
-     				<li className={`nav-item medik-color ${props.link}`}>Doctors</li>
-				</Link> 
+				</Link>
 				<Link to="/login">    			
      				<li className={`nav-item medik-color ${props.link}`}>Login</li>
 				</Link>

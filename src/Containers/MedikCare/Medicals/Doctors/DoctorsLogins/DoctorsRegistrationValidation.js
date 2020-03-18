@@ -352,8 +352,7 @@ class DoctorsRegistrationValidation extends Component {
     render() {
         return(
             <div>
-                <NavBar />
-                <section className="container-fluid">
+                <div className="container-fluid top-margin-lg">
                 <Loading display={this.state.display}/>
                 <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
                 <DoctorsRegistration 
@@ -471,8 +470,7 @@ class DoctorsRegistrationValidation extends Component {
                  submit={this.registerLoginHandler}
                 
                 />
-                </section>
-                <Footer />
+                </div>
             </div>
         )
     }
