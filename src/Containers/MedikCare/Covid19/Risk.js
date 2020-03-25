@@ -25,7 +25,7 @@ const Risk = (props) => {
        {"question":"Do you have fever(Temperature 37.8 C and above)?", "point":1},
        {"question":"Do you experience difficulty in Breathing?", "point":2},
        {"question":"Are you experiencing Fatigue?", "point":2},
-       {"question":"Have you travelled recently durring the past 14 days?", "point":3},
+       {"question":"Have you travelled recently during the past 14 days?", "point":3},
        {"question":"Do you have a travel history to a COVID-19 Infected area?", "point":3},
        {"question":"Were you in direct contact with a COVID-19 patient or currently taking care of one?", "point":3},
        
@@ -132,7 +132,7 @@ const no = (event)=>{
                                    <div className="col-12">
                                     <h5>Note!</h5>
                                     <h5>This app does not replace COVID-19 diagnosis in anyway.</h5>
-                                    <h5>It is a risk caculator that gives advice on you calling the disease control hotline or not.</h5>
+                                    <h5>It is a calculator that helps assess your risk for COVID-19 and what to do.</h5>
                                     <h1 className="text-center">{timeOutCount}</h1>
                                    </div>
                                </div>
