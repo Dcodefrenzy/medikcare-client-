@@ -127,7 +127,7 @@ const no = (event)=>{
                 <main className="opacity">
                     <div className="row align-center">
                         <div className="col-12 col-sm-12 col-md-12">
-                            <section className={`top-margin-lg text-white ${display.display}`}>
+                            <section className={` text-white ${display.display}`}>
                                <div className="row">
                                    <div className="col-12">
                                     <h5>Note!</h5>
