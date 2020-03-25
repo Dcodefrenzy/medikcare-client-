@@ -8,7 +8,7 @@ const RiskAssessment = (props) => {
                 <div className={`card opacity fixed b-medik`}>
                 </div>
             </div>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-md">
+            <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed">
                 <section>
                     <main className="card ">
                         <div className="card-body">
