@@ -17,7 +17,7 @@ import {
     FacebookShareCount,
   } from "react-share";
 
-const RiskCaculator = (props) => {
+const RiskCalculator = (props) => {
   return (
         <div className={props.displayRisk}>
             <div className="col-12 col-sm-12 col-md-12">
@@ -29,14 +29,14 @@ const RiskCaculator = (props) => {
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-12 top-margin-sm">
-                                    <h3>COVID-19 Risk Assessment Caculator Result</h3>
+                                    <h3>COVID-19 Risk Assessment Calculator Result</h3>
                                 </div>
                                 <div className="col-12 top-margin-sm">
                                    <i className={`fa fa-lightbulb-o fa-10x ${props.riskColor}`}></i>
                                 </div>
                                 <div className={`col-12 top-margin-md ${props.displayResultLow}`}>
                                     <h5>Low Risk</h5>
-                                    <p>You COVID-19 risk is low.</p>
+                                    <p>You COVID-19 risk is <b>LOW</b>.</p>
                                     <p>You are advised to stay at home and follow the advice on COVID-19.</p>
                                     <ol>
                                         <li>Maintain Social distancing</li>
@@ -47,14 +47,14 @@ const RiskCaculator = (props) => {
                                 </div>
                                 <div className={`col-12 top-margin-md ${props.displayResultMedium}`}>
                                     <h5>Medium Risk</h5>
-                                    <p>You COVID-19 risk is medium.</p>
+                                    <p>You COVID-19 risk is <b>MEDIUM</b>.</p>
                                     <p>You are advised to seek consultation with  a medical doctor.</p>
                                     <p>You can make use of our medical app to speak to a medical doctor and we are making it free for you.</p>
                                     <Link to="/registration" target="_blank"><button className="btn-sm medik-color-secondary b-medik">Register</button></Link>
                                 </div>
                                 <div className={`col-12 top-margin-md ${props.displayResultHigh}`}>
                                     <h5>High Risk</h5>
-                                    <p>You COVID-19 risk is medium.</p>
+                                    <p>You COVID-19 risk is <b>HIGH</b>.</p>
                                     <p>You are advised to do the following.</p>
                                     <ol>
                                         <li>Isolate yourself from everyon around you.</li>
@@ -76,4 +76,4 @@ const RiskCaculator = (props) => {
   )
 }
 
-export default RiskCaculator;
+export default RiskCalculator;

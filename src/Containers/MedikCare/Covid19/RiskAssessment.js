@@ -13,7 +13,7 @@ const RiskAssessment = (props) => {
                         <div className="card-body">
                             <div className="row">
                                 <div className="col-12 top-margin-md">
-                                    <h3>COVID-19 Risk Assessment Caculator</h3>
+                                    <h3>COVID-19 Risk Assessment Calculator</h3>
                                 </div>
                                 <div className="col-12 top-margin-md">
                                     <h5>{props.askQuestion}</h5>

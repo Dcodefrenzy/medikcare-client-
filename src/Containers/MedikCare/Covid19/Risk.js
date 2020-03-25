@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react" ;
 import { Link } from 'react-router-dom';
 import RiskAssessment from "./RiskAssessment";
-import RiskCaculator from "./RiskCaculator";
+import RiskCalculator from "./RiskCalculator";
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -20,14 +20,14 @@ const Risk = (props) => {
        {"question":"Do you have Colds?", "point":1},
        {"question":"Do you have Diarrhea?", "point":1},
        {"question":"Do you have Sore Throat?", "point":1},
-       {"question":"Do you have Body Aches?", "point":1},
+       {"question":"Do you experience Body Aches?", "point":1},
        {"question":"Do you have Headache?", "point":1},
        {"question":"Do you have fever(Temperature 37.8 C and above)?", "point":1},
-       {"question":"Do you have difficulty Breathing?", "point":2},
+       {"question":"Do you experience difficulty in Breathing?", "point":2},
        {"question":"Are you experiencing Fatigue?", "point":2},
-       {"question":"Have you traveled recently durring the past 14 days?", "point":3},
+       {"question":"Have you travelled recently durring the past 14 days?", "point":3},
        {"question":"Do you have a travel history to a COVID-19 Infected area?", "point":3},
-       {"question":"Do you have direct contact or is taking care of a positive COVID-19 patient?", "point":3},
+       {"question":"Were you in direct contact with a COVID-19 patient or currently taking care of one?", "point":3},
        
     ]
     const [count, setCounter] =useState(0)
@@ -131,15 +131,14 @@ const no = (event)=>{
                                <div className="row">
                                    <div className="col-12">
                                     <h5>Note!</h5>
-                                    <h5>This app do not replace COVID-19 diagnosis in anyway.</h5>
-                                    <h5>It is a risk caculator that give advice on you calling the diease control hotline or not.</h5>
-                                   <h5>COVID-19 risk assessment checker please hold your breath for 10 sec</h5>
+                                    <h5>This app does not replace COVID-19 diagnosis in anyway.</h5>
+                                    <h5>It is a risk caculator that give advice on you calling the disease control hotline or not.</h5>
                                     <h1 className="text-center">{timeOutCount}</h1>
                                    </div>
                                </div>
                             </section>
                             <RiskAssessment  clickedNo={event=>no(event)} clickedYes={event=>yes(event, ask.point)} displayQuestions={questionDisplay.display} askQuestion={ask.question} askpoint={ask.point}/>
-                            <RiskCaculator riskColor={riskColor} displayResultLow={resultRisk.low} displayResultHigh={resultRisk.high} displayResultMedium={resultRisk.medium}  displayRisk={result}/>
+                            <RiskCalculator riskColor={riskColor} displayResultLow={resultRisk.low} displayResultHigh={resultRisk.high} displayResultMedium={resultRisk.medium}  displayRisk={result}/>
                         </div>
                     </div>
                 </main>
