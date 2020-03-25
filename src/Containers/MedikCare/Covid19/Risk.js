@@ -132,7 +132,7 @@ const no = (event)=>{
                                    <div className="col-12">
                                     <h5>Note!</h5>
                                     <h5>This app does not replace COVID-19 diagnosis in anyway.</h5>
-                                    <h5>It is a risk caculator that give advice on you calling the disease control hotline or not.</h5>
+                                    <h5>It is a risk caculator that gives advice on you calling the disease control hotline or not.</h5>
                                     <h1 className="text-center">{timeOutCount}</h1>
                                    </div>
                                </div>
