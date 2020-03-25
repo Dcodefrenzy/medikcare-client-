@@ -24,15 +24,15 @@ const RiskCaculator = (props) => {
                 <div className={`card opacity fixed b-medik`}>
                 </div>
             </div>
-            <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-sm">
+            <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed">
                 <section>
                     <main className="card ">
                         <div className="card-body">
                             <div className="row">
-                                <div className="col-12 top-margin-md">
+                                <div className="col-12 top-margin-sm">
                                     <h3>COVID-19 Risk Assessment Caculator Result</h3>
                                 </div>
-                                <div className="col-12 top-margin-md">
+                                <div className="col-12 top-margin-sm">
                                    <i className={`fa fa-lightbulb-o fa-10x ${props.riskColor}`}></i>
                                 </div>
                                 <div className={`col-12 top-margin-md ${props.displayResultLow}`}>
