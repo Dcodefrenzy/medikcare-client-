@@ -57,7 +57,7 @@ const RiskCalculator = (props) => {
                                     <p>You COVID-19 risk is <b>HIGH</b>.</p>
                                     <p>You are advised to do the following.</p>
                                     <ol>
-                                        <li>Isolate yourself from everyon around you.</li>
+                                        <li>Isolate yourself from everyone around you.</li>
                                         <li>Call the following numbers</li>
                                     </ol>
                                     <p><b>Nigeria: </b>080097000010, 08023169485, 08033565529</p>
