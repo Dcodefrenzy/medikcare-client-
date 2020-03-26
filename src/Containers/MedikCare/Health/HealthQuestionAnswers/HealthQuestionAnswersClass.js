@@ -222,7 +222,7 @@ class HealthQuestionAnswersClass extends Component {
         })
     }
     componentDidMount(){
-        if(this.sessionItemUser === null){
+        if(this.sessionItemUser === null && this.sessionItemDoctor === null){
             this.setState({loginSession:"row"});
         }
     
