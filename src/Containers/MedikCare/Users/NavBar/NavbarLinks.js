@@ -44,7 +44,7 @@ const NavbarLinks = () => {
                     </div>
                     <div className="col-2">
                         <Link to="/user/Settings">
-                            <li className="nav-item"><i className="fa fa-cogs"></i>Settings</li>
+                            <li className="nav-item"><i className="fa fa-cogs "></i>Settings</li>
                         </Link>
                     </div>
                     <div className="col-2">

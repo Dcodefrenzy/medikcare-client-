@@ -7,27 +7,30 @@ import RegistrationGettingStarted from './RegistrationGettingStarted';
 const UserRegistration = (props) => {
     return (
           
-              <div className="container-fluid">
-                  <div className="row form">
-                      <div className="col-12 col-sm-12 col-md-6 offset-md-3">
-                          <div className="card">
-                              <div className="card-header b-medik medik-color-secondary home-content"><h1>Create An Account</h1></div>
-                              <div className="card-body">
+            
+        <div className="container-fluid">
+        <div className="row form">
+            <div className="col-12 col-sm-12 col-md-6 offset-md-3">
+                <div className="">
+                    <div className="card-body"> 
+                    <Link to="/"><i className="fa fa-arrow-left text-dark"></i></Link>
+                    <h5>Create An Account</h5>
+                      <p className={props.errorDisplay}>{props.errorMessage}</p>
                                   
                             <p className={props.errorDisplay}>{props.errorMessage}</p>
                                 <form onSubmit={props.submit}> 
                                         <div className="row">
-                                            <div className="col-12 col-sm-6 col-md-6">
+                                            <div className="col-6 col-sm-6 col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="firstName">First Name</label>
-                                                    <input type="text" className="form-control" min="3" aria-describedby="firstname" name="firstname" placeholder="Please enter your firstname" id={props.firstnameId} onChange={props.firstnameChange} value={props.firstnameValue} required />
+                                                    <input type="text" className="form-control" min="3" aria-describedby="firstname" name="firstname" placeholder="John" id={props.firstnameId} onChange={props.firstnameChange} value={props.firstnameValue} required />
                                                     <span id={props.firstnameErrorId} className={props.firstnameClass}>{props.firstnameErrorValue}</span>
                                                 </div>
                                             </div>
-                                            <div className="col-12 col-sm-6 col-md-6">
+                                            <div className="col-6 col-sm-6 col-md-6">
                                                 <div className="form-group">
                                                     <label htmlFor="lastName">Last Name</label>
-                                                    <input type="text" className="form-control" aria-describedby="firstname" min="3" name="lastname" placeholder="Please enter your lastname" id={props.lastnameId} onChange={props.lastnameChange} value={props.lastnameValue} required />
+                                                    <input type="text" className="form-control" aria-describedby="firstname" min="3" name="lastname" placeholder="Doe" id={props.lastnameId} onChange={props.lastnameChange} value={props.lastnameValue} required />
                                                     <span id={props.lastnameErrorId} className={props.lastnameClass}>{props.lastnameErrorValue}</span>
                                                 </div>
                                             </div>
@@ -95,18 +98,14 @@ const UserRegistration = (props) => {
                                             </div>
                                            
                                         </div>  
-                                        <div className="col-6 col-sm-6 col-md-6">
+                                        <div className="col-12 col-sm-12 col-md-12">
                                             <div className="form-group">
                                             <input type="submit" className="form-control b-medik medik-color-secondary" name="register" value="Sign up"/>
+                                            <p>I already have an account? <Link to="/login">Log in</Link></p>
                                             </div>
                                         </div>
                                     </div>  
                                 </form>
-                              </div>
-                                <div className="col-12 col-sm-12 col-md-12 card-footer">
-                                    <span>If you have sign up with us you can click this button to login</span> <Link to="/login"><button className="btn-sm medik-color-secondary b-medik">Login</button></Link>
-                                    <Link to="/home"><button className="btn-sm medik-color-secondary b-medik">Home</button></Link>
-                                
                                 </div>
                           </div>
                       </div>

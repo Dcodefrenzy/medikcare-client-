@@ -263,7 +263,6 @@ class RegistrationValidation extends Component {
         return(
             <div>
                 
-                <RegistrationGettingStarted />
                 <div className="container-fluid">
                 <Loading display={this.state.display}/>
                <UserRegistration 

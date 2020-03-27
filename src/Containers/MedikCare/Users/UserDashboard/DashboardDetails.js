@@ -99,7 +99,7 @@ const sendNotification=()=>{
     return(
 		<div>
 			<Loading display={display.display}/>
-        <section className="user-section">
+        <div className="user-section">
     	<div className="container home-content">
 			<div className="row">
 			<div className="col-12 col-sm-12 col-md-12 col-lg-12">
@@ -111,7 +111,7 @@ const sendNotification=()=>{
 				<img className="img-round" width="50px" height="50px" src={"/Images/"+file.filename} alt="admin-profile-image"/>
 			</div>
             <div className="col-10 col-sm-6 col-md-6 col-lg-6">
-				<h3>Good day {user.firstname+" "+user.lastname}
+				<h3>Good day, {user.firstname+" "+user.lastname}
 				</h3></div>
 			</div>
     		<div className="row">
@@ -136,8 +136,8 @@ const sendNotification=()=>{
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3 className="text-dark">CONSULTATION</h3>
-								<p className="text-dark top-margin-sm">Discuss with verified doctors online.</p>
+    							<h3 className="text-dark">TALK TO A DOC</h3>
+								<p className="text-dark top-margin-sm">Connect with verified doctors online.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Talk</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -212,7 +212,7 @@ const sendNotification=()=>{
     			</div>
     		</div>
     	</div>
-    </section>
+    </div>
 </div>
     )
 }
