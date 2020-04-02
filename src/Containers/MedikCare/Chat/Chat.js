@@ -45,6 +45,7 @@ const Chat =(props)=>{
             OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
               if (!isEnabled){
                 OneSignal.showSlidedownPrompt();
+                checkNotification();
               }     
             });
           });
@@ -196,10 +197,10 @@ const Chat =(props)=>{
          
          setMessage ({id:"msg", value:"", type:"text"})
          setDisplayMessage(dataset); 
-         notify(messageData);
           let messageData ={};
         
          messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":to}; 
+         notify(messageData);
          scrollToBottom();
      }
      })
