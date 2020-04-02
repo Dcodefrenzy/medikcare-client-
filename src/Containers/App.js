@@ -67,32 +67,8 @@ import HealthDoctorQuestionAnswersClass from './MedikCare/Health/HealthQuestionA
 
  class App extends Component {
  
-	checkNotification = ()=> {
-		const OneSignal = window.OneSignal || [];
-		OneSignal.push(function() {
-            OneSignal.on('subscriptionChange', function (isSubscribed) {
-                if(isSubscribed===true){
-                    OneSignal.getUserId().then(function(userId) {
-						OneSignal.sendTag("key", userId).then(function(tagsSent) {
-							// Callback called when tags have finished sending
-							console.log("send Tag")
-						  });
-                    })
-                }
-                else if(isSubscribed===false){
-                  console.log("User isnt subscribed");
-                }
-                else{
-                    console.log('Unable to process the request');
-                }
-            });
-		});
-		
-	  }
+	
 
-	componentDidMount() {
-	this.checkNotification();	
-	}
 
 	/*	componentDidMount() {
 		Notification.requestPermission(function(status) {

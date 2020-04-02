@@ -24,7 +24,6 @@ const Chat =(props)=>{
 
     const element = useRef(null);
 
-
     const getSession = ()=> {
         if(sessionItemDoctor === null && sessionItemUser === null) {
             window.location ="/not-found"
@@ -36,6 +35,62 @@ const Chat =(props)=>{
             return session = sessionItemUser;
         }
     }
+
+    const allowPush=()=>{
+        const OneSignal = window.OneSignal || []; 
+            
+        OneSignal.showSlidedownPrompt();
+        OneSignal.push(function() {
+            /* These examples are all valid */         
+            OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
+              if (isEnabled){
+                OneSignal.showSlidedownPrompt();
+              }     
+            });
+          });
+    }
+
+   const checkNotification = ()=> {
+		const OneSignal = window.OneSignal || [];
+		OneSignal.push(function() {
+            OneSignal.on('subscriptionChange', function (isSubscribed) {
+                    if(isSubscribed===true){
+                        OneSignal.getUserId().then(function(userId) {
+                            let url;
+                        if (sessionItemUser === null && sessionItemDoctor !== null) {
+                           url = "/api/v1/doctor/update/notification/"+userId
+                        }else if (sessionItemUser !== null && sessionItemDoctor === null) {
+                            url = "/api/v1/user/update/notification/"+userId
+                        }
+                        if (userId) {	
+                            fetch(url, {
+                                method: "PATCH",
+                                headers: {'Content-Type': "application/json", "u-auth": session.token}
+                            })
+                            .then(res => res.json())
+                            .then(response => { 
+                                if(response.status === 401) {
+                                sessionStorage.removeItem("user");
+                                    window.location = "/login?Session expired please login."
+                                }else if (response.status === 200) {
+                                    
+                                }
+                            })
+                            }
+                            
+                        
+                        })
+                }
+                else if(isSubscribed===false){
+                  console.log("User isnt subscribed");
+                }
+                else{
+                    console.log('Unable to process the request');
+                }
+            });
+		});
+		
+	  }
 
     if (sessionItemUser === null && sessionItemDoctor !== null) {
           dashboardLink ="/chat/doctors/doctor";
@@ -125,7 +180,7 @@ const Chat =(props)=>{
          socket.emit("send message", messageData);
         setMessage ({id:"msg", value:"", type:"text"}) 
         messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id});
-        notify(messageData);  
+         
         setDisplayMessage(messages);
         scrollToBottom();
     }
@@ -141,6 +196,10 @@ const Chat =(props)=>{
          
          setMessage ({id:"msg", value:"", type:"text"})
          setDisplayMessage(dataset); 
+         notify(messageData);
+          let messageData ={};
+        
+         messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":to}; 
          scrollToBottom();
      }
      })
@@ -181,8 +240,10 @@ const Chat =(props)=>{
 
     useEffect(()=>{
         getSession();
+        allowPush();
         fetchChatMessage();
         getUserDetailsHandller();
+        checkNotification();
     }, []);
 
 

@@ -3,6 +3,7 @@ import health_questions  from '../../../Assets/svgs/answers.svg';
 import chat  from '../../../Assets/svgs/waitingList.svg';
 import todo  from '../../../Assets/svgs/blog.svg';
 import conversiation  from '../../../Assets/svgs/appointment.svg';
+import Payment  from '../../../Assets/svgs/payment.svg';
 import { Link } from 'react-router-dom'
 
 const DoctorDashboardDetails = (props) => {
@@ -39,9 +40,9 @@ const DoctorDashboardDetails = (props) => {
 	  }, [])
 	
     return(
-        <section className="user-section">
+        <div className="">
     	<div className="container home-content">
-            <div className="col-12 col-sm-12 col-md-8 col-lg-6"><h1>Good Day DR {props.welcomeName}</h1><img /></div>
+            <div className="col-12 col-sm-12 col-md-8 col-lg-6"><h6>Good Day DR {props.welcomeName}</h6><img /></div>
     		<div className="row">
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
 					<Link to="/health/questions" className="href">
@@ -77,7 +78,7 @@ const DoctorDashboardDetails = (props) => {
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>PYSICAL CONSULTATION</h3>
+    							<h3>PYSICAL SESSION</h3>
 
                                 <button className="btn btn-sm btn-medik top-margin-md">Appointments</button>
 								<p>Coming Soon!</p>
@@ -92,8 +93,8 @@ const DoctorDashboardDetails = (props) => {
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>HEALTH ARTICLES</h3>
-                                <button className="btn btn-sm btn-medik top-margin-md">Articles</button>
+    							<h3>CME</h3>
+                                <button className="btn btn-sm btn-medik top-margin-md">View</button>
 								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
@@ -104,7 +105,7 @@ const DoctorDashboardDetails = (props) => {
     			</div>
     		</div>
     	</div>
-    </section>
+    </div>
     )
 }
 
