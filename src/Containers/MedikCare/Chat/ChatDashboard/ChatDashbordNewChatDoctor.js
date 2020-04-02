@@ -4,12 +4,14 @@ import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
+import DoctorLoginSession from '../../Medicals/Doctors/DoctorsLogins/LoginSession';
 
 
 
 
 const ChatDashbordNewChatDoctor = (props) =>{
     const [sessions, displaySession] = useState([])
+    const [doctorSession, setDoctorSession] = useState({display:"display-none"})
          
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     
@@ -18,7 +20,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
     const getSession = ()=> {
 
         if(sessionItemDoctor === null) {
-            window.location = "/doctor/login?Session expired please login.";
+            setDoctorSession({display:"row"})
         }
     }       
     let port ="";
@@ -31,7 +33,11 @@ const ChatDashbordNewChatDoctor = (props) =>{
     
       const socket = io(port,{transports: ['websocket']});
    const fetchDoctorsSessions =()=>{
+    if(sessionItemDoctor === null) {
+        setDoctorSession({display:"row"})
+    }else{
         socket.emit("fetch session", sessionItemDoctor._id);
+    }
     }
     socket.on("fetch session", (sessions)=>{     
         setAlert({buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
@@ -50,21 +56,21 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
     const sessionDetails = sessions.map((session)=>{
             
-      return    <div className="card b-medik" key={session._id}>
-                    <div className="card-body text-white">
+      return    <Link to={"/chat/"+session.from} key={session._id}>
+                <div className="card ">
+                    <div className="card-body text-dark">
                     <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i>
-                        <h3 className="card-text text-white"><i className="fa fa-user text-white" aria-hidden="true"></i> {session.from}</h3>
-                        <p className="card-text text-white">Session status: <span className="text-white">On session</span></p>
-                        <p className="card-text text-white">Time: <Moment fromNow>{session.start}</Moment></p>
-                        <Link to={"/chat/"+session.from}>
-                            <i className="fa fa-envelope fa-2x text-white float-right" aria-hidden="true" />                   
-                        </Link>   
+                        <h6 className="card-text text-dark"><i className="fa fa-user text-white" aria-hidden="true"></i> {session.from}</h6>
+                        <p className="card-text text-dark">Session status: <span className="text-white">On session</span></p>
+                        <p className="card-text text-dark">Time: <Moment fromNow>{session.start}</Moment></p>
+                        
+                            <i className="fa fa-envelope fa-2x text-dark float-right" aria-hidden="true" />                      
                     </div>
                 </div>
+                </Link> 
         })
     return( 
-        <div className="container-fluid b-medik">
-        <div className="container">
+        <div className="container-fluid">
             <div className="row">
                 <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
                              
@@ -72,7 +78,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
                 <div className="container verification section">
                     <div>
                         <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-7 offset-md-3 col-lg-7 offset-lg-3">
-                            <div className="card b-medik">
+                            <div className="card">
                                 <div className="card-body">
                                     <h3 className="text-white">No Sessions</h3>
                                     <h1 className="text-center top-margin-md">😎</h1>
@@ -88,29 +94,24 @@ const ChatDashbordNewChatDoctor = (props) =>{
                     </div>
                 </div>
                 </section>
-                    <div className="card b-medik">
+                    <div className="card">
                         <div className="card-body">
-                            <div className="card b-medik position-fixed fixed-top">
-                                <div className="card-body text-white">
+                            <div className="card  position-fixed fixed-top">
+                                <div className="card-body text-dark">
                                     <div className="row justify-content-between">
                                         <div className="col-3">
                                         <Link to="/doctor/dashboard">
-                                            <i className="fa fa-arrow-left text-white fa-lg" aria-hidden="false"> Back</i>
+                                            <i className="fa fa-arrow-left text-dark fa-lg" aria-hidden="false"></i>
                                         </Link>
-                                        </div>
-                                        <div className="col-3">
-                                            <Link to="/chat/dashboard">
-                                                <i  id="bell" className="fa fa-bell fa-3x text-white" aria-hidden="true"></i>
-                                            </Link>
                                         </div>   
                                         <div className="col-3">
                                             <Link to="/chat/doctors/doctor">
-                                                <i  id="newMessage" className="fa fa-plus-circle fa-3x chat-dashboard-active"> </i>
+                                                <i  id="newMessage" className="fa fa-plus-circle fa-2x chat-dashboard-active"> </i>
                                             </Link>
                                         </div>
                                         <div className="col-3">
                                             <Link to="/chat/notifications">
-                                                <i  id="activities" className="fa fa-tasks fa-3x text-white"  aria-hidden="true"></i>
+                                            <i  id="bell" className="fa fa-bell fa-2x text-dark" aria-hidden="true"></i>
                                             </Link>
                                         </div>
                                     </div>
@@ -133,8 +134,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
                         </div>
                     </div>
                 </div>
+                <DoctorLoginSession display={doctorSession.display} />
             </div>
-        </div>
+        
     )
 }
 

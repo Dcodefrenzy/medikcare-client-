@@ -37,11 +37,9 @@ const Footer = (props) => {
                                 <Link to="/login">
                                 <li>Users</li>
                                 </Link>
-                                <li>Companies</li>
                                 <Link to="/doctor/login">
                                 <li>Doctors</li>
                                 </Link>
-                                <li>Medical Personels</li>
                             </ul>
                         </div>
                     </div>

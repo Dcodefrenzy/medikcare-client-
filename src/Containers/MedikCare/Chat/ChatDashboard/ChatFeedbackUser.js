@@ -86,10 +86,10 @@ const ChatFeedbackUser = (props) => {
 
     return(
     <div className={props.display}>
-        <div className="col-12 col-sm-12 col-md-12 bg-dark padding-lg">
+        <div className="col-12 col-sm-12 col-md-12 bg-dark">
            
             <div className="card b-medik">
-                <section className="section">
+                <div className="section">
                     <div className="row justify-content-center align-items-center text-white">
                         
                 <div className="container verification">
@@ -110,7 +110,7 @@ const ChatFeedbackUser = (props) => {
                         </div>
                     </div>
                 </div>
-                    <div className={`top-margin-sm ${alert.formDisplay}`}>
+                    <div className={`${alert.formDisplay}`}>
                     <LoginSession display={loginSession.display} />
                                 <div className="card-body">
                                     <div className="col-12 col-sm-12 col-md-12">
@@ -169,7 +169,7 @@ const ChatFeedbackUser = (props) => {
                                 </div>
                             </div>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
     </div>

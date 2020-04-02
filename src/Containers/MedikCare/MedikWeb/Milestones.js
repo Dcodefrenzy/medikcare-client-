@@ -4,34 +4,9 @@ import ideas  from "../Assets/svgs/ideas.svg";
 import { Link } from 'react-router-dom';
 const Milestones = (props) => {
   return (
-    <section className="overflow milestone-color">
+    <section className="overflow">
     	<div className="container home-content ">
-    	  	    <h1 className="medik-color center">Milestones</h1>
     	    <div className="row milestone-content medik-color">
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Doctors.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Users/Members.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Answers Served.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>States Reached.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Acive Users.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>specialties</p>
-    			</div>
     			<div className="col-12 col-sm-12 col-md-12">
     				<h1 className="center medik-color">Saving the world one person at a time.</h1>
     			    <img src={connects} alt="connects-milestones" className='milestone-svg'/>

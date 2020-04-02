@@ -61,6 +61,7 @@ import AdminUpdateMail from './MedikCare/Admins/Mailer/MailView';
 import AdminMailer from './MedikCare/Admins/Mailer/Mails';
 import UserReport from './MedikCare/Users/Reports/UserReport';
 import Risk from './MedikCare/Covid19/Risk';
+import HealthDoctorQuestionAnswersClass from './MedikCare/Health/HealthQuestionAnswers/HealthDoctorQuestionAnswerClass';
 
 
 
@@ -169,6 +170,8 @@ import Risk from './MedikCare/Covid19/Risk';
 						
 						<Route path="/health/questions" exact component={HealthQuestions} />
 						<Route path="/health/questions/answers/:id" exact component={HealthQuestionAnswersClass} />
+						<Route path="/doctor/health/questions/answers/:id" exact component={HealthDoctorQuestionAnswersClass} />
+						
 						<Route path="/covid-19/risk/assessment"exact  component={Risk}/>
 						
 

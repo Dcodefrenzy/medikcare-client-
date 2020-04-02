@@ -141,10 +141,13 @@ class LoginValidation extends Component  {
     render() {
         return(
             <div>
+                
                 <section className="container-fluid">
-                    <Loading display={this.state.display}/>
-                    <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
-                    <UserLogin 
+                   <UserLogin 
+                        popDisplay={this.state.popMessage.display}
+                        popWelcome={this.state.popMessage.welcome}
+                        popMessage={this.state.popMessage.message}
+                        popCard={this.state.popMessage.card}
                         errorMessage={this.state.loginError.value}
                         errorDisplay={this.state.loginError.display}
 
@@ -164,6 +167,8 @@ class LoginValidation extends Component  {
 
                         submit={this.formLoginHandler}
                     />
+                    
+                <Loading display={this.state.display}/>
                 </section>
 
             </div>

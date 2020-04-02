@@ -1,6 +1,7 @@
 import React from 'react';
 import Login  from "../../Assets/svgs/login.svg";
 import { Link } from 'react-router-dom';
+import Loading from '../../Loading/Loading';
 
 const UserLogin = (props) => {
   return (
@@ -11,21 +12,22 @@ const UserLogin = (props) => {
         </div>
         <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 fixed top-margin-md">
                 <main className="card-body">  
-                          <Link to="/"><span className="fa fa-arrow-left text-dark"></span></Link>
-                         <h1 className="text-dark">User Login</h1>
+                          <Link to="/"><span className="fa fa-arrow-left text-white"></span></Link>
+                         <h1 className="text-white">User Login</h1>
                         <p className={props.errorDisplay}>{props.errorMessage}</p>
+                        <div className={props.popDisplay + props.popCard}>{props.popMessage}{props.popWelcome}</div>
                             <form onSubmit={props.submit}>
                             <div className="row">
                                 <div className="col-12 col-sm-12 col-md-12">
                                         <div className="form-group">
-                                            <label htmlFor="mail">Email address</label>
+                                            <label htmlFor="mail" className="text-white">Email address</label>
                                             <input type="email" name="mail" className="form-control"  aria-describedby="email" placeholder="example@mail.com" id={props.emailId} onChange={props.emailChange} value={props.emailValue}  required/>
                                             <span id={props.emailErrorId} className={props.emailClass}>{props.emailErrorValue}</span>        
                                         </div>
                                     </div>
                                 <div className="col-12 col-sm-12 col-md-12">
                                         <div className="form-group">
-                                            <label htmlFor="password">Password</label>
+                                            <label htmlFor="password" className="text-white">Password</label>
                                             <input type="password" name="password" min="6" className="form-control"  aria-describedby="password" placeholder="Please enter your password"  id={props.passwordId} onChange={props.passwordChange} value={props.passwordValue} required/>
                                             <span id={props.passwordErrorId} className={props.passwordClass}>{props.passwordErrorValue}</span>           
                                         </div>

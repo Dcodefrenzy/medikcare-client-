@@ -37,47 +37,43 @@ const ChatDashboard = (props) =>{
 }, []);
 
     return(
-        <div className="container-fluid b-medik">
+        <div className="container-fluid">
             <div className="container">
                 <div className="row">
                     <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
-                        <div className="b-medik">
                             <div className="">
-                                <div className="card b-medik position-fixed fixed-top">
+                                <div className="card position-fixed fixed-top">
                                     <div className="card-body text-white">
                                     <div className="row justify-content-between">
                                         <div className="col-3">
                                         <Link to={dashboardLink.userDashboard}>
-                                            <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"> Back</i>
+                                            <i className="fa fa-arrow-left fa-lg text-dark" aria-hidden="false"> </i>
                                         </Link>
                                         </div>
                                             <div className="col-3">
                                             <Link to="/chat/dashboard">
-                                                <i  id="bell" className="fa fa-bell fa-3x chat-dashboard-active" aria-hidden="true"></i>
+                                                <i  id="bell" className="fa fa-bell fa-2x chat-dashboard-active" aria-hidden="true"></i>
                                             </Link>
                                         </div>   
                                         <div className="col-3">
                                             <Link to={dashboardLink.chatDashboard}>
-                                                <i  id="newMessage" className="fa fa-plus-circle fa-3x text-white"> </i>
+                                                <i  id="newMessage" className="fa fa-plus-circle fa-2x text-dark"> </i>
                                             </Link>
                                         </div>
                                         <div className="col-3">
                                             <Link to="/chat/notifications">
-                                                <i  id="activities" className="fa fa-tasks fa-3x text-white"   aria-hidden="true"></i>
+                                                <i  id="activities" className="fa fa-tasks fa-2x text-dark"   aria-hidden="true"></i>
                                             </Link>
                                         </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="chat">
-                                   <section>
+                                <div className="chat top-margin-lg">
                                        <SessionContext.Provider value={getSession()}>
                                             <ChatDashboardNotification />
                                        </SessionContext.Provider>
-                                   </section>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

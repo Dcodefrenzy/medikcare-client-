@@ -218,7 +218,7 @@ const Chat =(props)=>{
              cardBodyColor = "text-white";
              name = userDetail.name
         }
-           return <div className={"bottom-margin-sm max-width  "+float} key={message._id}>
+           return <div className={"max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
                         <i className={Color}>{name}</i>
@@ -232,22 +232,22 @@ const Chat =(props)=>{
     })
     return(
         <div className="overflow-hidden">
-            <div className="container-fluid bg-dark">
-                <div className="row">
+            <div className="container-fluid">
+                <div className="">
                     <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
-                        <div className="card bg-dark">
+                        <div className="">
                             <div className="card-body">
-                                <div className="card bg-dark chat-static chat-static-top">
-                                    <div className="card-body text-white">
+                                <div className="card  position-fixed fixed-top">
+                                    <div className="card-body b-medik text-dark">
                                        <div className="row justify-content-center">
                                            <div className="col-10">
                                                <Link to={dashboardLink}>
-                                                <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"> Back</i>
+                                                <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"></i>
                                                 </Link>
                                            </div>
                                             <div className="col-2">
-                                                <div className="dropdown dropleft ">
-                                                    <i className="fa fa-ellipsis-v  fa-3x" aria-hidden="true" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></i>
+                                                <div className="dropdown dropleft">
+                                                    <i className="fa fa-ellipsis-v  fa-3x text-white" aria-hidden="true" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></i>
                                                     <div className="dropdown-menu">
                                                         <div><a onClick={(event)=>endSession(event)} className="dropdown-item" href="#">End Chat</a></div>
                                                         <div className="dropdown-divider"></div>
@@ -258,22 +258,22 @@ const Chat =(props)=>{
                                        </div>
                                     </div>
                                 </div>
-                               <div className="chat top-padding-sm">
+                               <div className="chat bottom-padding-lg">
                                    {displayMessages}
-                                <div className="top-padding-md clearfix" ref={element}>start</div>
+                                <p className=" clearfix" ref={element}>start your message</p>
                                </div>
                                 <div className="clearfix bottom-padding-lg top-padding-md" id={scroll.scroll}></div>
-                                <div className="card bg-dark chat-static chat-static-buttom">
+                                <div className="card b-medik position-fixed  chat-static-buttom">
                                    <div className="card-body">
                                         <form onSubmit={submitChatMessage}>
                                             <div className="row">
-                                               <div className="col-10">
+                                               <div className="col-8">
                                                     <div className="form-group">
-                                                        <textarea id={message.id} onChange={(event) => setMessageHandler(event,message.id)} type={message.type} value={message.value}  className="form-control chat-message" placeholder="Start a new message" rows="1" required></textarea>
+                                                        <textarea id={message.id} onChange={(event) => setMessageHandler(event,message.id)} type={message.type} value={message.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
                                                     </div>
                                                </div>
-                                               <div className="col-2">
-                                                   <input type="submit" className="form-contol btn btn-lg btn-medik" value="Send" />
+                                               <div className="col-4">
+                                                   <input type="submit" className="form-contol btn btn-lg btn-dark" value="Send" />
                                                    </div>
                                             </div>
                                         </form>

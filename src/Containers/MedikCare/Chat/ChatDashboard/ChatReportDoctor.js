@@ -14,10 +14,12 @@ const ChatReportDoctor = (props) => {
     const [diagnose, setDiagnose] = useState({id:"diagnose",value:""})
     const [test, setTest] = useState({id:"test",value:""})
     const [medication, setMedication] = useState({id:"medication",value:""})
+    const [complains, setComplains] = useState({id:"complains",value:""})
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none", formDisplay:""})
     const [loginSession, setLoginSession] = useState({display:"display-none"})
         
     const setDiagnoseHandler =(event)=>{ setDiagnose({id:"diagnose", value:event.target.value}) }
+    const setComplainsHandler =(event)=>{ setComplains({id:"complains", value:event.target.value}) }
     const setTestHandler =(event)=>{ setTest({id:"test", value:event.target.value}) }
     const setMedicationHandler =(event)=>{ setMedication({id:"medication", value:event.target.value}) }
     const checkSession = ()=>{
@@ -29,7 +31,7 @@ const ChatReportDoctor = (props) => {
    const submitChatMetricHandler=(event)=>{
         event.preventDefault(); 
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
-        const report = {"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem._id}
+        const report = {"complains":complains.value,"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem._id}
         const url = "/api/v1/doctor/report/add"
         fetch(url, {
             method: "POST",
@@ -54,7 +56,7 @@ const ChatReportDoctor = (props) => {
     }, [])
     return(
     <div className={props.display}>
-        <div className="col-12 col-sm-12 col-md-12 bg-dark padding-lg">
+        <div className="col-12 col-sm-12 col-md-12 bg-dark">
             <div className="card b-medik">
                 <div className="top-margin-md  section">
                     <div className="row justify-content-center align-items-center text-white">
@@ -87,8 +89,15 @@ const ChatReportDoctor = (props) => {
                                     <div className="row">
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
+                                                    <label>Patient Complains <span className="text-danger"></span></label>
+                                                   <textarea id={complains.id} onChange={(event)=>setComplainsHandler(event, complains.id)} className="form-control" placeholder="patient complains" required></textarea>
+                                                </div>
+                                             
+                                            </div> 
+                                            <div className="col-12 col-sm-12 col-md-12">
+                                                <div className="form-group">
                                                     <label>Diagnoses <span className="text-danger"></span></label>
-                                                   <textarea id={diagnose.id} onChange={(event)=>setDiagnoseHandler(event, diagnose.id)} className="form-control" placeholder="eg, malaria" required></textarea>
+                                                   <textarea id={diagnose.id} onChange={(event)=>setDiagnoseHandler(event, diagnose.id)} className="form-control" placeholder="Patient diagnosis" required></textarea>
                                                 </div>
                                              
                                             </div> 

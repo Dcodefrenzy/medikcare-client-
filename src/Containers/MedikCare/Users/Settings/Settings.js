@@ -31,21 +31,18 @@ useEffect(()=>{
                 <i className="fa fa-arrow-left text-dark">Back</i>
                 </Link>
                     <div className="user-section">
-                        <div className="card">
-                                <div className="card-body">
+                        <div className="">
                                     <div className="row">
                                         <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Profile } alt="health-questions" className='home-svg'/>
                                         </div>
                                        <div className="col-7 col-sm-8 col-md-8">
                                             <Link to="/user/profile">   
-    							            <h3>Personal Information</h3>
+    							            <h6>Personal Information</h6>
 								            <p className="text-dark top-margin-sm">update your profile details here.</p>
                                             </Link>
                                        </div>
                                     </div>
-                                </div>
-                                <div className="card-body">
                                     <div className="row">
                                         
                                          <div className="col-3 col-sm-2 col-md-2">
@@ -53,41 +50,38 @@ useEffect(()=>{
                                         </div>
                                        <div className="col-7 col-sm-8 col-md-8">
                                             <Link to="/user/password/change">
-    							            <h3>Password Change</h3>
+    							            <h6>Password Change</h6>
 								            <p className="text-dark top-margin-sm">update your password to a new one.</p>
                                             </Link>
                                        </div>
                                     </div>
-                                </div>
+                                
                                 <Link to="/user/reports">
-                                <div className="card-body">
                                     <div className="row">
                                          <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Record } alt="health-questions" className='home-svg'/>
                                         </div>
                                        <div className="col-7 col-sm-8 col-md-8">
                                             
-    							            <h3>Medical Record</h3>
+    							            <h6>Medical Record</h6>
 								            <p className="text-dark top-margin-sm">Download your medcal records here.</p>
 
                                        </div>
                                     </div>
-                                </div>
+                               
                                 </Link>
-                                <div className="card-body">
                                     <div className="row">
                                          <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Payment } alt="health-questions" className='home-svg'/>
                                         </div>
                                        <div className="col-7 col-sm-8 col-md-8">
                                             
-    							            <h3>Payment</h3>
+    							            <h6>Payment</h6>
 								            <p className="text-dark top-margin-sm">update your password to a new one.</p>
                                             <span>Coming Soon!</span>
                                            
                                        </div>
                                     </div>
-                                </div>
                         </div>
                     </div>
                 </div>

@@ -30,6 +30,7 @@ const ChatSession = (props) =>{
                 window.location = "/login?Session expired please login.";
                 }
             }else if(response.status === 200){
+                console.log(response)
                 displayDoctor(response.message._doctorId);
                 displayDoctorInfo(response.message)
                              
@@ -109,7 +110,7 @@ const ChatSession = (props) =>{
 
     return(  
             <div className="container-fluid">     
-                <section>
+                <div className="top-margin-sm">
                     <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                             <div className="justify-content-center medik-color">
                             <div className="col-12 col-sm-12 col-md-12">
@@ -122,9 +123,11 @@ const ChatSession = (props) =>{
                                         <div className="card-header b-medik"></div>
                                         <div className="card-body">
                                            <div className="row">
-                                           <div className="col-5 col-sm-5 col-md-5">
-                                           <img className="img-thumbnail" width="100%" src={"/Images/"+file.filename} alt="admin-profile-image"/>
+                                           <div className="col-12 col-sm-5 col-md-5">
+                                                <img className="img-thumbnail" width="100%" src={"/Images/"+file.filename} alt="admin-profile-image"/>
+                                                <p>{doctor.firstname+" "+doctor.lastname}</p>
                                                 <small className="block">{doctorInfo.specialty}</small>
+                                                <p><b>{doctor.gender}</b></p>
                                            </div>
                                            <div className="col-12 col-sm-6 col-md-6">
                                                <p className="text-dark">Do you want to start a session with Dr {doctor.firstname+" "+doctor.lastname} ?</p>
@@ -141,7 +144,7 @@ const ChatSession = (props) =>{
                                 </div>
                             </div>
                     </div>
-                </section>
+                </div>
             </div>
     )
 }

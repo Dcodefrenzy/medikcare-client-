@@ -45,13 +45,13 @@ useEffect(()=>{
             <Link to={`/user/report/${report._id}`}>
                 <div className="card-body">
                     <div className="row">
-                        <div className="col-6 col-sm-6 col-md-4">
+                        <div className="col-12 col-sm-6 col-md-4">
                             <img src={ Report } alt="health-questions" className='home-svg'/>
                         </div>
 
-                        <div className="col-6 col-sm-6 col-md-8">
+                        <div className="col-12 col-sm-6 col-md-8">
 
-                            <h3 className="text-dark">Diagnoses: {report.diagnoses}</h3>
+                            <h6 className="text-dark">Diagnoses: {report.diagnoses}</h6>
                             <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>                                                        
                         </div>
                     </div>
@@ -66,7 +66,7 @@ useEffect(()=>{
         <Loading display={display.display}/>
         <section className="user-section">
             <div className="col-12 col-sm-12 col-md-7 col-lg-7 offset-md-3 offset-lg-3 ">
-                <div className="card user-dashboard-content">
+                <div className=" user-dashboard-content">
                 <h1>User Medical Report</h1>
                 <Link to="/user/dashboard">  
                 <i className="fa fa-arrow-left text-dark">Back</i>

@@ -50,7 +50,7 @@ const DoctorLoginSession = (props) => {
         <div className={props.display}>
             <div className="col-12 col-sm-12 col-md-6 offset-md-3">
             <div className="card opacity fixed">
-                <section className="section">
+                <main className="section">
                     
                 <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 top-margin-lg">
                 <div className="card bg-dark ">
@@ -88,7 +88,7 @@ const DoctorLoginSession = (props) => {
                             </form>
                         </div>
                         </div>
-                </section>
+                </main>
             </div>
             </div>
         </div>

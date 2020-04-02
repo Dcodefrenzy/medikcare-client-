@@ -48,7 +48,7 @@ useEffect(()=>{
         <Loading display={display.display}/>
         <section className="user-section">
             <div className="col-12 col-sm-12 col-md-7 col-lg-7 offset-md-3 offset-lg-3 ">
-                <div className="card user-dashboard-content">
+                <div className="user-dashboard-content">
                 <h1>User Medical Report</h1>
                 <Link to="/user/reports">  
                 <i className="fa fa-arrow-left text-dark">Back</i>
@@ -60,7 +60,7 @@ useEffect(()=>{
                                     <div className="col-12 col-sm-12 col-md-8">
                                         <h3 className="text-dark">Diagnoses</h3>
                                         <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>  
-                                        <p>By {doctor.doc}</p>
+                                        <p className="text-success">By {doctor.doc}</p>
                                         <p>{report.diagnoses}</p>                                                      
                                     </div>
                                 </div>
