@@ -43,7 +43,7 @@ const Chat =(props)=>{
         OneSignal.push(function() {
             /* These examples are all valid */         
             OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-              if (isEnabled){
+              if (!isEnabled){
                 OneSignal.showSlidedownPrompt();
               }     
             });
