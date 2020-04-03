@@ -78,7 +78,7 @@ const DoctorDashboardDetails = (props) => {
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>PYSICAL SESSION</h3>
+    							<h3>PHYSICAL SESSION</h3>
 
                                 <button className="btn btn-sm btn-medik top-margin-md">Appointments</button>
 								<p>Coming Soon!</p>

@@ -79,7 +79,7 @@ class RegistrationValidation extends Component {
                  ageError: {
                     id:"ageError",
                     display:"display-none",
-                    value:"",
+                    value:"NA",
                  },
                  genderError: {
                     id:"genderError",
@@ -214,11 +214,19 @@ class RegistrationValidation extends Component {
                 emailError.display ="display-block";
                 emailError.value = response.message.email.message;
                 this.setState({emailError: emailError});
+                }else if(response.message.name === 'MongoError' && response.message.keyPattern.email){
+                    emailError.display ="display-block";
+                    emailError.value = "Email Already Exist.";
+                    this.setState({emailError: emailError});
                 } else { this.setState({emailError: emailError}); }
             //phone number
             if(response.message.phoneNumber) {      
                  phonenumberError.display = "display-block";
                  phonenumberError.value =response.message.phoneNumber.message;
+                this.setState({phonenumberError: phonenumberError});
+            }else if(response.message.name === 'MongoError' && response.message.keyPattern.phonenumber){
+                phonenumberError.display ="display-block";
+                phonenumberError.value = "Phone number Already Exist";
                 this.setState({phonenumberError: phonenumberError});
             }else { this.setState({phonenumberError: phonenumberError}); }
             if(response.message.password) {
@@ -226,16 +234,6 @@ class RegistrationValidation extends Component {
                 passwordError.value = response.message.password.message;
                 this.setState({passwordError:passwordError})
             }else {this.setState({passwordError:passwordError})} 
-            if (response.message.code === 11000 && response.message.name === "MongoError") {
-                
-            const displayPopMessage = {
-                ...this.state.popMessage
-                }
-                displayPopMessage.card = "card bg-danger text-white";
-                displayPopMessage.display = "row";
-                displayPopMessage.message = "Either this email or this phone number has been used to create an account. please login if you already have an account with us.";
-                this.setState({popMessage:displayPopMessage});
-            }
 
             }
         })
@@ -298,13 +296,6 @@ class RegistrationValidation extends Component {
                  phonenumberClass={this.state.phonenumberError.display}
                  phonenumberErrorValue={this.state.phonenumberError.value}
 
-
-                 ageId={this.state.registerForm.age.id} 
-                 ageValue={this.state.registerForm.age.value}
-                 ageChange={(event) => this.inputChangedHandler(event, this.state.registerForm.age.id)}
-                 ageErrorId={this.state.ageError.id}
-                 ageClass={this.state.ageError.display}
-                 ageErrorValue={this.state.ageError.value}
 
                  passwordId={this.state.registerForm.password.id} 
                  passwordValue={this.state.registerForm.password.value}

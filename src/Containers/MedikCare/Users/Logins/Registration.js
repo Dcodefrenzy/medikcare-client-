@@ -15,9 +15,9 @@ const UserRegistration = (props) => {
                     <div className="card-body"> 
                     <Link to="/"><i className="fa fa-arrow-left text-dark"></i></Link>
                     <h5>Create An Account</h5>
+                    <div className="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
                       <p className={props.errorDisplay}>{props.errorMessage}</p>
                                   
-                            <p className={props.errorDisplay}>{props.errorMessage}</p>
                                 <form onSubmit={props.submit}> 
                                         <div className="row">
                                             <div className="col-6 col-sm-6 col-md-6">
@@ -51,13 +51,6 @@ const UserRegistration = (props) => {
                                             </div>
                                             <div className="col-12 col-sm-6 col-md-6">
                                                 <div className="form-group">
-                                                    <label htmlFor="phoneNumber">Date of birth</label>
-                                                    <input type="date" name="age" min="1" max="3" className="form-control"  aria-describedby="age" placeholder="Please enter your date of birth." id={props.ageId} onChange={props.ageChange} value={props.ageValue}  required/>
-                                                    <span id={props.ageErrorId} className={props.ageClass}>{props.ageErrorValue}</span>
-                                                </div>
-                                            </div>
-                                            <div className="col-12 col-sm-6 col-md-6">
-                                                <div className="form-group">
                                                     <label htmlFor="referral">Gender</label>
                                                     <select className="form-control" name="referral" id={props.gender} onChange={props.genderChange}  required>
                                                         <option value="">Select</option>
@@ -82,7 +75,7 @@ const UserRegistration = (props) => {
                                                     <span id={props.passErrorId} className={props.passClass}>{props.passErrorValue}</span>
                                                 </div>
                                             </div>
-                                            <div className="col-12 col-sm-12 col-md-12">
+                                            <div className="col-12 col-sm-12 col-md-6">
                                             <div className="form-group">
                                                 <label htmlFor="referral">How did you hear about us?</label>
                                                 <select className="form-control" name="referral" id={props.socialMediaId} onChange={props.socialMediaChange} required>

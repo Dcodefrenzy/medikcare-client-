@@ -54,13 +54,25 @@ useEffect(()=>{
                 <i className="fa fa-arrow-left text-dark">Back</i>
                 </Link>
                     <div className="user-section">
+                        
+                        <h6 className="text-success"><b className="text-dark">Report By-</b> {doctor.doc}</h6>
+                        <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>  
+                                        
+                        <div className="card bottom-margin-sm">
+                            <div className="card-body">
+                                <div className="row">
+                                    <div className="col-12 col-sm-12 col-md-8">
+                                        <h3 className="text-dark">Health Complain</h3>
+                                        <p>{report.complains}</p>                                                      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div className="card bottom-margin-sm">
                             <div className="card-body">
                                 <div className="row">
                                     <div className="col-12 col-sm-12 col-md-8">
                                         <h3 className="text-dark">Diagnoses</h3>
-                                        <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>  
-                                        <p className="text-success">By {doctor.doc}</p>
                                         <p>{report.diagnoses}</p>                                                      
                                     </div>
                                 </div>
