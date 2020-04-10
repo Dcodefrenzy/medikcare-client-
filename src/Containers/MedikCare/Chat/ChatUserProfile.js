@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SessionContext } from './ChatDashboard';
-import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
-import DoctorLoginSession from '../../Medicals/Doctors/DoctorsLogins/LoginSession';
+import DoctorLoginSession from '../Medicals/Doctors/DoctorsLogins/LoginSession';
 
 
-const ChatSession = (props) =>{
+const ChatUserProfile = (props) =>{
     const [user, displayUser] = useState({});
     const [userSession, setUserSession] =useState({})
     const [userReports, setUserReports] = useState([]);
@@ -24,7 +22,7 @@ const ChatSession = (props) =>{
         if(session === null) {
             setDoctorSession({display:"row"});
         }else{
-            checkSession();
+            fetchUserHandeller();
         }
     }
     const fetchUserHandeller = () => {
@@ -41,13 +39,13 @@ const ChatSession = (props) =>{
                 setDoctorSession({display:"row"});
             }else if(response.status === 200){
                 //console.log(response)
-                if (response.message.emergencyLevel == 1) {
+                if (response.message.emergencyLevel === 1) {
                     response.message.emergencyLevel = "Not Critical";
                     response.message.color = "text-primary";
-                }else if (response.message.emergencyLevel == 2) {
+                }else if (response.message.emergencyLevel === 2) {
                     response.message.emergencyLevel = "Managable";
                     response.message.color = "text-warning";
-                }else if (response.message.emergencyLevel == 3) {
+                }else if (response.message.emergencyLevel === 3) {
                     response.message.emergencyLevel = "Critical";
                     response.message.color = "text-danger";
                 }
@@ -89,58 +87,6 @@ const endReportDisplay = (event)=>{
 }
 
 
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-        port =  "http://localhost:7979"
-    }else if(process.env.NODE_ENV === 'production'){
-        port =    "";
-    }
-    const socket = io(port,{transports: ['websocket']});
-    const checkSession =()=>{
-        socket.emit("check session", session._id);
-    }
-    socket.on("check session", (checkSession)=>{
-        //console.log(checkSession)
-        if(!checkSession ) {
-            fetchUserHandeller();
-        }else{
-            let id ="";
-            if (session._id === checkSession.from) {
-                id = checkSession.to;
-                window.location = "/chat/current/session/"+id;
-            }else if(session._id === checkSession.to) {
-                id = checkSession.from;      
-            window.location = "/chat/current/session/"+id;
-            }
-        }
-        
-    })
-    const startSessionHander = (event)=>{
-            event.preventDefault();
-            setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})
-            const id = props.match.params.id
-            const url = "/api/v1/doctor/chat/session/"+id;
-        
-                fetch(url, {
-                    method:"PATCH",
-                    headers:{"Content-Type":"application/json", "u-auth":session.token}
-                })
-                .then(res => res.json())
-                .then(response =>{ //console.log(response)
-                    if(response.status === 401) {
-                        sessionStorage.removeItem("doctor");
-                        setDoctorSession({display:"row"});
-                    }else if(response.status === 201){ 
-                       // console.log("YAY!")
-                    socket.emit("session start", session._id, id);
-                    setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
-                        
-                    }
-                })
-    }
-    socket.on('create session', (from, to)=>{
-        window.location = "/chat/"+props.match.params.id;
-    })
 
     useEffect(()=>{
         authentication();
@@ -160,7 +106,6 @@ const endReportDisplay = (event)=>{
               })
     return(  
             <div className="container-fluid"> 
-            
             <DoctorLoginSession display={doctorSession.display} />
                 <div className="col-12 col-sm-12 col-md-6 offset-md-3">
                     <div className={reportDisplay.display}>
@@ -190,7 +135,7 @@ const endReportDisplay = (event)=>{
                     <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                             <div className="justify-content-center medik-color">
                             <div className="col-12 col-sm-12 col-md-12">
-                                <Link to="/chat/doctors/doctor"> 
+                                <Link to={"/chat/"+props.match.params.id}> 
                                     <button className="btn-sm btn-medik">Go back</button>
                                 </Link>
                                 </div>
@@ -209,15 +154,6 @@ const endReportDisplay = (event)=>{
                                                 
                                                 <p className="">{userSession.complain}</p>
                                            </div>
-                                           <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">Do you want to join a session with {user.firstname+" "+user.lastname} ?</p>
-                                                    <div className={alert.spinnerDisplay}>
-                                                        <i className="fa fa-spinner fa-pulse fa-3x"></i>
-                                                    </div>
-                                                    <div className={alert.buttonDisplay}>   
-                                                        <Link to="/chat/doctors"> <button className="btn-sm btn-warning">No</button></Link><button className="btn-sm btn-danger" onClick={(event)=>startSessionHander(event, user._id)} id={user._id}>Yes</button>
-                                                    </div>
-                                               </div>
                                            </div>
                                         </div>
                                     </div>
@@ -233,4 +169,4 @@ const endReportDisplay = (event)=>{
     )
 }
 
-export default ChatSession;
+export default ChatUserProfile;

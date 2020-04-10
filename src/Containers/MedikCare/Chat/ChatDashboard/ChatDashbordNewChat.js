@@ -15,7 +15,7 @@ const ChatDashbordNewChat = (props) =>{
     const getSession = ()=> {
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
         if( sessionItemUser === null) {
-            window.history.back();
+            window.location = "/login";
         }
     }
 

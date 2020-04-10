@@ -10,19 +10,49 @@ import DoctorLoginSession from '../../Medicals/Doctors/DoctorsLogins/LoginSessio
 
 
 const ChatDashbordNewChatDoctor = (props) =>{
-    const [sessions, displaySession] = useState([])
+    const [sessions, displaySession] = useState([]);
+    const [newSession, setNewSession] = useState([]);
     const [doctorSession, setDoctorSession] = useState({display:"display-none"})
          
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     
-    const   [alert, setAlert]= useState({sessionDisplay:"", buttonDisplay:"block", spinnerDisplay:""})
-        let session;
+    const   [alert, setAlert]= useState({newSessionDisplay:"display-none", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+    let session;
+
     const getSession = ()=> {
 
         if(sessionItemDoctor === null) {
             setDoctorSession({display:"row"})
         }
-    }       
+    }  
+    
+    const fetchSessions = ()=>{
+        const url = "/api/v1/chatSession";
+        fetch(url, {
+            method: "GET",
+            headers: {'Content-Type': "application/json", "u-auth": sessionItemDoctor.token}
+        })
+        .then(res => res.json())
+        .then(response => { console.log(response)
+            if(response.status === 401) {
+                sessionStorage.removeItem("doctor");
+                setDoctorSession({display:"row"});
+            }else if (response.status === 403) { 
+                setAlert({sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+            }else if (response.status === 200) {
+                if (response.message.length < 1) {
+                    setAlert({sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+
+                }else{
+                    setAlert({newSessionDisplay:"", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
+
+                    setNewSession(response.message)
+                   
+                }
+            }
+        })
+    }
+
     let port ="";
     if (process.env.NODE_ENV !== 'production') {
 		 port =  "http://localhost:7979";
@@ -31,19 +61,18 @@ const ChatDashbordNewChatDoctor = (props) =>{
       }
 
     
-      const socket = io(port,{transports: ['websocket']});
-   const fetchDoctorsSessions =()=>{
-    if(sessionItemDoctor === null) {
-        setDoctorSession({display:"row"})
-    }else{
-        socket.emit("fetch session", sessionItemDoctor._id);
-    }
+    const socket = io(port,{transports: ['websocket']});
+    const fetchDoctorsSessions =()=>{
+        if(sessionItemDoctor === null) {
+            setDoctorSession({display:"row"})
+        }else{
+            socket.emit("fetch session", sessionItemDoctor._id);
+        }
     }
     socket.on("fetch session", (sessions)=>{     
         setAlert({buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
         if (sessions.length < 1) {
-            
-        setAlert({sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+            fetchSessions();
         }
         displaySession(sessions);
     })
@@ -68,33 +97,35 @@ const ChatDashbordNewChatDoctor = (props) =>{
                     </div>
                 </div>
                 </Link> 
-        })
+        })    
+        const newSessionDetails = newSession.map((newSession)=>{
+            let color
+            if (newSession.emergencyLevel == 1) {
+                newSession.emergencyLevel = "Not Critical";
+                color = "text-primary"
+            }else if (newSession.emergencyLevel == 2) {
+                newSession.emergencyLevel = "Managable";
+                color = "text-warning";
+            }else if (newSession.emergencyLevel == 3) {
+                newSession.emergencyLevel = "Critical";
+                color = "text-danger";
+            }
+            return    <Link to={"/chat/session/"+newSession.userId} key={newSession._id}>
+                      <div className="card ">
+                          <div className="card-body text-dark">
+                              <span className="card-text text-dark">Patient Complains:</span>
+                            <p>{newSession.complain}</p>
+                            <p className="card-text text-dark"><i className="fa fa-clock"></i> <Moment fromNow>{newSession.createdAt}</Moment></p>
+                            <span className={`${color} float-right`} aria-hidden="true"><b className="text-dark">Emergency level: </b>{newSession.emergencyLevel}</span>                      
+                          </div>
+                      </div>
+                      </Link> 
+              })
     return( 
         <div className="container-fluid">
             <div className="row">
                 <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
-                             
-                <section className={alert.alertDisplay}>
-                <div className="container verification section">
-                    <div>
-                        <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-7 offset-md-3 col-lg-7 offset-lg-3">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h3 className="text-white">No Sessions</h3>
-                                    <h1 className="text-center top-margin-md">😎</h1>
-                                    <p className="top-margin-md text-white">Yay! there are no sessions yet, you can check back in the next hour.👍</p>
-                                   <div className="col-10 offset-3 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4 top-margin-md"> 
-                                   <Link to="/doctor/dashboard">
-                                                <button className="btn btn-medik top-margin-md">Go to dashboard</button>
-                                            </Link>
-                                   </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </section>
-                    <div className="card">
+                    <div className="">
                         <div className="card-body">
                             <div className="card  position-fixed fixed-top">
                                 <div className="card-body text-dark">
@@ -118,17 +149,36 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                 </div>
                             </div>
                             <div className="chat">
-                                    <section  className={alert.sessionDisplay}> 
-                                        
-                                <div className={"text-center "+alert.spinnerDisplay}>
-                                         <i className="fa fa-spinner fa-pulse text-white fa-3x"></i>
-                                    </div>
-                                        <div>
-                                            <h1 className="text-dark text-center">Patient Sessions</h1>
-                                                    {sessionDetails}
-                                               
+                                                            
+                            <section className={alert.alertDisplay}>
+                                <div className="container verification section">
+                                    <div>
+                                        <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-7 offset-md-3 col-lg-7 offset-lg-3">
+                                            <div className="">
+                                                <div className="card-body">
+                                                    <h3 className="text-dark">No Sessions Yet</h3>
+                                                    <p className="top-margin-md text-dark">There are no sessions yet, you can check back in the next hour.👍</p>
+                                                    <div className="col-12 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4 top-margin-md"> 
+                                                        <Link to="/doctor/dashboard">
+                                                            <button className="btn btn-medik top-margin-md">Go to dashboard</button>
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </section>
+                                    </div>
+                                </div>
+                            </section>
+                            <section className={alert.sessionDisplay}> 
+                                <div>
+                                    <h3>You have a session already</h3>
+                                    {sessionDetails}   
+                                </div>
+                            </section>
+                            <section className={alert.newSessionDisplay}>
+                                    <h3>Patient Waiting List</h3>
+                                {newSessionDetails}
+                            </section>
                                 </div>
                             </div>
                         </div>

@@ -13,6 +13,7 @@ const ChatFeedbackUser = (props) => {
     const [improve, setImprove] = useState({id:"improve",value:""})
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none", formDisplay:""})
     const [loginSession, setLoginSession] = useState({display:"display-none"})
+    const [userSession, setuserSession] = useState({})
         
     const setMedikImproveHandler =(event)=>{ setMedikImprove({id:"medikImprove", value:event.target.value}) }
     const setDoctorImproveHandler =(event)=>{ setDoctorImprove({id:"doctorImprove", value:event.target.value}) }
@@ -20,8 +21,31 @@ const ChatFeedbackUser = (props) => {
     const checkSession = ()=>{
         if (sessionItem === null) {
             setLoginSession({display:"row"})
+        }else{
+            fetchUserSession();
         }
     }
+
+
+    const fetchUserSession=()=>{ 
+        const url = "/api/v1/chatSession/user/"+sessionItem._id;
+        fetch(url, {
+            method: "GET",
+            headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
+        })
+        .then(res => res.json())
+        .then(response => { 
+            if(response.status === 401) {
+                sessionStorage.removeItem("user");
+                setLoginSession({display:"row"});
+            }else if (response.status === 200) {
+               
+                setuserSession(response.message)
+            }
+        })
+    }
+
+
     const submitChatMetricHandler=(event)=>{
         event.preventDefault(); 
         let metricTitle;
@@ -60,8 +84,8 @@ const ChatFeedbackUser = (props) => {
             docMetricTitle = "Just perfect"
         }
 
-        const metrics = {"metric":parseInt(medikImprove.value), "metricTitle":metricTitle, "userType":"User", "description":improve.value, "docMetric": parseInt(doctorImprove.value), "docMetricTitle":docMetricTitle, "chatSessionId":chatSessionId,"_userId":sessionItem._id, "_doctorId":to}
-       console.log(metrics)
+        const metrics = {"metric":parseInt(medikImprove.value), "metricTitle":metricTitle, "userType":"User", "description":improve.value, "docMetric": parseInt(doctorImprove.value), "docMetricTitle":docMetricTitle, "chatSessionId":userSession._id,"_userId":sessionItem._id, "_doctorId":to}
+      
         const url = "/api/v1/user/chatMetric/add"
         fetch(url, {
             method: "POST",
@@ -71,10 +95,12 @@ const ChatFeedbackUser = (props) => {
         .then(res => res.json())
         .then(response => { console.log(response)
             if(response.status === 401) {
-                sessionStorage.removeItem("user");
-                window.location = "/login?Session expired please login."
+                sessionStorage.removeItem("user");  
+            setLoginSession({display:"row"})
             }else if (response.status === 201) {
                 setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
+            }else if (response.status === 200) {
+                setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"});
             }
         })
     }
@@ -87,8 +113,10 @@ const ChatFeedbackUser = (props) => {
     return(
     <div className={props.display}>
         <div className="col-12 col-sm-12 col-md-12 bg-dark">
-           
             <div className="card b-medik">
+                <Link to={"/chat/"+props.match.params.id} className="card-body"> 
+                    <button className="btn-sm btn-dark">Go back</button>
+                </Link>
                 <div className="section">
                     <div className="row justify-content-center align-items-center text-white">
                         

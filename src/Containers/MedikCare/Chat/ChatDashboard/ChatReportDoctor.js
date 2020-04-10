@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DoctorLoginSession from "../../Medicals/Doctors/DoctorsLogins/LoginSession";
+import io from 'socket.io-client';
 
 
 
@@ -10,6 +11,7 @@ const ChatReportDoctor = (props) => {
     const from = props.match.params.id;
     const chatSessionId = props.match.params.sessionId;
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
+    const [userSession, setUserSession] =useState({})
     const [medikImprove, setMedikImprove] = useState({id:"medikImprove",value:""})
     const [diagnose, setDiagnose] = useState({id:"diagnose",value:""})
     const [test, setTest] = useState({id:"test",value:""})
@@ -25,31 +27,70 @@ const ChatReportDoctor = (props) => {
     const checkSession = ()=>{
         if (sessionItem === null) {
             setLoginSession({display:"row"})
+        }else{
+            fetchUserHandeller();
         }
     }
 
+    const fetchUserHandeller = () => {
+        const id = props.match.params.id
+         const url = "/api/v1/user/doctor/"+id;
+         fetch(url, {
+             method:"GET",
+             headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
+         })
+         .then(res => res.json())
+         .then(response =>{//console.log(response)
+             if(response.status === 401) {
+                 sessionStorage.removeItem("doctor");
+                 setLoginSession({display:"row"});
+             }else if(response.status === 200){
+               setUserSession(response.message);
+             }
+         })
+     }  
+
+    let port ="";
+    if (process.env.NODE_ENV !== 'production') {
+		 port =  "http://localhost:7979"
+	  }else if(process.env.NODE_ENV === 'production'){
+            port =    "";
+      }
+
+    
+    const socket = io(port,{transports: ['websocket']});
+
    const submitChatMetricHandler=(event)=>{
-        event.preventDefault(); 
+        event.preventDefault();  
+      
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
-        const report = {"complains":complains.value,"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":chatSessionId,"_userId":from, "_doctorId":sessionItem._id}
-        const url = "/api/v1/doctor/report/add"
-        fetch(url, {
-            method: "POST",
-            body:JSON.stringify(report),
-            headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
-        })
-        .then(res => res.json())
-        .then(response => { console.log(response)
-            if(response.status === 401) {
-                sessionStorage.removeItem("doctor");
-                //window.location = "/doctor/login?Session expired please login."
-            }else if (response.status === 201) {
-                setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
-            }else if (response.status === 200) {
-                setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
-            }
-        })
+            const report = {"complains":complains.value,"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":userSession._id,"_userId":from, "_doctorId":sessionItem._id}
+            const url = "/api/v1/doctor/report/add"
+            fetch(url, {
+                method: "POST",
+                body:JSON.stringify(report),
+                headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
+            })
+            .then(res => res.json())
+            .then(response => { console.log(response)
+                if(response.status === 401) {
+                    sessionStorage.removeItem("doctor");
+                    setLoginSession({display:"row"})
+                }else if (response.status === 201) {
+                    const sessionData = {"from":sessionItem._id, "to":from};
+                    socket.emit("end session", sessionData);
+                }else if (response.status === 200) { 
+                    const sessionData = {"from":sessionItem._id, "to":from};
+                    socket.emit("end session", sessionData);
+                }
+            })
     }
+
+    
+    socket.on("end session", (dataset)=>{
+        console.log("ueueueu")
+       setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
+    })
     
     useEffect(()=>{
         checkSession();

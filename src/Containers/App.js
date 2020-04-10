@@ -62,6 +62,9 @@ import AdminMailer from './MedikCare/Admins/Mailer/Mails';
 import UserReport from './MedikCare/Users/Reports/UserReport';
 import Risk from './MedikCare/Covid19/Risk';
 import HealthDoctorQuestionAnswersClass from './MedikCare/Health/HealthQuestionAnswers/HealthDoctorQuestionAnswerClass';
+import ChatCreateSession from './MedikCare/Chat/ChatDashboard/ChatCreateSession';
+import ChatUserProfile from './MedikCare/Chat/ChatUserProfile';
+import chatDoctorProfile from './MedikCare/Chat/ChatDoctorProfile';
 
 
 
@@ -153,14 +156,17 @@ import HealthDoctorQuestionAnswersClass from './MedikCare/Health/HealthQuestionA
 
 					
 						<Route path="/chat/dashboard" exact component={ChatDashboard} />
-						<Route path="/chat/doctors" exact component={ChatDashbordNewChat} />
+						<Route path="/chat/doctors" exact component={ChatCreateSession} />
+						<Route path="/chat/user/profile/:id" exact component={ChatUserProfile} />
+						<Route path="/chat/doctor/profile/:id" exact component={chatDoctorProfile} />
+						
 						<Route path="/chat/notifications" exact component={ChatDashbordActivities} />
 						<Route path="/chat/:id" exact component={Chat} />
 						<Route path="/chat/session/:id" exact component={ChatSession} />
 						<Route path="/chat/current/session/:id" exact component={chatCurrentsession} />
 						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
-						<Route path="/chat/feedback/:id/:sessionId" exact  component={ChatFeedbackUser} />
-						<Route path="/chat/report/:id/:sessionId" exact component={ChatReportDoctor} />
+						<Route path="/chat/feedback/:id" exact  component={ChatFeedbackUser} />
+						<Route path="/chat/report/:id" exact component={ChatReportDoctor} />
 						
 						
 

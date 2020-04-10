@@ -39,7 +39,7 @@ const Chat =(props)=>{
     const allowPush=()=>{
         const OneSignal = window.OneSignal || []; 
             
-        OneSignal.showSlidedownPrompt();
+      //  OneSignal.showSlidedownPrompt();
         OneSignal.push(function() {
             /* These examples are all valid */         
             OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
@@ -224,20 +224,24 @@ const Chat =(props)=>{
         }
     })
 
-
-    const endSession=(event)=>{
+const viewProfile= (event, id)=>{
+    event.preventDefault();
+    if (sessionItemDoctor) {
+        window.location = "/chat/user/profile/"+id;
+    }else if(sessionItemUser){
+        window.location = "/chat/doctor/profile/"+id;
+    }
+}
+    const endSession=(event, id)=>{
         event.preventDefault();
         //console.log(session)
-        const sessionData = {"from":session._id, "to":to};  
-        socket.emit("end session", sessionData);
-    }
-    socket.on("end session", (dataset, sessionData)=>{
         if (sessionItemDoctor) {
-            window.location = "/chat/report/"+dataset.from+"/"+sessionData._id;
+            window.location = "/chat/report/"+id;
         }else if(sessionItemUser){
-            window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
+            window.location = "/chat/feedback/"+id;
         }
-    })
+    }
+
 
     useEffect(()=>{
         getSession();
@@ -311,7 +315,9 @@ const Chat =(props)=>{
                                                 <div className="dropdown dropleft">
                                                     <i className="fa fa-ellipsis-v  fa-3x text-white" aria-hidden="true" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"></i>
                                                     <div className="dropdown-menu">
-                                                        <div><a onClick={(event)=>endSession(event)} className="dropdown-item" href="#">End Chat</a></div>
+                                                        <div> <span onClick={event => viewProfile(event, props.match.params.id)} className="dropdown-item" href="#">profile</span></div>
+                                                        <div className="dropdown-divider"></div>
+                                                        <div><a onClick={(event)=>endSession(event, props.match.params.id)} className="dropdown-item" href="#">End Chat</a></div>
                                                         <div className="dropdown-divider"></div>
                                                         <a className="dropdown-item" href="#">Back</a>
                                                     </div>

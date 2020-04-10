@@ -93,7 +93,7 @@ useEffect(()=>{
                                 <div className="row">
                                     <div className="col-12 col-sm-12 col-md-8">
                                         <h3 className="text-dark">Lab Test</h3>
-                                        <p>{report.diagnoses}</p>                                                      
+                                        <p>{report.test}</p>                                                      
                                     </div>
                                 </div>
                             </div>

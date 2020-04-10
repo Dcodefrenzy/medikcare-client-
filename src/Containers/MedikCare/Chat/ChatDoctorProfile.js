@@ -1,13 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { SessionContext } from './ChatDashboard';
-import io from 'socket.io-client';
-import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
-import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
-import LoginSession from "../../Users/Logins/LoginSession";
+import LoginSession from "../Users/Logins/LoginSession";
 
 
-const chatCurrentsession = (props) =>{
+const chatDoctorProfile = (props) =>{
     const id = props.match.params.id
 
     const [doctor, displayDoctor] = useState([]);
@@ -21,6 +17,9 @@ const chatCurrentsession = (props) =>{
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
         if( sessionItemUser === null) {
             setLoginSession({display:"row"})
+        }else{
+            
+        fetchDoctorsHandeller();
         }
     }
 
@@ -50,30 +49,9 @@ const chatCurrentsession = (props) =>{
              }
          })
      }
-     let port ="";
-     if (process.env.NODE_ENV !== 'production') {
-          port =  "http://localhost:7979";
-       }else if(process.env.NODE_ENV === 'production'){
-            port =    "";
-       }
- 
-     
-     
-    const socket = io(port,{transports: ['websocket']});
-    const endSession=(event)=>{
-        event.preventDefault();
-        const session = JSON.parse(sessionStorage.getItem("user"));
-        const sessionData = {"from":session._id, "to":id};  
-        socket.emit("end session", sessionData);
-    }
-    socket.on("end session", (dataset, sessionData)=>{
-        window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
-    })
-
 
     useEffect(()=>{
         getSession();
-        fetchDoctorsHandeller();
     }, [])
 
    
@@ -84,7 +62,7 @@ const chatCurrentsession = (props) =>{
             <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="justify-content-center medik-color">
                     <div className="col-12 col-sm-12 col-md-12">
-                        <Link to="/chat/dashboard"> 
+                        <Link to={"/chat/"+props.match.params.id}> 
                             <button className="btn-sm btn-medik">Go back</button>
                         </Link>
                         </div>
@@ -97,16 +75,14 @@ const chatCurrentsession = (props) =>{
                                    <img className="img-thumbnail" width="100%" src={"/Images/"+file.filename} alt="admin-profile-image"/>
                                         <small className="block">{doctorInfo.specialty}</small>
                                    </div>
-                                   <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, do you want to End or Continue your session? </p>
-                                                    <div className={alert.spinnerDisplay}>
-                                                        <i className="fa fa-spinner fa-pulse fa-3x"></i>
-                                                    </div>
-                                                    <div className={alert.buttonDisplay}>   
-                                                        <button onClick={(event)=>endSession(event)} className="btn-sm btn-warning">End</button>
-                                                        <Link to={"/chat/"+doctor._id}><button className="btn-sm btn-success" id={doctor._id}>Continue</button></Link>
-                                                    </div>
-                                               </div>
+                                        <div className="col-12 col-sm-6 col-md-6">
+                                            <p className="text-dark"> {doctor.firstname+" "+doctor.lastname} </p>
+                                            <p>{doctor.gender}</p>
+                                                <div className={alert.spinnerDisplay}>
+                                                    <i className="fa fa-spinner fa-pulse fa-3x"></i>
+                                                </div>
+                                                
+                                            </div>
                                    </div>
                                 </div>
                             </div>
@@ -118,4 +94,4 @@ const chatCurrentsession = (props) =>{
     )
 }
 
-export default chatCurrentsession;
+export default chatDoctorProfile;
