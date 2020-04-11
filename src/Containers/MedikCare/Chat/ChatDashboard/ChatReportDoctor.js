@@ -4,6 +4,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DoctorLoginSession from "../../Medicals/Doctors/DoctorsLogins/LoginSession";
 import io from 'socket.io-client';
+import Loading from "../../Loading/Loading";
 
 
 
@@ -12,6 +13,7 @@ const ChatReportDoctor = (props) => {
     const chatSessionId = props.match.params.sessionId;
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     const [userSession, setUserSession] =useState({})
+    const [loading, setLoading] =useState({display:""})
     const [medikImprove, setMedikImprove] = useState({id:"medikImprove",value:""})
     const [diagnose, setDiagnose] = useState({id:"diagnose",value:""})
     const [test, setTest] = useState({id:"test",value:""})
@@ -40,11 +42,12 @@ const ChatReportDoctor = (props) => {
              headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
          })
          .then(res => res.json())
-         .then(response =>{//console.log(response)
+         .then(response =>{console.log(response)
              if(response.status === 401) {
                  sessionStorage.removeItem("doctor");
                  setLoginSession({display:"row"});
              }else if(response.status === 200){
+                setLoading({display:"display-none"});
                setUserSession(response.message);
              }
          })
@@ -64,7 +67,15 @@ const ChatReportDoctor = (props) => {
         event.preventDefault();  
       
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
-            const report = {"complains":complains.value,"diagnoses":diagnose.value, "test":test.value,"medication":medication.value,  "chatSessionId":userSession._id,"_userId":from, "_doctorId":sessionItem._id}
+            const report = {"complains":complains.value,
+                            "diagnoses":diagnose.value, 
+                            "test":test.value,
+                            "medication":medication.value, 
+                            "chatSessionId":userSession._id,
+                            "_userId":from, 
+                            "_doctorId":sessionItem._id
+                        }
+                        console.log(report);
             const url = "/api/v1/doctor/report/add"
             fetch(url, {
                 method: "POST",
@@ -88,7 +99,6 @@ const ChatReportDoctor = (props) => {
 
     
     socket.on("end session", (dataset)=>{
-        console.log("ueueueu")
        setAlert({alertDisplay:"row", spinnerDisplay:"display-none", formDisplay:"display-none"})
     })
     
@@ -97,6 +107,7 @@ const ChatReportDoctor = (props) => {
     }, [])
     return(
     <div className={props.display}>
+        <Loading display={loading.display} />
         <div className="col-12 col-sm-12 col-md-12 bg-dark">
             <div className="card b-medik">
                 <div className="top-margin-md  section">
@@ -121,6 +132,7 @@ const ChatReportDoctor = (props) => {
                     </div>
                 </div>
                     <div className={` ${alert.formDisplay}`}>
+                        
                         <DoctorLoginSession display={loginSession.display}/>
                                 <div className="card-body">
                                     <div className="col-12 col-sm-12 col-md-12">
