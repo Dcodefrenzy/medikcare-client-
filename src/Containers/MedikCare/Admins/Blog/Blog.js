@@ -10,11 +10,11 @@ import 'moment-timezone';
 const AdminBlog = ()=>{
     const [admins, setAdmins] =useState([]);
     const [blogItem, setBlogItem] = useState([]);
- 
+    const [videoLink, setIframeDIsplay] = useState({display:""})
     const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
 
     const  fetchBlogArticles =()=>{
-        const url = "/api/v1/blogs/"
+        const url = "/api/v1/blogs/";
         fetch(url,{
             method:"GET",
             headers:{'Content-Type': "application/json", "x-auth": sessionItem.token}
@@ -22,10 +22,15 @@ const AdminBlog = ()=>{
         .then(res=>res.json())
         .then(response=>{
             if (response.status === 200) {
-                setBlogItem(response.message)
-       
+                
+            if(response.message.videoLink) {
+                setIframeDIsplay({display:""});
+            }else{
+                setIframeDIsplay({display:"display-none"});
             }
-        })
+                setBlogItem(response.message);
+            }
+        });
     }
 
    const fetchAdmins = () =>{
@@ -37,9 +42,10 @@ const AdminBlog = ()=>{
         .then(res=>res.json())
         .then(response=>{
             if (response.status === 200) {
-                setAdmins(response.admins)
+                
+                setAdmins(response.admins);
             }
-        })
+        });
     }
 
     const updateBlogPublish = (event, deleteArticle, blogId)=>{
@@ -71,10 +77,9 @@ const AdminBlog = ()=>{
             .then(res=>res.json())
             .then(response=>{
                 if (response.status === 201) {
-                   
                    console.log(response);
                 }else{
-                    console.log(response)
+                   // console.log(response)
                 }
             })
     }

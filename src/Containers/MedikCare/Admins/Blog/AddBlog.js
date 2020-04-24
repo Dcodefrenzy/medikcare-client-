@@ -20,23 +20,27 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
 const [blogTopic, setBlogTopic] = useState({value:""})
 const [blogCategory, setBlogCategory] = useState({value:""})
 const [blogArticle, setBlogArticle] = useState({value:""});
+const [videoLink,setVideoLink] = useState({value:""});
 
 
 
 
 const validateBlogMessage = (event) =>{
-    setBlogArticle({value:event.editor.getData()})
+    setBlogArticle({value:event.editor.getData()});
 }
 
 const validateBlogTopic = (event)=>{
-    setBlogTopic({value:event.target.value})
+    setBlogTopic({value:event.target.value});
 }
 const validateBlogCategory = (event)=>{
-    setBlogCategory({value:event.target.value})
+    setBlogCategory({value:event.target.value});
+}
+const validateVideoLink = (event) =>{
+    setVideoLink({value:event.target.value});
 }
 const submitBlog = (event)=>{
     event.preventDefault();
-    const blog = {topic:blogTopic.value, category:blogCategory.value, article:blogArticle.value}
+    const blog = {topic:blogTopic.value, category:blogCategory.value, article:blogArticle.value, videoLink:videoLink.value};
    const url = "/api/v1/blogs/add/";
     fetch(url, {
         method:"POST",
@@ -179,9 +183,17 @@ const allImages = images.map((image)=>{
                                                 <select onChange={event=>validateBlogCategory(event)} name="category" className="form-control" required>
                                                     <option value="">select category</option>
                                                     <option value="1">MedikByte</option>
-                                                    <option value="2">Other</option>
+                                                    <option value="2">MedikByte Video</option>
+                                                    <option value="3">Other</option>
                                                 </select>
                                             </div>
+                                        </div>
+                                        <div className="col-12 col-sm-12 col-md-12">
+                                            <div className="form-group">
+                                                    <label htmlFor="Video">Video Link</label>
+                                                    <input type="text" value={videoLink.value} onChange={event=>validateVideoLink(event)} className="form-control" />
+                                                    <span></span>
+                                                </div>
                                         </div>
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group text-dark">  
@@ -193,6 +205,7 @@ const allImages = images.map((image)=>{
                                                             console.log( 'Editor is ready to use!', editor );
                                                         } }
                                                         onChange={event => validateBlogMessage(event)}
+                                                        
                                                     />
                                                 </div>
                                             </div>

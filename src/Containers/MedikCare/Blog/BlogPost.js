@@ -12,6 +12,7 @@ const BlogPost = (props)=>{
 
     const [blog, setBlog]=useState({});
     const [blogs, setBlogs]=useState([]);
+    const [iframe, setIframeDIsplay] = useState({display:""})
 
    const fetchOneBlogHandler = ()=>{
        const url = "/api/v1/blogs/users/"+_id;
@@ -28,7 +29,11 @@ const BlogPost = (props)=>{
         }else{
             response.message.blogImage = response.message.image.filename;
         }
-        console.log(response.message)
+            if(response.message.videoLink) {
+                setIframeDIsplay({display:""});
+            }else{
+                setIframeDIsplay({display:"display-none"});
+            }
             setBlog(response.message);
         })
     }
@@ -107,7 +112,8 @@ const BlogPost = (props)=>{
                                  
                             </div>
                              <div className="card-body">  
-                                   <div className="blog-image" dangerouslySetInnerHTML={{ __html: blog.article }} />         
+                                   <div className="blog-image" dangerouslySetInnerHTML={{ __html: blog.article }} /> 
+                                   <iframe className={` ${iframe.display} iframe-height`} width="100%"  src={`https://www.youtube.com/embed/${blog.videoLink}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>          
                                 </div>
                             </div>
                         </div>

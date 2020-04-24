@@ -241,7 +241,7 @@ useEffect(()=>{
                                    <div className="row">
                                     <div className="col-12 col-sm-12 col-md-12">
                                         <div className="row">
-                                           <div className="col-5 col-sm-5 col-md-5">
+                                           <div className="col-12 col-sm-5 col-md-5">
                                            <img className="img-thumbnail" width="100%"src={"/Images/"+blogFile.filename}  alt="blog image"/>
                                            <form onSubmit={addBlogImage}>          
                                                 <div className="col-12 col-sm-12 col-md-12">
@@ -267,9 +267,10 @@ useEffect(()=>{
                                             <button className="btn btn-sm btn-medik" onClick={(event)=>updateBlogPublish(event, !blogItem.deleteArticle)}>{blogItem.deleteArticleStatus}</button>
                                         </div>
                                            </div>
-                                            <div className="col-7 col-sm-7 col-md-7">
+                                            <div className="col-12 col-sm-7 col-md-7">
                                                 <h1>{blogItem.topic}</h1>
                                                 <div className="blog-image" dangerouslySetInnerHTML={{ __html: blogItem.article }} />
+                                                <iframe  width="100%" className="iframe-height" src={`https://youtube.com/embed/${blogItem.videoLink}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                             </div>
                                         </div>
                                     </div>

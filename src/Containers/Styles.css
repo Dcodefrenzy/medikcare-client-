@@ -577,6 +577,9 @@ body {
 	.client-side-bar{
 		display: none;
 	}
+	.iframe-height{
+		height: 500px;
+	}
 }
 
 @media (max-width: 1200px) {

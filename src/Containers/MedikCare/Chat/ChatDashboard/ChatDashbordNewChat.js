@@ -3,6 +3,7 @@ import { SessionContext } from './ChatDashboard';
 import io from 'socket.io-client';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
+import LoginSession from '../../Users/Logins/LoginSession';
 
 
 
@@ -11,11 +12,15 @@ const ChatDashbordNewChat = (props) =>{
     const [doctors, displayDoctors] = useState([])
     const session = JSON.parse(sessionStorage.getItem("user"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:""})
+    const [loginSession, setLoginSession] = useState({display:"display-none"})
   
     const getSession = ()=> {
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
         if( sessionItemUser === null) {
-            window.location = "/login";
+            setLoginSession({display:"row"})
+        }else{
+            
+        checkSession();
         }
     }
 
@@ -28,13 +33,9 @@ const ChatDashbordNewChat = (props) =>{
         .then(res => res.json())
         .then(response =>{
             if(response.status === 401) {
-                if(session.isUser === false){
-                 sessionStorage.removeItem("doctor");
-                   window.location = "/doctor/login?Session expired please login.";
-                }else if(session.isUser === true) {
                 sessionStorage.removeItem("user");
-                window.location = "/login?Session expired please login.";
-                }
+                setLoginSession({display:"row"})
+                
             }else if(response.status === 200){
                 console.log(response);
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
@@ -74,7 +75,6 @@ const ChatDashbordNewChat = (props) =>{
 
     useEffect(()=>{
         getSession();
-        checkSession();
     }, [])
 
     const doctor = doctors.map((doctor)=>{
@@ -93,6 +93,7 @@ const ChatDashbordNewChat = (props) =>{
         })
     return( 
         <div className="container-fluid">
+        <LoginSession display={loginSession.display} /> 
             <div className="row">
                 <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
                     <div className="">
