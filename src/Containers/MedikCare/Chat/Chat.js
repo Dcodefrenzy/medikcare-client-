@@ -174,24 +174,13 @@ const Chat =(props)=>{
     }
 
     socket.on("get message",(dataset)=>{
-        if (dataset === false && !sessionItemUser) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors/doctor";
-        }else if (dataset === false && !sessionItemDoctor) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors";
-     }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
-            window.location = "/";
-     }else{
-         
-         setMessage ({id:"msg", value:"", type:"text"})
-         setDisplayMessage(dataset); 
-          let messageData ={};
-        
-      //   messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":props.match.params.id}; 
-         //notify(messageData);
-         scrollToBottom();
-     }
+        setMessage ({id:"msg", value:"", type:"text"})
+        setDisplayMessage(dataset); 
+         let messageData ={};
+       
+     //   messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":props.match.params.id}; 
+        //notify(messageData);
+        scrollToBottom();
      })
      
     const fetchChatMessage =()=>{       
@@ -199,20 +188,9 @@ const Chat =(props)=>{
         socket.emit("fetch message", messageData);
     }
 
-    socket.on("fetch message",(dataset)=>{
-        if (dataset === false && !sessionItemUser) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors/doctor";
-        }else if (dataset === false && !sessionItemDoctor) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors";
-        }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
-            window.location = "/";
-     }else{
-     
+    socket.on("fetch message",(dataset)=>{      
         setDisplayMessage(dataset);
         scrollToBottom();
-        }
     })
 
 const viewProfile= (event, id)=>{
