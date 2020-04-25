@@ -65,6 +65,7 @@ import HealthDoctorQuestionAnswersClass from './MedikCare/Health/HealthQuestionA
 import ChatCreateSession from './MedikCare/Chat/ChatDashboard/ChatCreateSession';
 import ChatUserProfile from './MedikCare/Chat/ChatUserProfile';
 import chatDoctorProfile from './MedikCare/Chat/ChatDoctorProfile';
+import AdminChatSession from './MedikCare/Admins/Sessions/ChatSessions';
 
 
 
@@ -143,6 +144,8 @@ import chatDoctorProfile from './MedikCare/Chat/ChatDoctorProfile';
 						<Route path="/admin/mail/add" exact component={AdminAddMail} />
 						<Route path="/admin/mail/:id" exact component={AdminUpdateMail} />
 						<Route path="/admin/mail" exact component={AdminMailer} />
+						<Route path="/admin/chat/sessions" exact component={AdminChatSession} />
+						
 						
 	
 						

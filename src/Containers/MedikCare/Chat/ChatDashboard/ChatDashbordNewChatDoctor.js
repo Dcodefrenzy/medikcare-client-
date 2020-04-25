@@ -38,13 +38,13 @@ const ChatDashbordNewChatDoctor = (props) =>{
                 sessionStorage.removeItem("doctor");
                 setDoctorSession({display:"row"});
             }else if (response.status === 403) { 
-                setAlert({sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+                setAlert({ newSessionDisplay:"display-none",sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
             }else if (response.status === 200) {
-                if (response.message.length < 1) {
-                    setAlert({sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+                if (response.message.length < 1 && sessions.length > 0) {
+                    setAlert({newSessionDisplay:"display-none", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
 
                 }else{
-                    setAlert({newSessionDisplay:"", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
+                    setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
 
                     setNewSession(response.message)
                    
@@ -62,6 +62,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
     
     const socket = io(port,{transports: ['websocket']});
+
     const fetchDoctorsSessions =()=>{
         if(sessionItemDoctor === null) {
             setDoctorSession({display:"row"})
@@ -71,9 +72,8 @@ const ChatDashbordNewChatDoctor = (props) =>{
     }
     socket.on("fetch session", (sessions)=>{     
         setAlert({buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
-        if (sessions.length < 1) {
             fetchSessions();
-        }
+            console.log(sessions)
         displaySession(sessions);
     })
 
@@ -100,23 +100,24 @@ const ChatDashbordNewChatDoctor = (props) =>{
         })    
         const newSessionDetails = newSession.map((newSession)=>{
             let color
-            if (newSession.emergencyLevel == 1) {
-                newSession.emergencyLevel = "Not Critical";
+            if (newSession.message.emergencyLevel == 1) {
+                newSession.message.emergencyLevel = "Not Critical";
                 color = "text-primary"
-            }else if (newSession.emergencyLevel == 2) {
-                newSession.emergencyLevel = "Managable";
+            }else if (newSession.message.emergencyLevel == 2) {
+                newSession.message.emergencyLevel = "Managable";
                 color = "text-warning";
-            }else if (newSession.emergencyLevel == 3) {
-                newSession.emergencyLevel = "Critical";
+            }else if (newSession.message.emergencyLevel == 3) {
+                newSession.message.emergencyLevel = "Critical";
                 color = "text-danger";
             }
-            return    <Link to={"/chat/session/"+newSession.userId} key={newSession._id}>
+            return    <Link to={"/chat/session/"+newSession.message.userId} key={newSession.message._id}>
                       <div className="card ">
                           <div className="card-body text-dark">
                               <span className="card-text text-dark">Patient Complains:</span>
-                            <p>{newSession.complain}</p>
-                            <p className="card-text text-dark"><i className="fa fa-clock"></i> <Moment fromNow>{newSession.createdAt}</Moment></p>
-                            <span className={`${color} float-right`} aria-hidden="true"><b className="text-dark">Emergency level: </b>{newSession.emergencyLevel}</span>                      
+                            <p>{newSession.message.complain}</p>
+                            <p className="card-text text-dark"><i className="fa fa-clock"></i> <Moment fromNow>{newSession.message.createdAt}</Moment></p>                           
+                             <button className="btn btn-sm btn-success">Proceed</button>  
+                            <span className={`${color} float-right`} aria-hidden="true"><b className="text-dark">Emergency level: </b>{newSession.message.emergencyLevel}</span>                    
                           </div>
                       </div>
                       </Link> 
@@ -169,16 +170,16 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                     </div>
                                 </div>
                             </section>
-                            <section className={alert.sessionDisplay}> 
-                                <div>
-                                    <h3>You have a session already</h3>
+                            <div className="top-margin-lg"> 
+                                <div className={alert.sessionDisplay}>
+                                    <h6>You have a session already</h6>
                                     {sessionDetails}   
                                 </div>
-                            </section>
-                            <section className={alert.newSessionDisplay}>
-                                    <h3>Patient Waiting List</h3>
-                                {newSessionDetails}
-                            </section>
+                                <div className={alert.newSessionDisplay}>
+                                    <h6>Patient Waiting List</h6>
+                                    {newSessionDetails}
+                                </div>
+                            </div>
                                 </div>
                             </div>
                         </div>

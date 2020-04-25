@@ -76,7 +76,7 @@ const logsDisplay = logs.sort().map((log, index)=>{
                             <div className="card position-fixed fixed-top">
                                 <div className="card-body text-white">
                                     <div className="row justify-content-between">
-                                        <Link to="/user/dashboard">
+                                        <Link to={dashboardLink.userDashboard}>
                                             <i className="fa fa-arrow-left fa-lg text-dark" aria-hidden="false"> </i>
                                         </Link>  
                                         <div className="col-3">

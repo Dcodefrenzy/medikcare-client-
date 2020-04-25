@@ -24,7 +24,7 @@ const ChatSession = (props) =>{
         if(session === null) {
             setDoctorSession({display:"row"});
         }else{
-            checkSession();
+            fetchUserHandeller();
         }
     }
     const fetchUserHandeller = () => {
@@ -96,25 +96,7 @@ const endReportDisplay = (event)=>{
         port =    "";
     }
     const socket = io(port,{transports: ['websocket']});
-    const checkSession =()=>{
-        socket.emit("check session", session._id);
-    }
-    socket.on("check session", (checkSession)=>{
-        //console.log(checkSession)
-        if(!checkSession ) {
-            fetchUserHandeller();
-        }else{
-            let id ="";
-            if (session._id === checkSession.from) {
-                id = checkSession.to;
-                window.location = "/chat/current/session/"+id;
-            }else if(session._id === checkSession.to) {
-                id = checkSession.from;      
-            window.location = "/chat/current/session/"+id;
-            }
-        }
-        
-    })
+
     const startSessionHander = (event)=>{
             event.preventDefault();
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})

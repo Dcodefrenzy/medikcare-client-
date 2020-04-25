@@ -40,29 +40,18 @@ const Chat =(props)=>{
         const OneSignal = window.OneSignal || []; 
             
       //  OneSignal.showSlidedownPrompt();
-        OneSignal.push(function() {
-            /* These examples are all valid */         
-            OneSignal.isPushNotificationsEnabled().then(function(isEnabled) {
-              if (!isEnabled){
-                OneSignal.showSlidedownPrompt();
-                checkNotification();
-              }     
-            });
-          });
-    }
-
-   const checkNotification = ()=> {
-		const OneSignal = window.OneSignal || [];
-		OneSignal.push(function() {
-            OneSignal.on('subscriptionChange', function (isSubscribed) {
-                    if(isSubscribed===true){
+      
+			OneSignal.push(function() {
+				// Occurs when the user's subscription changes to a new value.
+				OneSignal.on('subscriptionChange', function (isSubscribed) {
+                    if (isSubscribed) {
                         OneSignal.getUserId().then(function(userId) {
                             let url;
-                        if (sessionItemUser === null && sessionItemDoctor !== null) {
-                           url = "/api/v1/doctor/update/notification/"+userId
-                        }else if (sessionItemUser !== null && sessionItemDoctor === null) {
-                            url = "/api/v1/user/update/notification/"+userId
-                        }
+                            if (sessionItemUser === null && sessionItemDoctor !== null) {
+                            url = "/api/v1/doctor/update/notification/"+userId
+                            }else if (sessionItemUser !== null && sessionItemDoctor === null) {
+                                url = "/api/v1/user/update/notification/"+userId
+                            }
                         if (userId) {	
                             fetch(url, {
                                 method: "PATCH",
@@ -81,17 +70,14 @@ const Chat =(props)=>{
                             
                         
                         })
-                }
-                else if(isSubscribed===false){
-                  console.log("User isnt subscribed");
-                }
-                else{
-                    console.log('Unable to process the request');
-                }
-            });
-		});
-		
-	  }
+                    }
+				  console.log("The user's subscription state is now:", isSubscribed);
+				});
+				
+				// This event can be listened to via the `on()` or `once()` listener.
+			  });
+    }
+
 
     if (sessionItemUser === null && sessionItemDoctor !== null) {
           dashboardLink ="/chat/doctors/doctor";
@@ -253,7 +239,6 @@ const viewProfile= (event, id)=>{
         allowPush();
         fetchChatMessage();
         getUserDetailsHandller();
-        checkNotification();
     }, []);
 
 
