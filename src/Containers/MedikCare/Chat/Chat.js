@@ -183,24 +183,27 @@ const Chat =(props)=>{
         messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id});
          
         setDisplayMessage(messages);
+        notify(messageData);
         scrollToBottom();
     }
 
     socket.on("get message",(dataset)=>{
-        if (dataset === false && sessionItemUser) {
-         setDisplayMessage([]);
-         window.location = "/chat/doctors/doctor";
-        }else if (dataset === false && sessionItemDoctor) {
-         setDisplayMessage([]);
-         window.location = "/chat/doctors";
+        if (dataset === false && !sessionItemUser) {
+            setDisplayMessage([]);
+            window.location = "/chat/doctors/doctor";
+        }else if (dataset === false && !sessionItemDoctor) {
+            setDisplayMessage([]);
+            window.location = "/chat/doctors";
+     }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
+            window.location = "/";
      }else{
          
          setMessage ({id:"msg", value:"", type:"text"})
          setDisplayMessage(dataset); 
           let messageData ={};
         
-         messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":to}; 
-         notify(messageData);
+      //   messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":props.match.params.id}; 
+         //notify(messageData);
          scrollToBottom();
      }
      })
@@ -211,13 +214,15 @@ const Chat =(props)=>{
     }
 
     socket.on("fetch message",(dataset)=>{
-        if (dataset === false && sessionItemUser) {
+        if (dataset === false && !sessionItemUser) {
             setDisplayMessage([]);
             window.location = "/chat/doctors/doctor";
-        }else if (dataset === false && sessionItemDoctor) {
+        }else if (dataset === false && !sessionItemDoctor) {
             setDisplayMessage([]);
             window.location = "/chat/doctors";
-        }else{
+        }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
+            window.location = "/";
+     }else{
      
         setDisplayMessage(dataset);
         scrollToBottom();

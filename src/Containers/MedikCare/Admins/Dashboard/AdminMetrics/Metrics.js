@@ -17,7 +17,7 @@ const Metrics = () => {
         .then(res => res.json())
         .then(response => {
             if (response.status === 200) {
-               
+               console.log(response.message)
                 setMetrics(response.message);
             }else{
                 setMetrics({userMetric:0,doctorMetric:0,adsMetric:0,questionMetric:0,answerMetric:0});
@@ -32,33 +32,37 @@ const Metrics = () => {
     return (
 
         <div className="row justify-content-center metric-card">
-            <div className="card col-5 col-sm-5 col-md-5 col-lg-3 b-medik medik-color-secondary">
+            <div className="card col-5 col-sm-5 col-md-5 col-lg-3 b-medik">
+            <Link to="/admin/users">
                <div className="row">
-                   <div className="col-8 col-sm-8 col-md-8">
+                   <div className="col-8 col-sm-8 col-md-8 text-white">
                         <h1>{metrics.userMetric}</h1>
                         <p>Registered users</p>   
                    </div>
                    <div className="col-4 col-sm-4 col-md-4">
-                        <i className="fa fa-users"></i>
+                        <i className="fa fa-users text-white"></i>
                    </div>
                </div>
+               </Link>
             </div>
             <div className="card col-5 col-sm-5 col-md-5 col-lg-3 bg-warning text-white">
+            <Link to="/admin/doctors">
                <div className="row">
-                   <div className="col-8 col-sm-8 col-md-8">
+                   <div className="col-8 col-sm-8 col-md-8 text-white">
                    <h1>{metrics.doctorMetric}</h1>
                    <p>Registered Doctors</p>   
                    </div>
                    <div className="col-4 col-sm-4 col-md-4">
-                   <i className="fa fa-user-md"></i>
+                   <i className="fa fa-user-md text-white"></i>
                    </div>
                </div>
+               </Link>
             </div>
             <div className="card col-5 col-sm-5 col-md-5 col-lg-3 bg-success text-white">
                <div className="row">
                    <div className="col-8 col-sm-8 col-md-8">
-                   <h1>0</h1>
-                   <p>Life Saved</p>   
+                    <h1>{metrics.waitingListMetrics}</h1>
+                   <p>Waiting List</p>   
                    </div>
                    <div className="col-4 col-sm-4 col-md-4">
                    <i className="fa fa-heart"></i>
@@ -68,8 +72,19 @@ const Metrics = () => {
             <div className="card col-5 col-sm-5 col-md-5 col-lg-3 bg-info text-white">
                <div className="row">
                    <div className="col-8 col-sm-8 col-md-8">
-                   <h1>0</h1>
-                   <p>Consultation Sessions</p>   
+                    <h1>{metrics.ongoingSessionsMetrics}</h1>
+                   <p>Ongoing Sessions</p>   
+                   </div>
+                   <div className="col-4 col-sm-4 col-md-4">
+                   <i className="fa fa-users"></i>
+                   </div>
+               </div>
+            </div>
+            <div className="card col-5 col-sm-5 col-md-5 col-lg-3 bg-oranged text-white">
+               <div className="row">
+                   <div className="col-8 col-sm-8 col-md-8">
+                    <h1>{metrics.endedSessionMetrics}</h1>
+                   <p>Sessions Ended</p>   
                    </div>
                    <div className="col-4 col-sm-4 col-md-4">
                    <i className="fa fa-users"></i>
@@ -117,17 +132,6 @@ const Metrics = () => {
                    </div>
                    <div className="col-4 col-sm-4 col-md-4">
                    <i className="fa fa fa-medkit"></i>
-                   </div>
-               </div>
-            </div>
-            <div className="card col-10 col-sm-8 col-md-5 col-lg-3 bg-oranged text-white">
-               <div className="row">
-                   <div className="col-8 col-sm-8 col-md-8">
-                   <h1>0</h1>
-                   <p>Labs</p>   
-                   </div>
-                   <div className="col-4 col-sm-4 col-md-4">
-                   <i className="fa fa-plus-square"></i>
                    </div>
                </div>
             </div>

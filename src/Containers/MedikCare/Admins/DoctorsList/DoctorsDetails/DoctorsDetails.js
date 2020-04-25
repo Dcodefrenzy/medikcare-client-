@@ -37,7 +37,6 @@ const DoctorsDetails = (props) => {
                                     <div className="card-body">
                                        <div className="row">
                                        <div className="col-12 col-sm-6 col-md-6">
-                                           <p><img src={"/Images/"+props.image} className="50%" alt="user-profile" /></p>
                                            <p><b>Name:</b> {props.name} <b>Gender:</b> {props.gender}</p>
                                             
                                             <p><b> Age:</b> <Moment fromNow>{props.age}</Moment></p>
@@ -46,13 +45,11 @@ const DoctorsDetails = (props) => {
                                             <p><b>Verification:</b> {props.verification}</p>
                                             <p><b>Login Status:</b> {props.loginStatus} <b>Last Login:</b> <Moment fromNow>{props.lastLogin}</Moment></p>
                                             
-                                            <p><b>Date Created:</b><Moment fromNow>{props.dateCreated}</Moment></p>
                                         </div>
                                         <div className="col-12 col-sm-6 col-md-6">
                                         <p><b>Address:</b> {props.address}</p>
                                         <p><b>Degree:</b> {props.degree}, <b>Folio No:</b> {props.folio}</p>
-                                        <p><b>School:</b> {props.school}</p>
-                                        <p><b>Specialty:</b> {props.specialty}, <b>Year of Grad:</b><Moment fromNow>{props.year}</Moment></p>
+                                        <p><b>Specialty:</b> {props.specialty}</p>
                                         <p>Verification: {props.verification} <button onClick={(event) => resendUserMail(event, props._id)} className={`btn btn-sm btn-medik ${props.verificationButton}`}>Send Mail</button><i className={spinner.display}>{spinner.text}</i></p>   
                                       
                                         <p><b>Admin Verification:</b>{props.verify} <b>Profile:</b> {props.profileCompleted}</p>                       

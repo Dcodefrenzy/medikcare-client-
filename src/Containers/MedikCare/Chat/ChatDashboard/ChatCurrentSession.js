@@ -98,12 +98,12 @@ const chatCurrentsession = (props) =>{
                                         <small className="block">{doctorInfo.specialty}</small>
                                    </div>
                                    <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, do you want to End or Continue your session? </p>
+                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, Please click the button bellow to continue? </p>
                                                     <div className={alert.spinnerDisplay}>
                                                         <i className="fa fa-spinner fa-pulse fa-3x"></i>
                                                     </div>
                                                     <div className={alert.buttonDisplay}>   
-                                                        <button onClick={(event)=>endSession(event)} className="btn-sm btn-warning">End</button>
+                                                        
                                                         <Link to={"/chat/"+doctor._id}><button className="btn-sm btn-success" id={doctor._id}>Continue</button></Link>
                                                     </div>
                                                </div>
