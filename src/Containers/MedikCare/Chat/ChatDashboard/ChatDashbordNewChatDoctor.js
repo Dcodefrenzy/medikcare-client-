@@ -90,7 +90,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
             }else if (session.from !== session._id) {
                 id = session.to;
             }
-      return    <Link to={"/chat/"+to} key={session._id}>
+      return    <Link to={"/chat/"+id} key={session._id}>
                 <div className="card ">
                     <div className="card-body text-dark">
                     <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i>
