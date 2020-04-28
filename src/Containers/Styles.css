@@ -430,7 +430,7 @@ body {
 	text-align: center;
 }
 .chat {
-	height: 100vh;
+	
 	overflow-y:auto;
 }
 .chat-message {
@@ -484,7 +484,7 @@ body {
 .max-width {
 	display: flex;
 	max-width: 70%;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 .img-round {
 	border-radius: 100%;

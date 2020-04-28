@@ -21,6 +21,7 @@ const Chat =(props)=>{
     const [notifyMessages, setDisplayNotifyMessage] = useState({ value:""}) 
     const [scroll, setScroll] = useState({id:"scroll"}) 
     const [userDetail,setUserDetail] = useState({});
+    const [room, setRoomSession] = useState({roomSession:null});
 
     const element = useRef(null);
 
@@ -161,15 +162,15 @@ const Chat =(props)=>{
         getSession();
         let messageData ={};
         
-        messageData = {"message": message.value, "from":session._id, "to":to}; 
+        messageData = {"message": message.value, "from":session._id, "to":to, "room":room.roomSession}; 
       
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
         setMessage ({id:"msg", value:"", type:"text"}) 
-        messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id});
+       // messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id});
          
-        setDisplayMessage(messages);
-        notify(messageData);
+   //setDisplayMessage(messages);
+        //notify(messageData);
         scrollToBottom();
     }
 
@@ -185,11 +186,16 @@ const Chat =(props)=>{
      }else{
          
          setMessage ({id:"msg", value:"", type:"text"})
-         setDisplayMessage(dataset); 
+
+         messages.push({_id:dataset._id, message:dataset.message,createdAt:Date.now(),from:dataset.from});
+         console.log(messages)
+         setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message,createdAt:Date.now(),from:dataset.from})); 
           let messageData ={};
         
       //   messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":props.match.params.id}; 
-         //notify(messageData);
+      
+        messageData = {"message": dataset.value, "from":session._id, "to":to}; 
+         notify(messageData);
          scrollToBottom();
      }
      })
@@ -199,7 +205,7 @@ const Chat =(props)=>{
         socket.emit("fetch message", messageData);
     }
 
-    socket.on("fetch message",(dataset)=>{
+    socket.on("fetch message",(dataset, roomSession)=>{
         if (dataset === false && !sessionItemUser) {
             setDisplayMessage([]);
             window.location = "/chat/doctors/doctor";
@@ -209,7 +215,8 @@ const Chat =(props)=>{
         }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
             window.location = "/";
      }else{
-     
+        
+        setRoomSession({roomSession:roomSession});
         setDisplayMessage(dataset);
         scrollToBottom();
         }
@@ -251,17 +258,17 @@ const viewProfile= (event, id)=>{
         let  Color;
         let cardColor;
         let cardBodyColor;  
-        let dilivery; 
+        let delivery; 
         let name;
-            if (message.dilivery === true) {
-                dilivery =  <i className="fa fa-check" aria-hidden="true"></i>
+            if (message.delivery === true) {
+                delivery =  <i className="fa fa-check" aria-hidden="true"></i>
             }else{
-                dilivery =  <i className="fa fa-check text-dark" aria-hidden="true"></i>
+                delivery =  <i className="fa fa-check text-dark" aria-hidden="true"></i>
             }
 
         if (message.from === session._id) {
              float = "float-right";
-             tick = dilivery;
+             tick = delivery;
               Color = " medik-color";
              cardColor = "";
              cardBodyColor = "";
@@ -279,8 +286,8 @@ const viewProfile= (event, id)=>{
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
                         <i className={Color}>{name}</i>
-                        <p className="card-text">{message.message}</p>
-                        <span className={"card-text "+float+" "+Color}><i className="fa fa-clock-o" aria-hidden="true"></i> <Moment fromNow>{message.createdAt}</Moment> {tick}</span>
+                        <p className="">{message.message}</p>
+                        <Moment fromNow>{message.createdAt}</Moment>
                     </div>
                 </div>
             </div>
@@ -291,7 +298,7 @@ const viewProfile= (event, id)=>{
         <div className="overflow-hidden">
             <div className="container-fluid">
                 <div className="">
-                    <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
+                    <div className="">
                         <div className="">
                             <div className="card-body">
                                 <div className="card  position-fixed fixed-top">
@@ -317,7 +324,7 @@ const viewProfile= (event, id)=>{
                                        </div>
                                     </div>
                                 </div>
-                               <div className="chat bottom-padding-lg">
+                               <div className="">
                                    {displayMessages}
                                 <p className=" clearfix" ref={element}>start your message</p>
                                </div>

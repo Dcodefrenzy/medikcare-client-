@@ -83,14 +83,14 @@ const ChatDashbordNewChatDoctor = (props) =>{
         fetchDoctorsSessions();
     }, [])
 
-    const sessionDetails = sessions.map((session)=>{
+    const sessionDetails = sessions.map((session, index)=>{
             let id;
             if (session.from === session._id) {
-                id = session.from;
-            }else if (session.from !== session._id) {
                 id = session.to;
+            }else if (session.from !== session._id) {
+                id = session.from;
             }
-      return    <Link to={"/chat/"+id} key={session._id}>
+      return    <Link to={"/chat/"+id} key={index}>
                 <div className="card ">
                     <div className="card-body text-dark">
                     <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i>
