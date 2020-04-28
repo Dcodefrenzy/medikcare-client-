@@ -87,9 +87,10 @@ const ChatDashbordNewChatDoctor = (props) =>{
             let id;
             if (session.from === session._id) {
                 id = session.to;
-            }else if (session.from !== session._id) {
+            }else{
                 id = session.from;
             }
+
       return    <Link to={"/chat/"+id} key={index}>
                 <div className="card ">
                     <div className="card-body text-dark">
