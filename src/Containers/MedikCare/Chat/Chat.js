@@ -191,7 +191,8 @@ const Chat =(props)=>{
          setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message,createdAt:Date.now(),from:dataset.from})); 
           let messageData ={};
         
-        messageData = {"message": dataset.value, "from":session._id, "to":props.match.params.id}; 
+        messageData = {"message": dataset.message, "from":session._id, "to":props.match.params.id}; 
+
         if( sessionItemUser === null && dataset.from ===  session._id ){
             notify(messageData, "/api/v1/user/notify-user");
         }else if(sessionItemDoctor === null && dataset.from === session._id) {
