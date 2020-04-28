@@ -13,10 +13,13 @@ const Chat =(props)=>{
     let session;
     let dashboardLink;
     let userUrl;
+    let medikForm;
     
     const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [message, setMessage] = useState({id:"msg", value:"", type:"text"}) 
+    const [userMessage, setUserMessage]=useState({id:"msg", value:"", type:"text"});
+    const [doctorMessage, setDoctorMessage]=useState({id:"msg", value:"", type:"text"});
     const [messages, setDisplayMessage] = useState([]) 
     const [notifyMessages, setDisplayNotifyMessage] = useState({ value:""}) 
     const [scroll, setScroll] = useState({id:"scroll"}) 
@@ -83,9 +86,11 @@ const Chat =(props)=>{
     if (sessionItemUser === null && sessionItemDoctor !== null) {
           dashboardLink ="/chat/doctors/doctor";
           userUrl = "/api/v1/doctor/find-user/"+to;
+          medikForm = <textarea id={doctorMessage.id} onChange={(event) => setMessageHandler(event,doctorMessage.id)} type={doctorMessage.type} value={doctorMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
          dashboardLink ="/chat/doctors";
          userUrl = "/api/v1/user/find-doctor/"+to;
+         medikForm = <textarea id={userMessage.id} onChange={(event) => setMessageHandler(event,userMessage.id)} type={userMessage.type} value={userMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }
     const scrollToBottom = ()=>{
           
@@ -108,17 +113,8 @@ const Chat =(props)=>{
             }
         })
     }
-    const notify = (data)=>{
-        
-        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
-        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
-        let url = "";
-         if(sessionItemUser === null && sessionItemDoctor !== null){
-            url =  "/api/v1/user/notify-user";
-        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
-            url = "/api/v1/doctor/notify-doctor";
-        }
-        //console.log(data)
+    const notify = (data,url)=>{
+        console.log(url)
         fetch(url, {
             method:"POST",
             body:JSON.stringify(data),
@@ -141,12 +137,13 @@ const Chat =(props)=>{
             }
         })
     }
-    const scrollHandler =()=>{
-        //scroll.scroll.scrollIntoView({behavior:"smooth"})
-       // window.HTMLElement.prototype.scrollIntoView = function(){}
-    }
+
     const setMessageHandler =(event)=>{
-        setMessage ({id:"msg", value:event.target.value, type:"text"})
+        if(sessionItemUser === null && sessionItemDoctor !== null){
+            setDoctorMessage({id:"msg", value:event.target.value, type:"text"});
+        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+            setUserMessage({id:"msg", value:event.target.value, type:"text"});
+        }
     }
     let port ="";
     if (process.env.NODE_ENV !== 'production') {
@@ -161,15 +158,19 @@ const Chat =(props)=>{
         event.preventDefault();
         getSession();
         let messageData ={};
-        
-        messageData = {"message": message.value, "from":session._id, "to":to, "room":room.roomSession}; 
+        if(sessionItemUser === null && sessionItemDoctor !== null){
+            messageData = {"message": doctorMessage.value, "from":session._id, "to":to, "room":room.roomSession};
+             setDoctorMessage({id:"msg", value:"", type:"text"}) 
+        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+        messageData = {"message": userMessage.value, "from":session._id, "to":to, "room":room.roomSession};
+        setUserMessage({id:"msg", value:"", type:"text"}) 
+        }
+         
       
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
-        setMessage ({id:"msg", value:"", type:"text"}) 
-       // messages.push({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id});
-         
-   //setDisplayMessage(messages);
+       // setDisplayMessage(messages => messages.concat({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id}));
+   
         //notify(messageData);
         scrollToBottom();
     }
@@ -186,16 +187,17 @@ const Chat =(props)=>{
      }else{
          
          setMessage ({id:"msg", value:"", type:"text"})
-
-         messages.push({_id:dataset._id, message:dataset.message,createdAt:Date.now(),from:dataset.from});
-         console.log(messages)
+         //console.log(messages)
          setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message,createdAt:Date.now(),from:dataset.from})); 
           let messageData ={};
         
-      //   messageData = {"message": dataset[dataset.length-1].message, "from":session._id, "to":props.match.params.id}; 
-      
-        messageData = {"message": dataset.value, "from":session._id, "to":to}; 
-         notify(messageData);
+        messageData = {"message": dataset.value, "from":session._id, "to":props.match.params.id}; 
+        if( sessionItemUser === null && dataset.from ===  session._id ){
+            notify(messageData, "/api/v1/user/notify-user");
+        }else if(sessionItemDoctor === null && dataset.from === session._id) {
+            notify(messageData, "/api/v1/doctor/notify-doctor");
+        }
+  
          scrollToBottom();
      }
      })
@@ -326,7 +328,7 @@ const viewProfile= (event, id)=>{
                                 </div>
                                <div className="top-margin-lg">
                                    {displayMessages}
-                                <p className="col-12 row bottom-padding-lg clearfix" ref={element}>click the bell on the right for notification</p>
+                                <p className="col-12 row bottom-padding-sm clearfix" ref={element}>click the bell on the right for notification</p>
                                </div>
                                 <div className="clearfix bottom-padding-lg top-padding-md" id={scroll.scroll}></div>
                                 <div className="card b-medik position-fixed  chat-static-buttom">
@@ -335,7 +337,7 @@ const viewProfile= (event, id)=>{
                                             <div className="row">
                                                <div className="col-8">
                                                     <div className="form-group">
-                                                        <textarea id={message.id} onChange={(event) => setMessageHandler(event,message.id)} type={message.type} value={message.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
+                                                       {medikForm} 
                                                     </div>
                                                </div>
                                                <div className="col-4">
