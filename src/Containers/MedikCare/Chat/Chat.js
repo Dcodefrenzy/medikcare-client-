@@ -324,9 +324,9 @@ const viewProfile= (event, id)=>{
                                        </div>
                                     </div>
                                 </div>
-                               <div className="">
+                               <div className="top-margin-lg">
                                    {displayMessages}
-                                <p className=" clearfix" ref={element}>start your message</p>
+                                <p className="col-12 row bottom-padding-lg clearfix" ref={element}>click the bell on the right for notification</p>
                                </div>
                                 <div className="clearfix bottom-padding-lg top-padding-md" id={scroll.scroll}></div>
                                 <div className="card b-medik position-fixed  chat-static-buttom">
