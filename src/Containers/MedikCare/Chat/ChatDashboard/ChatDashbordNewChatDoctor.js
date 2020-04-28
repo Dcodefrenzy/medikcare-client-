@@ -85,8 +85,8 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
     const sessionDetails = sessions.map((session, index)=>{
             let id;
-            if (session.from === session._id) {
-                id = session.to;
+            if (session.from === sessionItemDoctor._id) {
+                    id = session.to;
             }else{
                 id = session.from;
             }
@@ -95,7 +95,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
                 <div className="card ">
                     <div className="card-body text-dark">
                     <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i>
-                        <h6 className="card-text text-dark"><i className="fa fa-user text-white" aria-hidden="true"></i> {session.from}</h6>
+                        <h6 className="card-text text-dark"><i className="fa fa-user text-white" aria-hidden="true"></i> {id}</h6>
                         <p className="card-text text-dark">Session status: <span className="text-white">On session</span></p>
                         <p className="card-text text-dark">Time: <Moment fromNow>{session.start}</Moment></p>
                         
