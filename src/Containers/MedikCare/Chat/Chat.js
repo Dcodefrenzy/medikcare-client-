@@ -202,7 +202,6 @@ const Chat =(props)=>{
             }else if(sessionItemDoctor === null && dataset.from === session._id) {
                 //notify(messageData, "/api/v1/doctor/notify-doctor");
             }
-    
             scrollToBottom();
         }
      })
