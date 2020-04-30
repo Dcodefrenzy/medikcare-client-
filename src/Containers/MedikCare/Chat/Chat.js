@@ -159,7 +159,7 @@ const Chat =(props)=>{
         getSession();
         let messageData ={};
         if(sessionItemUser === null && sessionItemDoctor !== null){
-            messageData = {_id:Date.now(), createdAt:Date.now(), delivery:true,"message": doctorMessage.value, "from":session._id, "to":to, "room":room.roomSession};
+            messageData = {"message": doctorMessage.value, "from":session._id, "to":to, "room":room.roomSession};
              setDoctorMessage({id:"msg", value:"", type:"text"}) 
         }else if(sessionItemUser !== null && sessionItemDoctor === null) {
         messageData = {"message": userMessage.value, "from":session._id, "to":to, "room":room.roomSession};
@@ -198,9 +198,9 @@ const Chat =(props)=>{
             }
 
             if( sessionItemUser === null && dataset.from ===  session._id ){
-                notify(messageData, "/api/v1/user/notify-user");
+               // notify(messageData, "/api/v1/user/notify-user");
             }else if(sessionItemDoctor === null && dataset.from === session._id) {
-                notify(messageData, "/api/v1/doctor/notify-doctor");
+                //notify(messageData, "/api/v1/doctor/notify-doctor");
             }
     
             scrollToBottom();
