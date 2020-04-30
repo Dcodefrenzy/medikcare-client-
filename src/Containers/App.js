@@ -1,5 +1,4 @@
 import React, { Component} from 'react';
-import './App.css';
 import MedikHome from './MedikCare/MedikHome';
 import UserLogin from './MedikCare/Users/Logins/LoginValidation'
 import AdminDashboard from'./MedikCare/Admins/AdminDashboard'
