@@ -13,10 +13,10 @@ const NavBarHandler = (props)=>{
 				    <a className={`${props.link} dropdown-toggle`} role="button">For Doctors</a>
 				    <div className="dropdown-menu">
 				  		<Link to="/doctor/registration">   			
-     						<li className={`nav-item medik-color ${props.link}`}>Register</li>
+     						<span className={`nav-item medik-color ${props.link}`}>Register</span>
 						</Link> 
 				  		<Link to="/doctor/login">   			
-     						<li className={`nav-item medik-color ${props.link}`}>Login</li>
+     						<span className={`nav-item medik-color ${props.link}`}>Login</span>
 						</Link> 
 				    </div>
 				  </li>

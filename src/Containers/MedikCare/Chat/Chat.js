@@ -169,13 +169,16 @@ const Chat =(props)=>{
       
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
-       // setDisplayMessage(messages => messages.concat({_id:Date.now(), message:message.value,createdAt:Date.now(),from:session._id}));
+         //console.log(messageData)
+        setDisplayMessage(messages => messages.concat({_id:Date.now(), delivery:true, message:messageData.message,createdAt:Date.now(),from:session._id}));
    
         //notify(messageData);
         scrollToBottom();
     }
 
     socket.on("get message",(dataset)=>{
+        
+
         if (dataset === false && !sessionItemUser) {
             setDisplayMessage([]);
             window.location = "/chat/doctors/doctor";
@@ -185,22 +188,23 @@ const Chat =(props)=>{
      }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
             window.location = "/";
      }else{
-         
-         setMessage ({id:"msg", value:"", type:"text"})
-         //console.log(messages)
-         setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message,createdAt:Date.now(),from:dataset.from})); 
-          let messageData ={};
-        
-        messageData = {"message": dataset.message, "from":session._id, "to":props.match.params.id}; 
+            //setMessage ({id:"msg", value:"", type:"text"})
+ 
+                        let messageData ={};
+            
+            messageData = {"message": dataset.message, "from":session._id, "to":props.match.params.id}; 
+            if (dataset.from !== session._id) {
+                setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
+            }
 
-        if( sessionItemUser === null && dataset.from ===  session._id ){
-            notify(messageData, "/api/v1/user/notify-user");
-        }else if(sessionItemDoctor === null && dataset.from === session._id) {
-            notify(messageData, "/api/v1/doctor/notify-doctor");
+            if( sessionItemUser === null && dataset.from ===  session._id ){
+                notify(messageData, "/api/v1/user/notify-user");
+            }else if(sessionItemDoctor === null && dataset.from === session._id) {
+                notify(messageData, "/api/v1/doctor/notify-doctor");
+            }
+    
+            scrollToBottom();
         }
-  
-         scrollToBottom();
-     }
      })
      
     const fetchChatMessage =()=>{       
