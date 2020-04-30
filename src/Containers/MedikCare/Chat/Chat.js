@@ -153,7 +153,7 @@ const Chat =(props)=>{
       }
 
     
-    const socket = io(port,{transports: ['websocket']});
+    const socket = io(port, {transports: ['websocket']});
     const submitChatMessage=(event)=>{
         event.preventDefault();
         getSession();
@@ -197,11 +197,11 @@ const Chat =(props)=>{
                 setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
             }
 
-            if( sessionItemUser === null && dataset.from ===  session._id ){
+            //if( sessionItemUser === null && dataset.from ===  session._id ){
                // notify(messageData, "/api/v1/user/notify-user");
-            }else if(sessionItemDoctor === null && dataset.from === session._id) {
+           // }else if(sessionItemDoctor === null && dataset.from === session._id) {
                 //notify(messageData, "/api/v1/doctor/notify-doctor");
-            }
+            //}
             scrollToBottom();
         }
      })
@@ -291,11 +291,10 @@ const viewProfile= (event, id)=>{
            return <div className={"max-width  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
-                        <i className={Color}>{name}</i>
                         <p className="">{message.message}</p>
-                        <Moment fromNow>{message.createdAt}</Moment>
                     </div>
                 </div>
+                <Moment fromNow>{message.createdAt}</Moment>
             </div>
 
 
@@ -313,6 +312,7 @@ const viewProfile= (event, id)=>{
                                            <div className="col-10">
                                                <Link to={dashboardLink}>
                                                 <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"></i>
+                                                 <p className="text-white">{userDetail.name}</p>
                                                 </Link>
                                            </div>
                                             <div className="col-2">
