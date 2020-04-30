@@ -282,8 +282,8 @@ const viewProfile= (event, id)=>{
              name = session.name
 
         } else{
-             float = "float-left";
-             tick = "";
+             float ="float-left";
+             tick ="";
               Color = "text-dark";
              cardColor = " b-medik";
              cardBodyColor = "text-white";
