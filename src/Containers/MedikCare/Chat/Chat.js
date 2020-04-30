@@ -159,7 +159,7 @@ const Chat =(props)=>{
         getSession();
         let messageData ={};
         if(sessionItemUser === null && sessionItemDoctor !== null){
-            messageData = {"message": doctorMessage.value, "from":session._id, "to":to, "room":room.roomSession};
+            messageData = {_id:Date.now(), createdAt:Date.now(), delivery:true,"message": doctorMessage.value, "from":session._id, "to":to, "room":room.roomSession};
              setDoctorMessage({id:"msg", value:"", type:"text"}) 
         }else if(sessionItemUser !== null && sessionItemDoctor === null) {
         messageData = {"message": userMessage.value, "from":session._id, "to":to, "room":room.roomSession};
