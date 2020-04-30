@@ -288,7 +288,7 @@ const viewProfile= (event, id)=>{
              cardBodyColor = "text-white";
              name = userDetail.name
         }
-           return <div className={"max-width  "+float} key={message._id}>
+           return <div className={"col-12"+float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={"card-body "+cardBodyColor}>
                         <p className="">{message.message}</p>
