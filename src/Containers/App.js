@@ -70,19 +70,7 @@ import AdminChatSession from './MedikCare/Admins/Sessions/ChatSessions';
 
  class App extends Component {
  
-	
 
-
-	/*	componentDidMount() {
-		Notification.requestPermission(function(status) {
-			console.log('Notification permission status:', status);
-		});
-		if (Notification.permission === 'granted') {
-			console.log("granted already.")
-		}else{
-			this.displayNotification();
-		}	
-	}*/
 	render() {
 		return (
 			<Router>

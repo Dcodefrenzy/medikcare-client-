@@ -256,8 +256,7 @@ const viewProfile= (event, id)=>{
 
 
 
-    const displayMessages = messages.map((message, index)=>{
-       // getSession();    
+    const displayMessages = messages.map((message, index)=>{    
         let float;
         let tick;
         let  Color;
