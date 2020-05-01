@@ -2,20 +2,14 @@ import React,{useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import 'moment-timezone';
-import io from 'socket.io-client';
+import {socket} from '../../Socket/Socket';
 
 const EndChatSessions = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
     const [spinner, setSpinner] = useState({display:"", text:""});    
     const [message, setMessage] = useState({display:"display-none", color:"", message:""});
     
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979";
-	  }else if(process.env.NODE_ENV === 'production'){
-         port = "";
-      }
-      const socket = io(port,{transports: ['websocket']});
+
 
     const endSession = (event, id, start, end)=>{
         const url = "/api/v1/chatSession/admin-end";

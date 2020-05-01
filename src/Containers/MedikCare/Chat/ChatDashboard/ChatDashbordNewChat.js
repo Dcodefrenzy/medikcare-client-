@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import {socket} from '../Socket/Socket';
+import {socket} from '../../Socket/Socket';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
 import LoginSession from '../../Users/Logins/LoginSession';
@@ -44,6 +44,9 @@ const ChatDashbordNewChat = (props) =>{
         })
     }
 
+   const checkSession =()=>{
+        socket.emit("check session", session._id);
+    }
     socket.on("check session", (checkSession)=>{
         //console.log(checkSession)
         if(!checkSession ) {

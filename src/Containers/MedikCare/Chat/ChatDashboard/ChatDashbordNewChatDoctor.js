@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-
-import {socket} from '../Socket/Socket';
+import {socket} from '../../Socket/Socket';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';

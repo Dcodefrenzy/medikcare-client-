@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react" ;
 import { Link } from 'react-router-dom';
 import LoginSession from "../../Users/Logins/LoginSession";
-import {socket} from '../Socket/Socket';
+import {socket} from '../../Socket/Socket';
 
 
 

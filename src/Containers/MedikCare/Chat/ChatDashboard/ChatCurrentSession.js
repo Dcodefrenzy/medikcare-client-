@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import {socket} from '../Socket/Socket';
+import {socket} from '../../Socket/Socket';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
 import doctorProfile from '../../Medicals/Doctors/Profile/Profile';

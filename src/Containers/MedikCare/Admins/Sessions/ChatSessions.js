@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import NavBar from "../Navbar/NavBar";
 import SideBar from "../Navbar/SideBar";
-import io from 'socket.io-client';
+import {socket} from '../../Socket/Socket';
 import AdminDashboard from "../AdminDashboard";
 import Loading from "../../Loading/Loading";
 import EndChatSessions from "./EndChatSessions";
@@ -34,14 +34,6 @@ const AdminChatSession = ()=>{
             }
         })
     }
-
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979";
-	  }else if(process.env.NODE_ENV === 'production'){
-         port = "";
-      }
-    const socket = io(port,{transports: ['websocket']});
      const fetchOngoingSessions = ()=>{
          socket.emit("all sessions");
      }
