@@ -236,10 +236,10 @@ const viewProfile= (event, id)=>{
          }else{
                let messageData = {"message": dataset.message, "from":sess._id, "to":props.match.params.id}; 
     
-               if(sessionItemUser !== null && dataset.from === sessionItemUser._id && isDoctorActive !== true) {
+               if(sessionItemUser !== null && dataset.from === sessionItemUser._id) {
                 console.log("doc")
                 notify(messageData, "/api/v1/doctor/notify-doctor");
-            }else if( sessionItemDoctor !== null && dataset.from === sessionItemDoctor && isUserActive !== true) {
+            }else if( sessionItemDoctor !== null && dataset.from === sessionItemDoctor) {
                 console.log("user")
                 notify(messageData, "/api/v1/user/notify-user");
             }
