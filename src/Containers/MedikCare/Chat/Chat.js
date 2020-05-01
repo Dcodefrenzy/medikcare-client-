@@ -290,8 +290,8 @@ const viewProfile= (event, id)=>{
         }
            return <div className={float} key={message._id}>
                 <div className={"card "+cardColor}>
-                    <div className={"padding-sm"+cardBodyColor}>
-                        <p className="">{message.message}</p>
+                    <div className={cardBodyColor}>
+                        <p className="padding-sm">{message.message}</p>
                     </div>
                 </div>
                 <i><Moment fromNow>{message.createdAt}</Moment></i>
