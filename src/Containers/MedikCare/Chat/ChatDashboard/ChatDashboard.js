@@ -3,6 +3,7 @@ import ChatDashboardNotification from "./ChatDashboardNotification";
 import ChatDashbordNewChat from "./ChatDashbordNewChat";
 import ChatDashbordActivities from "./ChatDashBoardActivities";
 import { Link } from 'react-router-dom';
+export const SessionContext = createContext();
 
 
 
@@ -68,8 +69,9 @@ const ChatDashboard = (props) =>{
                                     </div>
                                 </div>
                                 <div className="chat top-margin-lg">
+                                       <SessionContext.Provider value={getSession()}>
                                             <ChatDashboardNotification />
-                                       
+                                       </SessionContext.Provider>
                                 </div>
                             </div>
                     </div>
