@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
+import {socket} from '../Socket/Socket';
  
 
 
@@ -145,15 +146,10 @@ const Chat =(props)=>{
             setUserMessage({id:"msg", value:event.target.value, type:"text"});
         }
     }
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979"
-	  }else if(process.env.NODE_ENV === 'production'){
-            port =    "";
-      }
+
 
     
-    const socket = io(port, {transports: ['websocket']});
+    //const socket = io(port, {transports: ['websocket']});
     const submitChatMessage=(event)=>{
         event.preventDefault();
         getSession();
