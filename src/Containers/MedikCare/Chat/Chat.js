@@ -290,7 +290,7 @@ const viewProfile= (event, id)=>{
         }
            return <div className={float} key={message._id}>
                 <div className={"card "+cardColor}>
-                    <div className={" "+cardBodyColor}>
+                    <div className={"padding-sm"+cardBodyColor}>
                         <p className="">{message.message}</p>
                     </div>
                 </div>
