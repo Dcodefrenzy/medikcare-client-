@@ -294,7 +294,7 @@ const viewProfile= (event, id)=>{
                         <p className="">{message.message}</p>
                     </div>
                 </div>
-                <Moment fromNow>{message.createdAt}</Moment>
+                <i><Moment fromNow>{message.createdAt}</Moment></i>
             </div>
 
 
