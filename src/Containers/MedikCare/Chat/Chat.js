@@ -239,7 +239,7 @@ const viewProfile= (event, id)=>{
                if(sessionItemUser !== null && dataset.from === sessionItemUser._id) {
                 console.log("doc")
                 notify(messageData, "/api/v1/doctor/notify-doctor");
-            }else if( sessionItemDoctor !== null && dataset.from === sessionItemDoctor) {
+            }else if( sessionItemDoctor !== null && dataset.from === sessionItemDoctor._id) {
                 console.log("user")
                 notify(messageData, "/api/v1/user/notify-user");
             }
