@@ -4,17 +4,15 @@ import 'moment-timezone';
 import { Link } from 'react-router-dom';
 import {socket} from '../Socket/Socket';
  
-
-
-
-
 const Chat =(props)=>{
     const to  = props.match.params.id
-    let session;
+ 
     let dashboardLink;
     let userUrl;
     let medikForm;
-    
+    let isUserActive = false;
+    let isDoctorActive = true;
+    let sess;
     const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [message, setMessage] = useState({id:"msg", value:"", type:"text"}) 
@@ -25,24 +23,27 @@ const Chat =(props)=>{
     const [scroll, setScroll] = useState({id:"scroll"}) 
     const [userDetail,setUserDetail] = useState({});
     const [room, setRoomSession] = useState({roomSession:null});
-    const [active, setActive] = useState({isUserActive:false, isDoctorActive:false})
+    const [session, setSession] = useState({});
 
     const element = useRef(null);
 
-    const getSession = ()=> {
-        if(sessionItemDoctor === null && sessionItemUser === null) {
-            window.location ="/login"
-        }else if(sessionItemUser === null && sessionItemDoctor !== null){
-            setActive({isUserActive:active.isUserActive, isDoctorActive:true});
-            sessionItemDoctor.isUser = false;
-            return session = sessionItemDoctor;
-        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
-            setActive({isUserActive:true, isDoctorActive:active.isDoctorActive});
-            sessionItemUser.isUser = true;
-            return session = sessionItemUser;
-        }
-    }
+    
+    const sessionHandller=()=>{
+        if(sessionItemUser === null && sessionItemDoctor !== null){
+            setSession({sessionItemDoctor})
+                getUserDetailsHandller();
+           
+                fetchChatMessage();
 
+       }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+           setSession(sessionItemUser)
+           getUserDetailsHandller();
+           
+       fetchChatMessage();
+       }else{
+           console.log("err")
+       }
+    }
     const allowPush=()=>{
         const OneSignal = window.OneSignal || []; 
             
@@ -89,10 +90,12 @@ const Chat =(props)=>{
     if (sessionItemUser === null && sessionItemDoctor !== null) {
           dashboardLink ="/chat/doctors/doctor";
           userUrl = "/api/v1/doctor/find-user/"+to;
+          sess = sessionItemDoctor;
           medikForm = <textarea id={doctorMessage.id} onChange={(event) => setMessageHandler(event,doctorMessage.id)} type={doctorMessage.type} value={doctorMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
          dashboardLink ="/chat/doctors";
          userUrl = "/api/v1/user/find-doctor/"+to;
+         sess = sessionItemUser;
          medikForm = <textarea id={userMessage.id} onChange={(event) => setMessageHandler(event,userMessage.id)} type={userMessage.type} value={userMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }
     const scrollToBottom = ()=>{
@@ -102,10 +105,9 @@ const Chat =(props)=>{
     }
 
     const getUserDetailsHandller = ()=>{
-
         fetch(userUrl, {
             method:"GET",
-            headers: {'Content-Type': "application/json", "u-auth":session.token}
+            headers: {'Content-Type': "application/json", "u-auth":sess.token}
         })
         .then(res=>res.json())
         .then(response=>{
@@ -116,12 +118,13 @@ const Chat =(props)=>{
             }
         })
     }
+
     const notify = (data,url)=>{
         console.log(url)
         fetch(url, {
             method:"POST",
             body:JSON.stringify(data),
-            headers:{'Content-Type': "application/json", "u-auth":session.token}
+            headers:{'Content-Type': "application/json", "u-auth":sess.token}
         })
         .then(res => res.json())
         .then(response =>{
@@ -154,10 +157,9 @@ const Chat =(props)=>{
     //const socket = io(port, {transports: ['websocket']});
     const submitChatMessage=(event)=>{
         event.preventDefault();
-        getSession();
         let messageData ={};
         if(sessionItemUser === null && sessionItemDoctor !== null){
-            messageData = {"message": doctorMessage.value, "from":session._id, "to":to, "room":room.roomSession};
+            messageData = {"message": doctorMessage.value, "from":sess._id, "to":to, "room":room.roomSession};
              setDoctorMessage({id:"msg", value:"", type:"text"}) 
         }else if(sessionItemUser !== null && sessionItemDoctor === null) {
         messageData = {"message": userMessage.value, "from":session._id, "to":to, "room":room.roomSession};
@@ -167,54 +169,25 @@ const Chat =(props)=>{
       
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
-         //console.log(messageData)
-        setDisplayMessage(messages => messages.concat({_id:Date.now(), delivery:true, message:messageData.message,createdAt:Date.now(),from:session._id}));
-   
-        //notify(messageData);
-        //scrollToBottom();
+        setDisplayMessage(messages => messages.concat({_id:Date.now(), delivery:true, message:messageData.message,createdAt:Date.now(),from:sess._id}));
+        scrollToBottom();
     }
 
-    socket.on("get message",(dataset)=>{
-        
 
-        if (dataset === false && !sessionItemUser) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors/doctor";
-        }else if (dataset === false && !sessionItemDoctor) {
-            setDisplayMessage([]);
-            window.location = "/chat/doctors";
-     }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
-            window.location = "/";
-     }else{
-            //setMessage ({id:"msg", value:"", type:"text"})
- 
-            let messageData ={};
-            console.log(session);
-            messageData = {"message": dataset.message, "from":session._id, "to":props.match.params.id}; 
-            if (dataset.from !== session._id) {
-                setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
-            }
-
-            if( sessionItemUser === null && dataset.from ===  session._id ){
-                notify(messageData, "/api/v1/user/notify-user");
-            }else if(sessionItemDoctor === null && dataset.from === session._id) {
-                notify(messageData, "/api/v1/doctor/notify-doctor");
-            }
-            scrollToBottom();
-        }
-     })
      
     const fetchChatMessage =()=>{       
-       const messageData = {"from":session._id, "to":to};  
+       const messageData = {"from":sess._id, "to":to};  
         socket.emit("fetch message", messageData);
     }
 
     socket.on("fetch message",(dataset, roomSession)=>{
         if (dataset === false && !sessionItemUser) {
             setDisplayMessage([]);
+            console.log(session)
             window.location = "/chat/doctors/doctor";
         }else if (dataset === false && !sessionItemDoctor) {
             setDisplayMessage([]);
+            console.log(session)
             window.location = "/chat/doctors";
         }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
             window.location = "/";
@@ -246,17 +219,43 @@ const viewProfile= (event, id)=>{
 
 
     useEffect(()=>{
-        getSession();
+        sessionHandller();
         allowPush();
-        fetchChatMessage();
-        getUserDetailsHandller();
+        socket.on("get message",(dataset)=>{
+        
+            if (dataset === false && !sessionItemUser) {
+               
+                setDisplayMessage([]);
+                window.location = "/chat/doctors/doctor";
+            }else if (dataset === false && !sessionItemDoctor) {
+               
+                setDisplayMessage([]);
+                window.location = "/chat/doctors";
+         }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
+                window.location = "/";
+         }else{
+                 console.log(sess)
+               let messageData = {"message": dataset.message, "from":sess._id, "to":props.match.params.id}; 
+                if (dataset.from !== sess._id) {
+                    setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
+                }
+    
+                if( sessionItemUser === null && dataset.from ===  sess._id ){
+                    notify(messageData, "/api/v1/user/notify-user");
+                }else if(sessionItemDoctor === null && dataset.from === sess._id) {
+                    notify(messageData, "/api/v1/doctor/notify-doctor");
+                }
+    
+            }
+            scrollToBottom();
+         })
      
     }, []);
 
 
 
     const displayMessages = messages.map((message, index)=>{
-        getSession();    
+       // getSession();    
         let float;
         let tick;
         let  Color;
@@ -270,13 +269,12 @@ const viewProfile= (event, id)=>{
                 delivery =  <i className="fa fa-check text-dark" aria-hidden="true"></i>
             }
 
-        if (message.from === session._id) {
+        if (message.from === sess._id) {
              float = "float-right";
              tick = delivery;
               Color = " medik-color";
              cardColor = "";
              cardBodyColor = "";
-             name = session.name
 
         } else{
              float ="float-left";
@@ -284,7 +282,6 @@ const viewProfile= (event, id)=>{
               Color = "text-dark";
              cardColor = " b-medik";
              cardBodyColor = "text-white";
-             name = userDetail.name
         }
            return <div className={float} key={message._id}>
                 <div className={"card box-shadow "+cardColor}>
@@ -333,7 +330,7 @@ const viewProfile= (event, id)=>{
                                 </div>
                                <div className="top-margin-lg">
                                    {displayMessages}
-                                <p className="col-12 row bottom-padding-md clearfix" ref={element}>click the bell on the right for notification</p>
+                                <p className="col-12 row bottom-margin-lg bottom-padding-lg card-body" ref={element}>click the bell on the right for notification</p>
                                </div>
                                 <div className="clearfix bottom-padding-lg top-padding-md" id={scroll.scroll}></div>
                                 <div className="card b-medik position-fixed  chat-static-buttom">
