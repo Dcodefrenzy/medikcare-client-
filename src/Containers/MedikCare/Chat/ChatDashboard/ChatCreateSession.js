@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react" ;
 import { Link } from 'react-router-dom';
 import LoginSession from "../../Users/Logins/LoginSession";
-import io from 'socket.io-client';
+import {socket} from '../Socket/Socket';
 
 
 
@@ -72,15 +72,6 @@ const ChatCreateSession = (props) => {
         })
     }
 
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979";
-	  }else if(process.env.NODE_ENV === 'production'){
-            port =    "";
-      }
-
-    
-      const socket = io(port,{transports: ['websocket']});
    const checkChatSession =()=>{
         socket.emit("check session", sessionItem._id);
     }

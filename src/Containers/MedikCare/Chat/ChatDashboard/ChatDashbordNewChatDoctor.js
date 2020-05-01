@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import io from 'socket.io-client';
+
+import {socket} from '../Socket/Socket';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
@@ -53,15 +54,6 @@ const ChatDashbordNewChatDoctor = (props) =>{
         })
     }
 
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979";
-	  }else if(process.env.NODE_ENV === 'production'){
-         port = "";
-      }
-
-    
-    const socket = io(port,{transports: ['websocket']});
 
     const fetchDoctorsSessions =()=>{
         if(sessionItemDoctor === null) {

@@ -301,6 +301,9 @@ body {
 .align-center {
 	text-align: center;
 }
+.box-shadow{
+	box-shadow: 0 5px 15px 0 rgba(62, 57, 107, 0.15);
+}
 .padding-sm {
 	padding: 8px 20px;
 }

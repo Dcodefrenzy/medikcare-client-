@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import io from 'socket.io-client';
+import {socket} from '../Socket/Socket';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
 import LoginSession from '../../Users/Logins/LoginSession';
@@ -43,18 +43,7 @@ const ChatDashbordNewChat = (props) =>{
             }
         })
     }
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979";
-	  }else if(process.env.NODE_ENV === 'production'){
-            port =    "";
-      }
 
-    
-      const socket = io(port,{transports: ['websocket']});
-   const checkSession =()=>{
-        socket.emit("check session", session._id);
-    }
     socket.on("check session", (checkSession)=>{
         //console.log(checkSession)
         if(!checkSession ) {

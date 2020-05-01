@@ -1,5 +1,4 @@
 import React, {useState, useEffect, useRef} from "react" ;
-import io from 'socket.io-client';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import { Link } from 'react-router-dom';
@@ -285,7 +284,7 @@ const viewProfile= (event, id)=>{
              name = userDetail.name
         }
            return <div className={float} key={message._id}>
-                <div className={"card "+cardColor}>
+                <div className={"card box-shadow "+cardColor}>
                     <div className={cardBodyColor}>
                         <p className="padding-sm">{message.message}</p>
                     </div>
