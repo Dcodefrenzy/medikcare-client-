@@ -288,7 +288,7 @@ const viewProfile= (event, id)=>{
              cardBodyColor = "text-white";
              name = userDetail.name
         }
-           return <div className={"col-12  "+float} key={message._id}>
+           return <div className={float} key={message._id}>
                 <div className={"card "+cardColor}>
                     <div className={" "+cardBodyColor}>
                         <p className="">{message.message}</p>
@@ -309,11 +309,14 @@ const viewProfile= (event, id)=>{
                                 <div className="card  position-fixed fixed-top">
                                     <div className="card-body b-medik text-dark">
                                        <div className="row justify-content-center">
-                                           <div className="col-10">
+                                           <div className="col-2">
                                                <Link to={dashboardLink}>
                                                 <i className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"></i>
-                                                 <p className="text-white">{userDetail.name}</p>
+                                               
                                                 </Link>
+                                           </div>
+                                           <div className="col-8">
+                                           <p className="text-white">{userDetail.name}</p>
                                            </div>
                                             <div className="col-2">
                                                 <div className="dropdown dropleft">
