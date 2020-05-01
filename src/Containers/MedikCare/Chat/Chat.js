@@ -289,7 +289,7 @@ const viewProfile= (event, id)=>{
                         <p className="padding-sm">{message.message}</p>
                     </div>
                 </div>
-                <i><Moment fromNow>{message.createdAt}</Moment></i>
+                <i className="date-time"><Moment fromNow>{message.createdAt}</Moment></i>
             </div>
 
 

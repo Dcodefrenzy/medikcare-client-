@@ -304,6 +304,9 @@ body {
 .box-shadow{
 	box-shadow: 0 5px 15px 0 rgba(62, 57, 107, 0.15);
 }
+.date-time{
+	font-size: 10px;
+}
 .padding-sm {
 	padding: 8px 20px;
 }
