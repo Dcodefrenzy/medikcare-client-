@@ -288,9 +288,9 @@ const viewProfile= (event, id)=>{
              cardBodyColor = "text-white";
              name = userDetail.name
         }
-           return <div className={"col-12"+float} key={message._id}>
+           return <div className={"col-7  "+float} key={message._id}>
                 <div className={"card "+cardColor}>
-                    <div className={"card-body "+cardBodyColor}>
+                    <div className={"padding-sm "+cardBodyColor}>
                         <p className="">{message.message}</p>
                     </div>
                 </div>

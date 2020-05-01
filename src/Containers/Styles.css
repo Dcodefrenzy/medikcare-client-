@@ -301,7 +301,9 @@ body {
 .align-center {
 	text-align: center;
 }
-
+.padding-sm {
+	padding: 30px;
+}
 .top-padding-sm {
 	padding-top: 30px;
 }
