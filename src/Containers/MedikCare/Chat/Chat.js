@@ -25,16 +25,19 @@ const Chat =(props)=>{
     const [scroll, setScroll] = useState({id:"scroll"}) 
     const [userDetail,setUserDetail] = useState({});
     const [room, setRoomSession] = useState({roomSession:null});
+    const [active, setActive] = useState({isUserActive:false, isDoctorActive:false})
 
     const element = useRef(null);
 
     const getSession = ()=> {
         if(sessionItemDoctor === null && sessionItemUser === null) {
-            window.location ="/not-found"
+            window.location ="/login"
         }else if(sessionItemUser === null && sessionItemDoctor !== null){
+            setActive({isUserActive:active.isUserActive, isDoctorActive:true});
             sessionItemDoctor.isUser = false;
             return session = sessionItemDoctor;
         }else if(sessionItemUser !== null && sessionItemDoctor === null) {
+            setActive({isUserActive:true, isDoctorActive:active.isDoctorActive});
             sessionItemUser.isUser = true;
             return session = sessionItemUser;
         }
@@ -185,8 +188,8 @@ const Chat =(props)=>{
      }else{
             //setMessage ({id:"msg", value:"", type:"text"})
  
-                        let messageData ={};
-            
+            let messageData ={};
+            console.log(session);
             messageData = {"message": dataset.message, "from":session._id, "to":props.match.params.id}; 
             if (dataset.from !== session._id) {
                 setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
@@ -330,7 +333,7 @@ const viewProfile= (event, id)=>{
                                 </div>
                                <div className="top-margin-lg">
                                    {displayMessages}
-                                <p className="col-12 row bottom-padding-sm clearfix" ref={element}>click the bell on the right for notification</p>
+                                <p className="col-12 row bottom-padding-md clearfix" ref={element}>click the bell on the right for notification</p>
                                </div>
                                 <div className="clearfix bottom-padding-lg top-padding-md" id={scroll.scroll}></div>
                                 <div className="card b-medik position-fixed  chat-static-buttom">
