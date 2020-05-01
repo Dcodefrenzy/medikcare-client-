@@ -168,7 +168,7 @@ const Chat =(props)=>{
         setDisplayMessage(messages => messages.concat({_id:Date.now(), delivery:true, message:messageData.message,createdAt:Date.now(),from:session._id}));
    
         //notify(messageData);
-        scrollToBottom();
+        //scrollToBottom();
     }
 
     socket.on("get message",(dataset)=>{
@@ -192,11 +192,11 @@ const Chat =(props)=>{
                 setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
             }
 
-            //if( sessionItemUser === null && dataset.from ===  session._id ){
-               // notify(messageData, "/api/v1/user/notify-user");
-           // }else if(sessionItemDoctor === null && dataset.from === session._id) {
-                //notify(messageData, "/api/v1/doctor/notify-doctor");
-            //}
+            if( sessionItemUser === null && dataset.from ===  session._id ){
+                notify(messageData, "/api/v1/user/notify-user");
+            }else if(sessionItemDoctor === null && dataset.from === session._id) {
+                notify(messageData, "/api/v1/doctor/notify-doctor");
+            }
             scrollToBottom();
         }
      })
