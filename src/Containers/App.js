@@ -121,6 +121,7 @@ import AdminChatSession from './MedikCare/Admins/Sessions/ChatSessions';
 						<Route path="/admin/users" exact component={UsersListTh} />
 						<Route path="/admin/doctors" exact component={DoctorsListTh} />
 						<Route path="/admin/password/change" exact component={UpdatePassword} />
+						
 						<Route path="/admin/Profile" exact component={adminProfile} />
 						<Route path="/admin/image/update" exact component={updateImage} />
 						<Route path="/admin/forget/password" exact component={AdminForgetPassword} />
