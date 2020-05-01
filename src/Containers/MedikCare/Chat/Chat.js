@@ -92,14 +92,12 @@ const Chat =(props)=>{
           userUrl = "/api/v1/doctor/find-user/"+to;
           sess = sessionItemDoctor;
           isDoctorActive = true;
-          medikForm = <textarea id={doctorMessage.id} onChange={(event) => setMessageHandler(event,doctorMessage.id)} type={doctorMessage.type} value={doctorMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
          dashboardLink ="/chat/doctors";
          userUrl = "/api/v1/user/find-doctor/"+to;
          sess = sessionItemUser;
          isUserActive = true;
-         medikForm = <textarea id={userMessage.id} onChange={(event) => setMessageHandler(event,userMessage.id)} type={userMessage.type} value={userMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
-    }
+   }
     const scrollToBottom = ()=>{
           
         element.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
@@ -147,31 +145,21 @@ const Chat =(props)=>{
     }
 
     const setMessageHandler =(event)=>{
-        if(sessionItemUser === null && sessionItemDoctor !== null){
-            setDoctorMessage({id:"msg", value:event.target.value, type:"text"});
-        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
-            setUserMessage({id:"msg", value:event.target.value, type:"text"});
-        }
+        setMessage({id:"msg", value:event.target.value, type:"text"});
     }
 
 
     
     //const socket = io(port, {transports: ['websocket']});
-    const submitChatMessage=(event)=>{
+    const submitChatMessage=(event, )=>{
         event.preventDefault();
         let messageData ={};
-        if(sessionItemUser === null && sessionItemDoctor !== null){
-            messageData = {"message": doctorMessage.value, "from":sess._id, "to":to, "room":room.roomSession};
-             setDoctorMessage({id:"msg", value:"", type:"text"}) 
-        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
-        messageData = {"message": userMessage.value, "from":session._id, "to":to, "room":room.roomSession};
-        setUserMessage({id:"msg", value:"", type:"text"}) 
-        }
-         
-      
+        messageData = {"message":message.value, "from":sess._id, "to":to, "room":room.roomSession};
+        
+        setMessage({id:"msg", value:"", type:"text"})
         setDisplayNotifyMessage({value:message.value})
          socket.emit("send message", messageData);
-        setDisplayMessage(messages => messages.concat({_id:Date.now(), delivery:true, message:messageData.message,createdAt:Date.now(),from:sess._id}));
+       setDisplayMessage(messages => messages.concat({_id:Date.now(), delivery:true, message:messageData.message,createdAt:Date.now(),from:sess._id}));
         scrollToBottom();
     }
 
@@ -340,7 +328,7 @@ const viewProfile= (event, id)=>{
                                             <div className="row">
                                                <div className="col-8">
                                                     <div className="form-group">
-                                                       {medikForm} 
+                                                    <textarea name="chat" onChange={event =>setMessageHandler(event, message.id)} id={message.id} value={message.value} className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea> 
                                                     </div>
                                                </div>
                                                <div className="col-4">
