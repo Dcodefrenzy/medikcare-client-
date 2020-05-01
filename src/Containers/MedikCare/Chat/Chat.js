@@ -10,8 +10,8 @@ const Chat =(props)=>{
     let dashboardLink;
     let userUrl;
     let medikForm;
-    let isUserActive = false;
-    let isDoctorActive = true;
+    let isUserActive;
+    let isDoctorActive;
     let sess;
     const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
@@ -91,11 +91,13 @@ const Chat =(props)=>{
           dashboardLink ="/chat/doctors/doctor";
           userUrl = "/api/v1/doctor/find-user/"+to;
           sess = sessionItemDoctor;
+          isDoctorActive = true;
           medikForm = <textarea id={doctorMessage.id} onChange={(event) => setMessageHandler(event,doctorMessage.id)} type={doctorMessage.type} value={doctorMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }else if (sessionItemUser !== null && sessionItemDoctor === null) {
          dashboardLink ="/chat/doctors";
          userUrl = "/api/v1/user/find-doctor/"+to;
          sess = sessionItemUser;
+         isUserActive = true;
          medikForm = <textarea id={userMessage.id} onChange={(event) => setMessageHandler(event,userMessage.id)} type={userMessage.type} value={userMessage.value}  className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
     }
     const scrollToBottom = ()=>{
@@ -222,9 +224,7 @@ const viewProfile= (event, id)=>{
         sessionHandller();
         allowPush();
         socket.on("get message",(dataset)=>{
-        
             if (dataset === false && !sessionItemUser) {
-               
                 setDisplayMessage([]);
                 window.location = "/chat/doctors/doctor";
             }else if (dataset === false && !sessionItemDoctor) {
@@ -234,16 +234,18 @@ const viewProfile= (event, id)=>{
          }else if (dataset === false && !sessionItemUser && !sessionItemDoctor) {
                 window.location = "/";
          }else{
-                 console.log(sess)
                let messageData = {"message": dataset.message, "from":sess._id, "to":props.match.params.id}; 
+    
+               if(sessionItemUser !== null && dataset.from === sessionItemUser._id && isDoctorActive !== true) {
+                console.log("doc")
+                notify(messageData, "/api/v1/doctor/notify-doctor");
+            }else if( sessionItemDoctor !== null && dataset.from === sessionItemDoctor && isUserActive !== true) {
+                console.log("user")
+                notify(messageData, "/api/v1/user/notify-user");
+            }
+
                 if (dataset.from !== sess._id) {
                     setDisplayMessage(messages => messages.concat({_id:dataset._id, message:dataset.message, createdAt:dataset.createdAt, from:dataset.from, to:dataset.to}));   
-                }
-    
-                if( sessionItemUser === null && dataset.from ===  sess._id ){
-                    notify(messageData, "/api/v1/user/notify-user");
-                }else if(sessionItemDoctor === null && dataset.from === sess._id) {
-                    notify(messageData, "/api/v1/doctor/notify-doctor");
                 }
     
             }
