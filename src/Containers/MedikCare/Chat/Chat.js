@@ -280,7 +280,7 @@ const viewProfile= (event, id)=>{
                                             <div className="row">
                                                 <div className="col-8">
                                                     <div className="form-group"> 
-                                                        <textarea name="chat" onKeyUp={event=>notTyping(event)} onKeyPress={event=>whoIsTyping(event)} ref={textElement} className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
+                                                        <textarea name="chat"  ref={textElement} className="form-control chat-message" placeholder="Write a message" rows="1" required></textarea>
                                                         </div>
                                                 </div>
                                                 <div className="col-4">
