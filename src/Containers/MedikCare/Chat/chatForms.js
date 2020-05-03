@@ -71,7 +71,6 @@ const ChatForm =(props)=>{
                                                         </div>
                                                 </div>
                                                 <div className="col-4">
-                                                    <i className="fa fa-comment"></i>
                                                     <input type="submit" className="form-contol btn btn-lg btn-dark" value="Send" />
                                                 </div>
                                             </div>

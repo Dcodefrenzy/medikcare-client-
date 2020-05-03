@@ -151,7 +151,7 @@ const ChatDisplay = (props) =>{
     <div>
         <div className="top-margin-lg">
             {displayMessages}
-            <p className="col-12 row bottom-margin-lg bottom-padding-lg card-body" ref={element}>click the bell on the right for notification</p>
+            <p className="col-12 row bottom-margin-lg bottom-padding-lg card-body" ref={element}></p>
         </div>
         <ChatForm  to={props.to}/>
     </div>
