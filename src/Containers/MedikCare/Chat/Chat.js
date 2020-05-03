@@ -127,10 +127,11 @@ const viewProfile= (event, id)=>{
                                                     </div>
                                                 </div>  
                                             </div>
+                                            <i className="fa fa-users"></i>
                                        </div>
                                     </div>
                                 </div>
-                                <ChatDisplay socket={socket} session={sess} message={message} to={to} />
+                                <ChatDisplay name={userDetail.name} socket={socket} session={sess} message={message} to={to} />
                             </div>
                         </div>
                     </div>

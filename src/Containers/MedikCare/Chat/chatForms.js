@@ -35,15 +35,13 @@ const ChatForm =(props)=>{
         socket.emit('typing', room);
 
         socket.on('typing', (message)=>{
-            console.log("type")
-            setTypingUser({value:userDetail.name+" "+message})
+            setTypingUser({value:props.name+" "+message})
         })
     }
     const notTyping=(event)=>{
         socket.emit('not typing', room);
 
         socket.on('not typing', message=>{
-            console.log("not")
             setTypingUser({value:""})
         })
     }

@@ -153,7 +153,7 @@ const ChatDisplay = (props) =>{
             {displayMessages}
             <p className="col-12 row bottom-margin-lg bottom-padding-lg card-body" ref={element}></p>
         </div>
-        <ChatForm  to={props.to}/>
+        <ChatForm name={props.name}  to={props.to}/>
     </div>
     )
 }
