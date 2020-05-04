@@ -55,6 +55,8 @@ const ChatReportDoctor = (props) => {
                 setLoading({display:"display-none"});
                 console.log(response.message)
                setUserSession(response.message);
+             }else if (response.status === 403) {
+                 window.location = "/doctor/sessions/waiting";
              }
          })
      }  
@@ -74,7 +76,8 @@ const ChatReportDoctor = (props) => {
                             "plan":plan.value,
                             "appointmentDate":appointmentDate.value,
                         }
-                        console.log(sessionItem._id);
+
+                    console.log(report)
             const url = "/api/v1/doctor/report/add"
             fetch(url, {
                 method: "POST",

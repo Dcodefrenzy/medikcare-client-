@@ -127,7 +127,6 @@ const viewProfile= (event, id)=>{
                                                     </div>
                                                 </div>  
                                             </div>
-                                            <i className="fa fa-users"></i>
                                        </div>
                                     </div>
                                 </div>

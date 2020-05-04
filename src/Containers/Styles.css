@@ -375,7 +375,6 @@ body {
 	position: fixed;
 	top:0;
 	left: 0;
-	overflow: scroll;
 }
 .fixed  i {
 	font-size: 50px;
