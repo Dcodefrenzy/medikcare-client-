@@ -375,6 +375,7 @@ body {
 	position: fixed;
 	top:0;
 	left: 0;
+	overflow: scroll;
 }
 .fixed  i {
 	font-size: 50px;
@@ -389,6 +390,7 @@ body {
 	width: 100%;
 	background-color: #efefef;
 	position: fixed;
+	overflow: scroll;
 }
 .href:hover {
 	text-decoration: none;
