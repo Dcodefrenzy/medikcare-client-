@@ -29,7 +29,7 @@ const AdminChatSession = ()=>{
                 sessionStorage.removeItem("admin");
                 
             }else if (response.status === 403) {
-            }else if (response.status === 200) {console.log(response)
+            }else if (response.status === 200) {console.log({"wait":response})
                 setWaitingSession(response.message)
             }
         })
@@ -44,20 +44,20 @@ const AdminChatSession = ()=>{
 
     const sessionWait = waitingSessions.map((session, index)=>{
         let color
-        if (session.message.emergencyLevel == 1) {
-            session.message.emergencyLevel = "Not Critical";
+        if (session.session.emergencyLevel == 1) {
+            session.session.emergencyLevel = "Not Critical";
             color = "text-primary"
-        }else if (session.message.emergencyLevel == 2) {
-            session.message.emergencyLevel = "Managable";
+        }else if (session.session.emergencyLevel == 2) {
+            session.session.session = "Managable";
             color = "text-warning";
-        }else if (session.message.emergencyLevel == 3) {
-            session.message.emergencyLevel = "Critical";
+        }else if (session.session.emergencyLevel == 3) {
+            session.session.emergencyLevel = "Critical";
             color = "text-danger";
         }
-      return  <tr  key={session.message._id}>
+      return  <tr  key={session.session._id}>
             <th scope="col">{index+1}</th>
-            <td scope="col">{session.username}</td>
-            <td scope="col"><Moment fromNow>{session.message.createdAt}</Moment></td>
+            <td scope="col">{session.name}</td>
+            <td scope="col"><Moment fromNow>{session.session.createdAt}</Moment></td>
         </tr>
     })
     const ongoinSession = ongoingSession.map((session,index)=>{

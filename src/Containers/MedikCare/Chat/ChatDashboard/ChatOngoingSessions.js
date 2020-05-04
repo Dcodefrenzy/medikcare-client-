@@ -6,25 +6,27 @@ import 'moment-timezone';
 import { Link } from 'react-router-dom';
 import DoctorLoginSession from '../../Medicals/Doctors/DoctorsLogins/LoginSession';
 import Loading from '../../Loading/Loading';
+import ChatOngoingSessionRead from './ChatOngoingSessionRead';
 
 
 
 
-const ChatDashbordNewChatDoctor = (props) =>{
+const ChatOngoingSessions = (props) =>{
     const [sessions, displaySession] = useState([]);
     const [newSession, setNewSession] = useState([]);
-    const [doctorSession, setDoctorSession] = useState({display:"display-none"})
-         
+    const [doctorSession, setDoctorSession] = useState({display:"display-none"});
+    const [sessionFullDisplay, setSessionFullDisplay] = useState({display:"display-none"});
+    const [sessionFullDetails, setSessionFullDetails] = useState({usermail:"",doctormail:"",sessionDate:"",complains:"",userId:"", username:"", doctorId:"", doctorname:"", sessionId:""});
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
-    const [display, setDIsplay] = useState("")
+    const [display, setDIsplay] = useState("");
     
-    const   [alert, setAlert]= useState({newSessionDisplay:"display-none", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+    const   [alert, setAlert]= useState({newSessionDisplay:"display-none", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"});
     let session;
 
     const getSession = ()=> {
 
         if(sessionItemDoctor === null) {
-            setDoctorSession({display:"row"})
+            setDoctorSession({display:"row"});
         }
     }  
     
@@ -56,18 +58,54 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
     const fetchDoctorsSessions =()=>{
         if(sessionItemDoctor === null) {
-            setDoctorSession({display:"row"})
+            setDoctorSession({display:"row"});
         }else{
-            socket.emit("fetch session", sessionItemDoctor._id);
+            socket.emit("fetch all sessions");
         }
     }
-    socket.on("fetch session", (sessions)=>{     
+    socket.on("fetch all sessions", (sessions)=>{     
         setAlert({buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"});
             ongoingSession(sessions);
+    });
 
+    
 
-            console.log(sessions)
+const checkUserSession = (event, data)=>{
+    const url = "/api/v1/chatSession/doctor-check";
+    
+    fetch(url, {
+        method: "PATCH",
+        body:JSON.stringify(data),
+        headers: {'Content-Type': "application/json", "u-auth": sessionItemDoctor.token}
     })
+    .then(res => res.json())
+    .then(response => { 
+        if(response.status === 401) {
+            sessionStorage.removeItem("doctor");
+            
+        }else if (response.status === 403) {
+            console.log(response)
+            const sessionData = {"from":response.message.chatSession.from, "to":response.message.chatSession.to};
+            socket.emit("end session", sessionData);
+        }else if (response.status === 200) {console.log(response.message)
+            setSessionFullDisplay({display:""})
+            setSessionFullDetails({
+                        userId:response.message.user._id, 
+                        username:response.message.user.name, 
+                        usermail:response.message.user.email,
+                        doctorId:response.message.doctor._id, 
+                        doctorname:response.message.doctor.name, 
+                        doctormail:response.message.doctor.email,
+                        sessionId:response.message.session._id,
+                        complains:response.message.session.complain,
+                        sessionDate:response.message.chatSession.start
+                    });
+        }
+    })
+}
+const reverseDisplay = (event)=>{
+    setSessionFullDisplay({display:"display-none"});
+}
 
 
     useEffect(()=>{
@@ -77,25 +115,40 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
     const sessionDetails = sessions.map((session, index)=>{
             let id;
-
-      return    <Link to={"/chat/"+session.users._id} key={index}>
-                <div className="card bottom-margin-sm box-shadow">
+   
+               
+      return  <div onClick={event => checkUserSession(event, session.sessions)} className="card bottom-margin-sm box-shadow" key={index}>
                     <div className="card-body text-dark">
-                    <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i>
-                        <h6 className="card-text text-dark"><i className="fa fa-user text-white" aria-hidden="true"></i> {session.users.firstname+" "+session.users.lastname}</h6>
-                        <p className="card-text text-dark">Session status: <span className="text-dark">On session</span></p>
-                        <p className="card-text text-dark">Time: <Moment fromNow>{session.sessions.start}</Moment></p>
+                    <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i><p className="card-text text-dark">Session status: <span className="text-dark">On session</span></p>
+                    <p className="card-text text-dark"><i className="fa fa-user text-white" aria-hidden="true"></i> Dr. {session.doctors.firstname+" "+session.doctors.lastname}  is presently on session with {session.users.firstname+" "+session.users.lastname}</p>
                         
-                            <i className="fa fa-envelope fa-2x text-dark float-right" aria-hidden="true" />                      
+                    <p className="card-text text-dark">Session started : <Moment fromNow>{session.sessions.start}</Moment></p>
+                    <i className="fa fa-eye fa-2x text-dark float-right" aria-hidden="true" />                      
                     </div>
                 </div>
-                </Link> 
+               
         })    
+
     return( 
         <div className="container-fluid">
             
             <Loading display={display}/>
-
+            <div className="top-margin-sm">
+                
+            <ChatOngoingSessionRead 
+                    clicked={(event)=>reverseDisplay(event)}
+                    display={sessionFullDisplay.display} 
+                    userId={sessionFullDetails.userId}
+                    username={sessionFullDetails.username} 
+                    usermail={sessionFullDetails.usermail}
+                    doctorId={sessionFullDetails.doctorId}
+                    doctorname={sessionFullDetails.doctorname} 
+                    doctormail={sessionFullDetails.doctormail}
+                    complains={sessionFullDetails.complains}
+                    sessionDate={sessionFullDetails.sessionDate}
+                    sessionId={sessionFullDetails.sessionId}
+                />
+            </div>
             <div className="row">
                 <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
                     <div className="">
@@ -133,8 +186,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                 </div>
                             </div>
                             <div className="chat">
-                                                            
-                            <section className={alert.alertDisplay}>
+                                  
+                            <h2 className="text-center top-margin-lg">Ongoing Sessions</h2>                          
+                            <div className={alert.alertDisplay}>
                                 <div className="container verification section">
                                     <div>
                                         <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-7 offset-md-3 col-lg-7 offset-lg-3">
@@ -152,10 +206,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                         </div>
                                     </div>
                                 </div>
-                            </section>
-                            <div className="top-margin-lg"> 
+                            </div>
+                            <div className=""> 
                                 <div className={alert.sessionDisplay}>
-                                    <h6>You have a session already</h6>
                                     {sessionDetails}   
                                 </div>
                             </div>
@@ -170,4 +223,4 @@ const ChatDashbordNewChatDoctor = (props) =>{
     )
 }
 
-export default ChatDashbordNewChatDoctor;
+export default ChatOngoingSessions;

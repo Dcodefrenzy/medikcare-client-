@@ -65,6 +65,8 @@ import ChatCreateSession from './MedikCare/Chat/ChatDashboard/ChatCreateSession'
 import ChatUserProfile from './MedikCare/Chat/ChatUserProfile';
 import chatDoctorProfile from './MedikCare/Chat/ChatDoctorProfile';
 import AdminChatSession from './MedikCare/Admins/Sessions/ChatSessions';
+import ChatWaitingList from './MedikCare/Chat/ChatDashboard/ChatWaitingList';
+import ChatOngoingSessions from './MedikCare/Chat/ChatDashboard/ChatOngoingSessions';
 
 
 
@@ -110,7 +112,10 @@ import AdminChatSession from './MedikCare/Admins/Sessions/ChatSessions';
 						<Route path="/doctor/password/change" exact component={DoctorUpdatePassword} />
 						<Route path="/doctor/forget/password" exact component={DoctorForgetPassword} />
 						<Route path="/doctor/forget-password/:id" exact component={DoctorNewPassword} />
-						<Route path="/doctor/settings" exact component={DoctorSettings} />						
+						<Route path="/doctor/settings" exact component={DoctorSettings} />	
+						<Route path="/doctor/sessions/waiting" exact component={ChatWaitingList} />	
+						<Route path="/doctor/sessions/ongoing" exact component={ChatOngoingSessions} />	
+										
 						
 						
 
