@@ -69,7 +69,7 @@ const ChatForm =(props)=>{
                                                         </div>
                                                 </div>
                                                 <div className="col-4">
-                                                    <input type="submit" className="form-contol btn btn-lg btn-dark" value="Send" />
+                                                    <input  type="submit" className="form-contol btn btn-lg btn-dark" value="Send" />
                                                 </div>
                                             </div>
                                         </form>
