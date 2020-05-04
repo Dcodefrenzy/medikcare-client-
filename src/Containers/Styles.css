@@ -390,8 +390,13 @@ body {
 	width: 100%;
 	background-color: #efefef;
 	position: fixed;
-	overflow: scroll;
 }
+#scrollable {
+	position: absolute;
+	height: calc(100% - 30px);
+	width: 100%;
+	overflow-y: auto;
+  }
 .href:hover {
 	text-decoration: none;
 }

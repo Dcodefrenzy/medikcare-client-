@@ -9,7 +9,7 @@ const ChatOngoingSessionRead = (props) => {
 
     return (
         <div className={" " + props.display}>     
-            <div className="fixed top-padding-lg b-medik">
+            <div className="fixed top-padding-lg b-medik scrollable">
                 <main className="col-12 col-sm-12 col-md-12">
                         <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-12">

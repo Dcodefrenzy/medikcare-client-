@@ -5,6 +5,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DoctorLoginSession from "../../Medicals/Doctors/DoctorsLogins/LoginSession";
 import io from 'socket.io-client';
 import Loading from "../../Loading/Loading";
+import {socket} from '../../Socket/Socket';
 
 
 
@@ -17,6 +18,8 @@ const ChatReportDoctor = (props) => {
     const [medikImprove, setMedikImprove] = useState({id:"medikImprove",value:""})
     const [diagnose, setDiagnose] = useState({id:"diagnose",value:""})
     const [test, setTest] = useState({id:"test",value:""})
+    const [plan, setPlan] = useState({id:"plan", value:"",})
+    const [appointmentDate, setAppointment] = useState({id:"appointment", value:"",})
     const [medication, setMedication] = useState({id:"medication",value:""})
     const [complains, setComplains] = useState({id:"complains",value:""})
     const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none", formDisplay:""})
@@ -26,6 +29,8 @@ const ChatReportDoctor = (props) => {
     const setComplainsHandler =(event)=>{ setComplains({id:"complains", value:event.target.value}) }
     const setTestHandler =(event)=>{ setTest({id:"test", value:event.target.value}) }
     const setMedicationHandler =(event)=>{ setMedication({id:"medication", value:event.target.value}) }
+    const setPlanHandler =(event)=>{ setPlan({id:"plan", value:event.target.value}) }
+    const setAppointmentHandler =(event)=>{ setAppointment({id:"appointment", value:event.target.value}) }
     const checkSession = ()=>{
         if (sessionItem === null) {
             setLoginSession({display:"row"})
@@ -48,20 +53,12 @@ const ChatReportDoctor = (props) => {
                  setLoginSession({display:"row"});
              }else if(response.status === 200){
                 setLoading({display:"display-none"});
+                console.log(response.message)
                setUserSession(response.message);
              }
          })
      }  
 
-    let port ="";
-    if (process.env.NODE_ENV !== 'production') {
-		 port =  "http://localhost:7979"
-	  }else if(process.env.NODE_ENV === 'production'){
-            port =    "";
-      }
-
-    
-    const socket = io(port,{transports: ['websocket']});
 
    const submitChatMetricHandler=(event)=>{
         event.preventDefault();  
@@ -73,9 +70,11 @@ const ChatReportDoctor = (props) => {
                             "medication":medication.value, 
                             "chatSessionId":userSession._id,
                             "_userId":from, 
-                            "_doctorId":sessionItem._id
+                            "_doctorId":sessionItem._id,
+                            "plan":plan.value,
+                            "appointmentDate":appointmentDate.value,
                         }
-                        console.log(report);
+                        console.log(sessionItem._id);
             const url = "/api/v1/doctor/report/add"
             fetch(url, {
                 method: "POST",
@@ -155,6 +154,12 @@ const ChatReportDoctor = (props) => {
                                              
                                             </div> 
                                             <div className="col-12 col-sm-12 col-md-12">
+                                                    <div className="form-group">
+                                                        <label>Management Plan <span className="text-danger"></span></label>
+                                                        <textarea id={plan.id} onChange={event=> setPlanHandler(event, plan.id)} className="form-control" placeholder="Write your management plan here" required></textarea>
+                                                    </div>
+                                            </div>
+                                            <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Tests <span className="text-danger"></span></label>
                                                    <textarea id={test.id} onChange={(event)=>setTestHandler(event, test.id)} className="form-control" placeholder="eg 1) kidney function test." required></textarea>
@@ -164,6 +169,12 @@ const ChatReportDoctor = (props) => {
                                                 <div className="form-group">
                                                     <label>Medications <span className="text-danger"></span></label>
                                                    <textarea id={medication.id} onChange={(event)=>setMedicationHandler(event, medication.id)} className="form-control" placeholder="eg, 1) paracetamol" required></textarea>
+                                                </div> 
+                                            </div> 
+                                            <div className="col-12 col-sm-12 col-md-12">
+                                                <div className="form-group">
+                                                    <label>Next Appointment <span className="text-danger"></span></label>
+                                                   <input type="Date" id={appointmentDate.id} onClick={(event=>setAppointmentHandler(event, appointmentDate.id))}   className="form-control" />
                                                 </div> 
                                             </div> 
                                         </div>

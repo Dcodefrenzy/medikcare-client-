@@ -25,7 +25,7 @@ const DoctorsDetails = (props) => {
     }
     return (
         <div className={" " + props.display}>     
-            <div className="admin-details-fixed top-padding-md">
+            <div className="admin-details-fixed top-padding-md" id="scrollable">
                 <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                         <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-12">

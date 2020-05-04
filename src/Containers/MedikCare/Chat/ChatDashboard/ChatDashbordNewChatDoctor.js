@@ -18,7 +18,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
     const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [display, setDIsplay] = useState("")
     
-    const   [alert, setAlert]= useState({newSessionDisplay:"display-none", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+    const   [alert, setAlert]= useState({newSessionDisplay:"display-none", sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
     let session;
 
     const getSession = ()=> {
@@ -42,13 +42,16 @@ const ChatDashbordNewChatDoctor = (props) =>{
             if (response.status === 200) {
                 
             setDIsplay("display-none")
-            displaySession(response.message);
+                if (response.message.length < 1) {
+                    setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+                    setDIsplay("display-none") 
+                } else{
+                    displaySession(response.message);
+                }
             }
             else{
              setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
-
             setDIsplay("display-none")
-            displaySession(response.message);
             }
         });
     }
@@ -62,11 +65,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
         }
     }
     socket.on("fetch session", (sessions)=>{     
-        setAlert({buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"});
             ongoingSession(sessions);
-
-
-            console.log(sessions)
     })
 
 
@@ -134,7 +133,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
                             </div>
                             <div className="chat">
                                       
-                            <h2>Your Sessions</h2>                      
+                            <h2 className="top-margin-lg text-center">Your Medical Sessions</h2>                      
                             <div className={alert.alertDisplay}>
                                 <div className="container verification section">
                                     <div>

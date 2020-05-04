@@ -44,10 +44,15 @@ const ChatOngoingSessions = (props) =>{
             if (response.status === 200) {
                 
             setDIsplay("display-none")
+                if (response.message.length < 1) {
+                    setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+
+                }else{
             displaySession(response.message);
             }
+                }
             else{
-             setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
+             setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
 
             setDIsplay("display-none")
             displaySession(response.message);
@@ -169,12 +174,12 @@ const reverseDisplay = (event)=>{
                                         
                                         <div>
                                             <Link to="/doctor/sessions/ongoing">
-                                                <i className="far fa-handshake fa-2x text-dark" aria-hidden="true"></i>
+                                                <i className="far fa-handshake fa-2x  chat-dashboard-active" aria-hidden="true"></i>
                                             </Link>
                                         </div> 
                                         <div className="col-2">
                                             <Link to="/chat/doctors/doctor">
-                                                <i  id="newMessage" className="fa fa-plus-circle fa-2x chat-dashboard-active"> </i>
+                                                <i  id="newMessage" className="fa fa-plus-circle fa-2x text-dark"> </i>
                                             </Link>
                                         </div>
                                         <div className="col-2">
