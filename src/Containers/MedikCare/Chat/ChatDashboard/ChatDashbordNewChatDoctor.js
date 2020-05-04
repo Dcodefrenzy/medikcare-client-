@@ -45,7 +45,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
             displaySession(response.message);
             }
             else{
-             setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
+             setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
 
             setDIsplay("display-none")
             displaySession(response.message);
@@ -133,8 +133,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                 </div>
                             </div>
                             <div className="chat">
-                                                            
-                            <section className={alert.alertDisplay}>
+                                      
+                            <h2>Your Sessions</h2>                      
+                            <div className={alert.alertDisplay}>
                                 <div className="container verification section">
                                     <div>
                                         <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-7 offset-md-3 col-lg-7 offset-lg-3">
@@ -152,10 +153,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
                             <div className="top-margin-lg"> 
                                 <div className={alert.sessionDisplay}>
-                                    <h6>You have a session already</h6>
                                     {sessionDetails}   
                                 </div>
                             </div>
