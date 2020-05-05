@@ -43,14 +43,15 @@ const ChatDashbordNewChatDoctor = (props) =>{
                 
             setDIsplay("display-none")
                 if (response.message.length < 1) {
-                    setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+                    setAlert({sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
                     setDIsplay("display-none") 
-                } else{
+                } else{ 
+                    setAlert({sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"display-none", spinnerDisplay:"display-none"})
                     displaySession(response.message);
                 }
             }
             else{
-             setAlert({newSessionDisplay:"top-margin-md", sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
+             setAlert({sessionDisplay:"display-none",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
             setDIsplay("display-none")
             }
         });
@@ -154,9 +155,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
                                 </div>
                             </div>
                             <div className="top-margin-lg"> 
-                                <div className={alert.sessionDisplay}>
-                                    {sessionDetails}   
-                                </div>
+                                {sessionDetails} 
                             </div>
                                 </div>
                             </div>
