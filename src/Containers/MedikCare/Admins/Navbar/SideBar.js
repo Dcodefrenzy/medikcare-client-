@@ -5,6 +5,9 @@ import NavBarLink from './Links';
 const SideBar = () => {
   
   const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
+  if (sessionItem === null) {
+    window.location = "/admin/login?Please login."
+  }
   const [admin, setAdmin] = useState({});
   const [file, setFile]  = useState({})
 
@@ -21,7 +24,11 @@ const SideBar = () => {
             window.location = "/admin/login?Session expired please login."
         }else if (response.status === 200) {
               setAdmin(response.message);
-            setFile(response.message.image)
+            if (response.message.image) {
+                setFile(response.message.image);
+            }else{
+                setFile({filename:"user.png"});
+            }
         }
     })
 }

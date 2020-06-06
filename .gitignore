@@ -17,3 +17,5 @@ yarn-debug.log*
 yarn-error.log*
 .vagrant
 Vagrantfile
+/public/files
+/public/Images

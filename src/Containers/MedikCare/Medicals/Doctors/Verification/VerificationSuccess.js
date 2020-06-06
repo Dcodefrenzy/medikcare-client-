@@ -19,7 +19,7 @@ class DoctorVerificationSuccess extends Component {
     
         verifyUserMailHandler = () => {
             let token = this.props.match.params.id;
-            const url = "http://192.168.33.12:3000/api/v1/doctor/doctor-verify";
+            const url = "/api/v1/doctor/doctor-verify";
             if (!token) {
                 console.log(token)
                 window.location = "/page-not-found";
@@ -29,7 +29,7 @@ class DoctorVerificationSuccess extends Component {
                 headers:{"Content-Type":"application/json", "u-auth":token}
             })
             .then(res => res.json())
-            .then(response =>{
+            .then(response =>{console.log(response)
                 this.setState({display:"display-none"})
                 if(response.status === 401) {
                     const verification = {display:"display-block", message:"The verification link has expired please enter your mail to recieve a new one.", dashboardDisplay:"display-none"}

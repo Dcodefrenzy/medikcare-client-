@@ -100,6 +100,7 @@ class AdminList extends Component {
         event.preventDefault();
         const adminDetails =  this.state.adminList.filter(admin => admin._id ===id );
         adminDetails[0].display = "display-block";
+        console.log(adminDetails[0])
             this.setState({adminDetails:adminDetails[0]});   
     }
     
@@ -154,7 +155,7 @@ class AdminList extends Component {
 
     render() {
                 const adminDetals = this.state.adminList.map((admin, index) => {
-                    const fa = admin.deleteAdmin === 0 ? "fa fa-trash text-danger":"fa fa-trash text-success";
+                    const fa = admin.deleteAdmin === false ? "fa fa-trash text-danger":"fa fa-trash text-success";
                          return   <AdminListTh 
                             key={admin._id} 
                             sn={index + 1} 
@@ -205,9 +206,7 @@ class AdminList extends Component {
                                         <thead className="thead-dark">
                                             <tr>
                                                 <th scope="col">S/N</th>
-                                                <th scope="col">First Name</th>
-                                                <th scope="col">Last Name</th>
-                                                <th scope="col">Phonumber</th>
+                                                <th scope="col">Fullname</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>

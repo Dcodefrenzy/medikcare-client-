@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 
 const Footer = (props) => {
@@ -13,11 +14,9 @@ const Footer = (props) => {
                         <div>
                             <ul>
                                 MedikCare 
-                                <li><a href="">Why medikCare</a></li>
-                                <li><a href="">Services</a></li>
-                                <li><a href="">Prcing</a></li>
-                                <li><a href="">Privacy</a></li>
-                                <li><a href="">Terms</a></li>
+                                <li>Why medikCare</li>
+                                <li>Services</li>
+                                <li>Plans</li>
                             </ul>
                         </div>
                     </div>
@@ -25,9 +24,9 @@ const Footer = (props) => {
                         <div>
                             <ul>
                                 Resources
-                                <li><a href="">FAQ</a></li>
-                                <li><a href="">Privacy</a></li>
-                                <li><a href="">Terms</a></li>
+                                <li>FAQ</li>
+                                <li>Privacy</li>
+                                <li>Terms</li>
                             </ul>
                         </div>
                     </div>
@@ -35,10 +34,12 @@ const Footer = (props) => {
                         <div>
                             <ul>
                                 Sections
-                                <li><a href="">Users</a></li>
-                                <li><a href="">Companies</a></li>
-                                <li><a href="">Doctors</a></li>
-                                <li><a href="">Medical Personels</a></li>
+                                <Link to="/login">
+                                <li>Users</li>
+                                </Link>
+                                <Link to="/doctor/login">
+                                <li>Doctors</li>
+                                </Link>
                             </ul>
                         </div>
                     </div>
@@ -46,8 +47,8 @@ const Footer = (props) => {
                         <div>
                             <ul>
                                 Contacts
-                                <li><a href="">+2348133475878</a></li>
-                                <li><a href="mailto:medikcare1@gmail.com" target="_blank">medikcare</a></li>
+                                <li>+2348133475878</li>
+                                <li>medikcare mail</li>
                             </ul>
                         </div>
                     </div>

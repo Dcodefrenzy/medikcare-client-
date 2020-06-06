@@ -1,29 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import io from 'socket.io-client';
+import {socket} from '../../Socket/Socket';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
-import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
-import Loading from '../../Loading/Loading';
+import LoginSession from '../../Users/Logins/LoginSession';
+
 
 
 
 const ChatDashbordNewChat = (props) =>{
     const [doctors, displayDoctors] = useState([])
-    
+    const session = JSON.parse(sessionStorage.getItem("user"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:""})
-        let session;
+    const [loginSession, setLoginSession] = useState({display:"display-none"})
+  
     const getSession = ()=> {
         const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
-        const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
-        if(sessionItemDoctor === null && sessionItemUser === null) {
-            window.history.back();
-        }else if(sessionItemUser === null && sessionItemDoctor !== null){
-            sessionItemDoctor.isUser = false;
-            return session = sessionItemDoctor;
-        }else if(sessionItemUser !== null && sessionItemDoctor === null) {
-            sessionItemUser.isUser = true;
-            return session = sessionItemUser;
+        if( sessionItemUser === null) {
+            setLoginSession({display:"row"})
+        }else{
+            
+        checkSession();
         }
     }
 
@@ -36,27 +33,23 @@ const ChatDashbordNewChat = (props) =>{
         .then(res => res.json())
         .then(response =>{
             if(response.status === 401) {
-                if(session.isUser === false){
-                 sessionStorage.removeItem("doctor");
-                   window.location = "/doctor/login?Session expired please login.";
-                }else if(session.isUser === true) {
                 sessionStorage.removeItem("user");
-                window.location = "/login?Session expired please login.";
-                }
-            }else if(response.status === 200){
+                setLoginSession({display:"row"})
                 
+            }else if(response.status === 200){
+                console.log(response);
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
                 displayDoctors(response.message)
             }
         })
     }
-    
-    const socket = io("http://localhost:8080");
+
    const checkSession =()=>{
         socket.emit("check session", session._id);
     }
     socket.on("check session", (checkSession)=>{
-        if(!checkSession) {
+        //console.log(checkSession)
+        if(!checkSession ) {
             fetchDoctorsHandeller();
         }else{
             let id ="";
@@ -74,83 +67,62 @@ const ChatDashbordNewChat = (props) =>{
 
     useEffect(()=>{
         getSession();
-        checkSession();
     }, [])
 
     const doctor = doctors.map((doctor)=>{
                 const online = doctor.loginStatus === true?"text-success":"text-danger"
-      return    <div className="card b-medik" key={doctor._id}>
-                    <div className="card-body text-white">
-                    <i className={`fa fa-circle ${online} float-right`} aria-hidden="true"></i>
-                        <h3 className="card-text text-dark"><i className="fa fa-user text-dark" aria-hidden="true"></i> Dr {doctor.firstname+" "+doctor.lastname}</h3>
-                        <p className="">Medicine and Surgery</p>
-                        <span className="card-text">
-                            <i className="fa fa-star fa-2x" aria-hidden="true"></i> 
-                            <i className="fa fa-star fa-2x" aria-hidden="true"></i>
-                            <i className="fa fa-star fa-2x" aria-hidden="true"></i>
-                            <i className="fa fa-star fa-2x" aria-hidden="true"></i>
-                            <i className="fa fa-star fa-2x" aria-hidden="true"></i>
-                        </span> 
-                        <Link to={"/chat/session/"+doctor._id}>
-                            <i className="fa fa-envelope fa-2x float-right" aria-hidden="true" />                   
-                        </Link>   
+      return     <Link to={"/chat/session/"+doctor._id} key={doctor._id}>
+                <div className="card bottom-margin-sm">
+                    <div className="card-body text-dark">
+                        <i className={`fa fa-circle ${online} float-right`} aria-hidden="true"></i>
+                        <h6 className="card-text text-dark"><i className="fa fa-user" aria-hidden="true"></i> Dr {doctor.firstname+" "+doctor.lastname}</h6>
+                        <p><b>{doctor.gender}</b></p>
+                        <i className={` float-right`} aria-hidden="true"> <b>&#8358; 0</b></i> 
+                            <i className="fa fa-envelope fa-2x  medik-color" aria-hidden="true" />                       
                     </div>
                 </div>
+                </Link>
         })
     return( 
-        <div className="container-fluid b-medik">
-        <div className="container">
+        <div className="container-fluid">
+        <LoginSession display={loginSession.display} /> 
             <div className="row">
                 <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
-                    <div className="card b-medik">
+                    <div className="">
                         <div className="card-body">
-                            <div className="card b-medik position-fixed fixed-top">
+                            <div className="card  position-fixed fixed-top">
                                 <div className="card-body text-white">
                                     <div className="row justify-content-between">
-                                        <div className="col-3">
-                                            <i className="fa fa-arrow-left fa-lg" aria-hidden="false"> Back</i>
-                                        </div>
-                                        <div className="col-3">
-                                            <Link to="/chat/dashboard">
-                                                <i  id="bell" className="fa fa-bell fa-3x text-white" aria-hidden="true"></i>
-                                            </Link>
-                                        </div>   
+                                        <Link to="/user/dashboard">
+                                            <i className="fa fa-arrow-left fa-lg text-dark" aria-hidden="false"></i>
+                                        </Link>  
                                         <div className="col-3">
                                             <Link to="/chat/doctors">
-                                                <i  id="newMessage" className="fa fa-plus-circle fa-3x chat-dashboard-active"> </i>
+                                                <i  id="newMessage" className="fa fa-plus-circle fa-2x chat-dashboard-active"> </i>
                                             </Link>
                                         </div>
                                         <div className="col-3">
                                             <Link to="/chat/notifications">
-                                                <i  id="activities" className="fa fa-tasks fa-3x text-white"  aria-hidden="true"></i>
+                                            <i  id="bell" className="fa fa-bell fa-2x text-dark" aria-hidden="true"></i>
                                             </Link>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="chat">
-                                    <section> 
-                                        
-                                <div className={"text-center "+alert.spinnerDisplay}>
-                                         <i className="fa fa-spinner fa-pulse text-white fa-3x"></i>
-                                    </div>
-                                        <div className="">
-                                            <h1 className="text-dark text-center">Doctors</h1>
-                                                    {doctor}
-                                                <div className="card b-medik top-margin-sm">
-                                                    <div className="card-body text-white">
-                                                    <h1 className="text-center">More..</h1>
-                                                    </div>
-                                                </div>
+                            <div className="chat top-margin-lg">
+                                        <div className={"text-center "+alert.spinnerDisplay}>
+                                         <i className="fa fa-spinner fa-pulse medik-color fa-3x"></i>
                                         </div>
-                                    </section>
+                                        <div className="">
+                                            <h6 className="text-dark text-center">Doctors</h6>
+                                                    {doctor}
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     )
 }
 

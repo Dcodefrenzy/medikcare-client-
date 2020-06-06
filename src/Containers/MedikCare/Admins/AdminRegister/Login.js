@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginSvg  from "../../Assets/svgs/login.svg";
 import Loading from "../../Loading/Loading"
 import PopMessage from '../../PopMessage/PopMessage';
+import { Link } from 'react-router-dom';
 
 class Login extends Component  {
 
@@ -163,6 +164,7 @@ class Login extends Component  {
                                         <div className="col-6 col-sm-6 col-md-6">
                                             <div className="form-group">
                                                 <input className="btn-medik form-control" type="submit" name="register" />
+                                                <span>Forget password? click <Link to="/admin/forget/password">here</Link></span> 
                                             </div>
                                         </div>
                                     </div>

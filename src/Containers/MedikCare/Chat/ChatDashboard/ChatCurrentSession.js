@@ -1,37 +1,41 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import io from 'socket.io-client';
+import {socket} from '../../Socket/Socket';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
 import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
+import LoginSession from "../../Users/Logins/LoginSession";
 
 
 const chatCurrentsession = (props) =>{
     const id = props.match.params.id
+
     const [doctor, displayDoctor] = useState([]);
     const [doctorInfo, displayDoctorInfo] = useState([]);
     const [file, setFile] = useState({});
     const session = JSON.parse(sessionStorage.getItem("user"));
+    const [loginSession, setLoginSession] = useState({display:"display-none"})
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:"display-none"})
 
+    const getSession = ()=> {
+        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+        if( sessionItemUser === null) {
+            setLoginSession({display:"row"})
+        }
+    }
 
     const fetchDoctorsHandeller = () => {
-
-        console.log(id)
          const url = "/api/v1/doctors/records/user/doctor/"+id;
          fetch(url, {
              method:"GET",
              headers:{"Content-Type":"application/json", "u-auth":session.token}
          })
          .then(res => res.json())
-         .then(response =>{console.log(response)
+         .then(response =>{
              if(response.status === 401) {
-                 if(session.isUser === false){
-                  sessionStorage.removeItem("doctor");
-                    window.location = "/doctor/login?Session expired please login.";
-                 }else if(session.isUser === true) {
+                 if(session.isUser === true) {
                  sessionStorage.removeItem("user");
-                 window.location = "/login?Session expired please login.";
+                 setLoginSession({display:"row"});
                  }
              }else if(response.status === 200){
                  displayDoctor(response.message._doctorId);
@@ -46,32 +50,32 @@ const chatCurrentsession = (props) =>{
              }
          })
      }
-    
-    const socket = io("http://localhost:8080");
+
     const endSession=(event)=>{
         event.preventDefault();
         const session = JSON.parse(sessionStorage.getItem("user"));
         const sessionData = {"from":session._id, "to":id};  
         socket.emit("end session", sessionData);
     }
-    socket.on("end session", (dataset)=>{
-        console.log(dataset)
-        //window.location = "/chat/doctors"
+    socket.on("end session", (dataset, sessionData)=>{
+        window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
     })
 
 
     useEffect(()=>{
+        getSession();
         fetchDoctorsHandeller();
     }, [])
 
    
     return(  
-        <div className="container-fluid">     
+        <div className="container-fluid"> 
+        <LoginSession display={loginSession.display} />    
         <section>
             <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="justify-content-center medik-color">
                     <div className="col-12 col-sm-12 col-md-12">
-                        <Link to="/chat/dashboard"> 
+                        <Link to="/user/dashboard"> 
                             <button className="btn-sm btn-medik">Go back</button>
                         </Link>
                         </div>
@@ -85,12 +89,12 @@ const chatCurrentsession = (props) =>{
                                         <small className="block">{doctorInfo.specialty}</small>
                                    </div>
                                    <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, do you want to End or Continue your session? </p>
+                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, Please click the button bellow to continue? </p>
                                                     <div className={alert.spinnerDisplay}>
                                                         <i className="fa fa-spinner fa-pulse fa-3x"></i>
                                                     </div>
                                                     <div className={alert.buttonDisplay}>   
-                                                        <button onClick={(event)=>endSession(event)} className="btn-sm btn-warning">End</button>
+                                                        
                                                         <Link to={"/chat/"+doctor._id}><button className="btn-sm btn-success" id={doctor._id}>Continue</button></Link>
                                                     </div>
                                                </div>

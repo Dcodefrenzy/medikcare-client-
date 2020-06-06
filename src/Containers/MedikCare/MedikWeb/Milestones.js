@@ -5,40 +5,15 @@ import { Link } from 'react-router-dom';
 const Milestones = (props) => {
   return (
     <section className="overflow">
-    	<div className="container home-content">
-    	  	    <h1 className="medik-color center">Milestones</h1>
-    	    <div className="row milestone-content">
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Doctors.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Users/Members.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Answers Served.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>States Reached.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>Acive Users.</p>
-    			</div>
-    			<div className="col-6 col-sm-6 col-md-4">
-    			    	<h5>0</h5>
-    					<p>specialties</p>
-    			</div>
+    	<div className="container home-content ">
+    	    <div className="row milestone-content medik-color">
     			<div className="col-12 col-sm-12 col-md-12">
-    				<h1 className="center">Saving the world one person at a time.</h1>
+    				<h1 className="center medik-color">Saving the world one person at a time.</h1>
     			    <img src={connects} alt="connects-milestones" className='milestone-svg'/>
     			</div>
     			<div className="col-11 col-sm-12 col-md-8">
-    				<h4>Try Us Now,</h4>
-    			    <h2>Get Started In 10mins</h2>	
+    				<h4 className="text-dark">Try Us Now,</h4>
+    			    <h2 className="text-dark">Get Started In 10mins</h2>	
 						<Link to="/registration">
 							<button className="home-buttons nav-link btn-lg btn-medik">Get Started</button>
 						</Link>

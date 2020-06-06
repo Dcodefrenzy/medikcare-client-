@@ -27,28 +27,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
         setlastName({id:"lastName", value:event.target.value, type:"text"})
     }
 
-    const setUserDisplayHadler=()=>{
-        const url = "/api/v1/admins/profile";
-        fetch(url, {
-            method: "GET",
-            headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
-        })
-        .then(res => res.json())
-        .then(response => { 
-            if(response.status === 401) {
-                sessionStorage.removeItem("admin");
-                window.location = "/admin/login?Session expired please login."
-            }else if (response.status === 200) {
-                setDisplay({display:"display-none"});
-                setAdmin(response.message);
-                if (response.message.image) {
-                    setFile(response.message.image);
-                }else{
-                    setFile({filename:"user.png"});
-                }
-            }
-        })
-    }
+
     const setAdminProfile=(event)=>{
         event.preventDefault();
         setAlert({alertDisplay:"display-none", spinnerDisplay:"block"})
@@ -72,7 +51,28 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
             }
         })
     }
-
+    const setUserDisplayHadler=()=>{
+        const url = "/api/v1/admins/profile";
+        fetch(url, {
+            method: "GET",
+            headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
+        })
+        .then(res => res.json())
+        .then(response => { console.log(response)
+            if(response.status === 401) {
+                sessionStorage.removeItem("admin");
+                window.location = "/admin/login?Session expired please login."
+            }else if (response.status === 200) {
+                setDisplay({display:"display-none"});
+                setAdmin(response.message);
+                if (response.message.image) {
+                    setFile(response.message.image);
+                }else{
+                    setFile({filename:"user.png"});
+                }
+            }
+        })
+    }
     const setAdminLogs=(event)=>{
         const url = "/api/v1/logs/admin"
         fetch(url, {

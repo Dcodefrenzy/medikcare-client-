@@ -5,6 +5,8 @@ import Carosel from '../Carosel/Carosel';
 import Loading from '../../Loading/Loading';
 import PopMessage from '../../PopMessage/PopMessage';
 import HealthQuestions from '../../Health/HealthQuestions/HealthQuestions';
+import CKEditor from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 class Question extends Component {
@@ -74,7 +76,7 @@ class Question extends Component {
              headers:{"Content-Type": "application/json", "u-auth": sessionItem.token}
          })
          .then(res=>res.json())
-         .then(response=>{
+         .then(response=>{console.log(response)
              if(response.status === 401) {
                 sessionStorage.removeItem("user");
                 window.location = "/login?Session expired please login."

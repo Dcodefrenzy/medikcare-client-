@@ -4,6 +4,7 @@ import Footer from '../../MedikWeb/Footer';
 import UserRegistration from './Registration';
 import PopMessage from '../../PopMessage/PopMessage';
 import Loading from '../../Loading/Loading';
+import RegistrationGettingStarted from './RegistrationGettingStarted';
 
 
 class RegistrationValidation extends Component {
@@ -78,7 +79,7 @@ class RegistrationValidation extends Component {
                  ageError: {
                     id:"ageError",
                     display:"display-none",
-                    value:"",
+                    value:"NA",
                  },
                  genderError: {
                     id:"genderError",
@@ -184,13 +185,13 @@ class RegistrationValidation extends Component {
                 headers: {'Content-Type': "application/json"},
          })
          .then(res => res.json()) 
-        .then(response => {
+        .then(response => {console.log(response);
             let phonenumberError = {};
             let emailError = {};
             let firstNameError  = {};
             let lastNameError = {};
             let passwordError = {};
-            console.log(response);
+            
             if(response.status === 201) {
                 sessionStorage.setItem("user", JSON.stringify(response));
                window.location = "/user/verification?User-registration-successful";
@@ -201,32 +202,31 @@ class RegistrationValidation extends Component {
                 firstNameError.display ="display-block";
                 firstNameError.value = response.message.firstname.message;
                 this.setState({firstNameError: firstNameError});
-            }else { this.setState({firstNameError: firstNameError}); }
+                }else { this.setState({firstNameError: firstNameError}); }
                 //last name
-            if(response.message.lastname) {
+                if(response.message.lastname) {
                 lastNameError.display ="display-block";
                 lastNameError.value = response.message.lastname.message;
                 this.setState({lastNameError: lastNameError});
-            } else { this.setState({lastNameError: lastNameError}); }
+                } else { this.setState({lastNameError: lastNameError}); }
             //email
-            if(response.message.email) {
+                if(response.message.email) {
                 emailError.display ="display-block";
                 emailError.value = response.message.email.message;
                 this.setState({emailError: emailError});
-            }else if(response.message.name === 'MongoError' && response.message.keyPattern.email){
-                emailError.display ="display-block";
-                emailError.value = "Mail Already Exist";
-                this.setState({emailError: emailError});
-            } else { this.setState({emailError: emailError}); }
+                }else if(response.message.name === 'MongoError' && response.message.keyPattern.email){
+                    emailError.display ="display-block";
+                    emailError.value = "Email Already Exist.";
+                    this.setState({emailError: emailError});
+                } else { this.setState({emailError: emailError}); }
             //phone number
             if(response.message.phoneNumber) {      
                  phonenumberError.display = "display-block";
                  phonenumberError.value =response.message.phoneNumber.message;
                 this.setState({phonenumberError: phonenumberError});
             }else if(response.message.name === 'MongoError' && response.message.keyPattern.phonenumber){
-                         
-                 phonenumberError.display = "display-block";
-                 phonenumberError.value ="Phone Number Already Exist";
+                phonenumberError.display ="display-block";
+                phonenumberError.value = "Phone number Already Exist";
                 this.setState({phonenumberError: phonenumberError});
             }else { this.setState({phonenumberError: phonenumberError}); }
             if(response.message.password) {
@@ -235,14 +235,8 @@ class RegistrationValidation extends Component {
                 this.setState({passwordError:passwordError})
             }else {this.setState({passwordError:passwordError})} 
 
-            }else  if(response.status === 401) {
-                sessionStorage.removeItem("admin")
-                window.location = "/admin/login?Your-session-has-ended-please-login.";
             }
         })
-         .catch(e => {
-            if(e) {window.location = "/registration?something-went-wrong-please-check-your-internet-connection-and-try-again."}
-         })
      }
      onLoadHandler = (event) => {
         if(window.location.href.includes('?')) {
@@ -266,11 +260,14 @@ class RegistrationValidation extends Component {
     render() {
         return(
             <div>
-                <NavBar />
-                <section className="container-fluid">
+                
+                <div className="container-fluid">
                 <Loading display={this.state.display}/>
-                <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
-                <UserRegistration 
+               <UserRegistration 
+                
+                errorMessage={this.state.popMessage.message}
+                errorDisplay={this.state.popMessage.display}
+
                  firstnameId={this.state.registerForm.firstname.id} 
                  firstnameValue={this.state.registerForm.firstname.value}
                  firstnameChange={(event) => this.inputChangedHandler(event, this.state.registerForm.firstname.id)}
@@ -299,13 +296,6 @@ class RegistrationValidation extends Component {
                  phonenumberClass={this.state.phonenumberError.display}
                  phonenumberErrorValue={this.state.phonenumberError.value}
 
-
-                 ageId={this.state.registerForm.age.id} 
-                 ageValue={this.state.registerForm.age.value}
-                 ageChange={(event) => this.inputChangedHandler(event, this.state.registerForm.age.id)}
-                 ageErrorId={this.state.ageError.id}
-                 ageClass={this.state.ageError.display}
-                 ageErrorValue={this.state.ageError.value}
 
                  passwordId={this.state.registerForm.password.id} 
                  passwordValue={this.state.registerForm.password.value}
@@ -336,8 +326,7 @@ class RegistrationValidation extends Component {
                  submit={this.registerLoginHandler}
                 
                 />
-                </section>
-                <Footer />
+                </div>
             </div>
         )
     }

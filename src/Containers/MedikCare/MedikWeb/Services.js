@@ -15,11 +15,11 @@ const Services = (props) => {
     					<div className="row">
 							
 						<div className="col-12 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ health_questions } alt="Post health questions" className='home-svg'/>
+    							 <img src={ health_questions } alt="Post health questions" height="255px" width="255px" className=''/>
     						</div>
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6 service-content">
     							<h3>POST A HEALTH QUESTION</h3>
-    							<p>Ask a doctor anythingConfidential and secure.</p>
+    							<p>Ask a doctor anything confidential and secure and get answer qucikly.</p>
     							<button className="btn btn-sm btn-medik">Read More</button>
     						</div>
     					</div>
@@ -29,7 +29,7 @@ const Services = (props) => {
     				<div className="card">
     					<div className="row">
 						<div className="col-12 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ chat } alt="consult using our application with doctors" className='home-svg'/>
+    							 <img src={ chat } alt="consult using our application with doctors" height="255px" width="255px" className=''/>
     						</div>
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6 service-content">
     							<h3>ONLINE CONSULTATION</h3>
@@ -43,7 +43,7 @@ const Services = (props) => {
     				<div className="card">
     					<div className="row">
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ todo } alt="Get treatment plan" className='home-svg'/>
+    							 <img src={ todo } alt="Get treatment plan" height="255px" width="255px" className=''/>
     						</div>
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6 service-content">
     							<h3>TREATMENT PLAN</h3>
@@ -57,7 +57,7 @@ const Services = (props) => {
     				<div className="card">
     					<div className="row">
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6">
-    							 <img src={ goals } alt="set health goals" className='home-svg'/>
+    							 <img src={ goals } alt="set health goals" height="255px" width="255px" className=''/>
     						</div>
     						<div className="col-12 col-sm-6 col-md-12 col-lg-6 service-content">
     							<h3>SET HEALTH GOALS</h3>
