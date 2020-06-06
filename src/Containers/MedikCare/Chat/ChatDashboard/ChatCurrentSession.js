@@ -75,7 +75,7 @@ const chatCurrentsession = (props) =>{
             <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="justify-content-center medik-color">
                     <div className="col-12 col-sm-12 col-md-12">
-                        <Link to="/chat/dashboard"> 
+                        <Link to="/user/dashboard"> 
                             <button className="btn-sm btn-medik">Go back</button>
                         </Link>
                         </div>

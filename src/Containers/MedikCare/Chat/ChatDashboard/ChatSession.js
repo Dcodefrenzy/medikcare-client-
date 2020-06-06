@@ -17,7 +17,7 @@ const ChatSession = (props) =>{
     const session = JSON.parse(sessionStorage.getItem("doctor"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:"display-none"})
     const [reportDisplay, setReportDisplay] = useState({display:"display-none"})
-
+    let complains;
 
 
     const authentication =()=>{
@@ -52,8 +52,10 @@ const ChatSession = (props) =>{
                     response.message.color = "text-danger";
                 }
               displayUser(response.user);
+              complains = response.message.complain
               setUserSession(response.message)
               setUserReports(response.reports)
+
                 //setFile(response.message._doctorId.image)
             }
         })
@@ -106,13 +108,14 @@ const endReportDisplay = (event)=>{
                         setDoctorSession({display:"row"});
                     }else if(response.status === 201){ 
                        // console.log("YAY!")
-                    socket.emit("session start", session._id, id);
+                    socket.emit("session start", session._id, id, userSession.complain);
                     setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
                         
                     }
                 })
     }
     socket.on('create session', (from, to)=>{
+   
         window.location = "/chat/"+props.match.params.id;
     })
 

@@ -133,11 +133,11 @@ const ChatCreateSession = (props) => {
                                 <div className="card-body top-margin-lg">
                                     <h3>Success!</h3>
                                     <h1 className="text-center top-margin-md">😎</h1>
-                                    <p className="top-margin-md">Thank you for creating a session, Your complains have been sent to our doctors, you will be contacted shortly via email and notification.👍</p>
+                                    <p className="top-margin-md">Thank you for creating a session, Your complains have been sent to our doctors, you will be contacted shortly via email and notification. Please if you have not subscribed, click the notification bell no the screen and subscibe so as to get quick notification response.👍</p>
                                    <div className="col-12 col-sm-10 offset-sm-4 col-md-10 offset-md-4 col-lg-10 offset-lg-4 top-margin-md"> 
                                         <Link to="/user/dashboard">
                                                 <button className="btn btn-medik top-margin-md">Go to dashboard</button>
-                                            </Link>
+                                        </Link>
                                    </div>
                                 </div>
                             </div>
@@ -146,13 +146,11 @@ const ChatCreateSession = (props) => {
                     <div className={sessionDisplay.display}>
                         <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-7 offset-md-3 col-lg-7 offset-lg-3 ">
                             <div className="card">
-                                <div className="card-body top-margin-lg">
-                                    <p>A session have already been created by you.</p>
+                                <div className="card-body top-margin-lg"><p className="top-margin-md">Thank you for creating a session, Your complains have been sent to our doctors, you will be contacted shortly via email and notification. Please if you have not subscribed, click the notification bell no the screen and subscibe so as to get quick notification response.👍</p>
                                     <p className="medik-color"><b className="text-dark">Emergency Level: </b>{updateSession.emergencyLevel}</p>
                                     <p className="text-center top-margin-md">User Complain</p>
                                     <small className="top-margin-md">{updateSession.complain}</small>
                                    <div className="col-12 col-sm-12 col-md-12 col-lg-12 top-margin-md"> 
-                                    <span>A doctor will get to your shortly via email and push notification Thanks.</span>
                                         <Link to="/user/dashboard">
                                                 <button className="btn btn-medik top-margin-md">Go to dashboard</button>
                                             </Link>
@@ -183,7 +181,7 @@ const ChatCreateSession = (props) => {
                                             </div> <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Patient Complain <span className="text-danger"></span></label>
-                                                   <textarea required id={complain.id} onChange={(event)=>setComplainHandler(event, complain.id)} className="form-control" placeholder="Explain how you are feeling."></textarea>
+                                                   <textarea required id={complain.id} onChange={(event)=>setComplainHandler(event, complain.id)} className="form-control" placeholder="Explain how you are feeling,include when it started and other needed details."></textarea>
                                                 </div>
                                             </div>
                                         </div>

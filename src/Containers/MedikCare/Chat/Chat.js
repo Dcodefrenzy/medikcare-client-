@@ -61,7 +61,15 @@ const viewProfile= (event, id)=>{
         window.location = "/chat/doctor/profile/"+id;
     }
 }
-    const endSession=(event, id)=>{
+const endSession=(event, id)=>{
+    event.preventDefault();
+    if (sessionItemDoctor) {
+        window.location = "/chat/end/"+id;
+    }else if(sessionItemUser){
+        window.location = "/chat/feedback/"+id;
+    }
+}
+    const report=(event, id)=>{
         event.preventDefault();
         if (sessionItemDoctor) {
             window.location = "/chat/report/"+id;
@@ -101,6 +109,7 @@ const viewProfile= (event, id)=>{
             <Beforeunload onBeforeunload={() => "You'll lose your data!"} />
 
             <div className="container-fluid">
+                <div className='onesignal-customlink-container  mt-5'></div>
                 <div className="">
                     <div className="">
                         <div className="">
@@ -121,7 +130,8 @@ const viewProfile= (event, id)=>{
                                                     <div className="dropdown-menu">
                                                         <div> <span onClick={event => viewProfile(event, props.match.params.id)} className="dropdown-item" href="#">profile</span></div>
                                                         <div className="dropdown-divider"></div>
-                                                        <div><a onClick={(event)=>endSession(event, props.match.params.id)} className="dropdown-item" href="#">End Chat</a></div>
+                                                        <div><a onClick={(event)=>report(event, props.match.params.id)} className="dropdown-item" href="#">Report</a></div>
+                                                        <div><a onClick={(event)=>endSession(event, props.match.params.id)} className="dropdown-item" href="#">End Session</a></div>
                                                         <div className="dropdown-divider"></div>
                                                         <a className="dropdown-item" href="#">Back</a>
                                                     </div>
