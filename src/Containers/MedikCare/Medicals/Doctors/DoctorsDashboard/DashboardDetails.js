@@ -1,48 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import health_questions  from '../../../Assets/svgs/answers.svg';
 import chat  from '../../../Assets/svgs/waitingList.svg';
 import todo  from '../../../Assets/svgs/blog.svg';
 import conversiation  from '../../../Assets/svgs/appointment.svg';
-import Payment  from '../../../Assets/svgs/payment.svg';
 import { Link } from 'react-router-dom'
 
 const DoctorDashboardDetails = (props) => {
-	const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
-	const sendNotification=()=>{
-
-		const OneSignal = window.OneSignal || []; 
-		OneSignal.push(function() { 
-			OneSignal.getUserId().then(function(userId) {
-	
-				if (userId) {	
-				const url = "/api/v1/doctor/update/notification/"+userId;
-				fetch(url, {
-					method: "PATCH",
-					headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
-				})
-				.then(res => res.json())
-				.then(response => { 
-					if(response.status === 401) {
-					sessionStorage.removeItem("doctor");
-						window.location = "/doctor/login?Session expired please login."
-					}else if (response.status === 200) {
-						
-					}
-				})
-				}
-				
-			
-			})
-		});
-	}
-	useEffect(()=>{
-		sendNotification();
-	  }, [])
-	
     return(
-        <div className="">
+        <section className="user-section">
     	<div className="container home-content">
-            <div className="col-12 col-sm-12 col-md-8 col-lg-6"><h6>Good Day DR {props.welcomeName}</h6><img /></div>
+            <div className="col-12 col-sm-12 col-md-8 col-lg-6"><h1>Good Day DR {props.welcomeName}</h1><img /></div>
     		<div className="row">
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
 					<Link to="/health/questions" className="href">
@@ -60,28 +27,25 @@ const DoctorDashboardDetails = (props) => {
 					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
-				<Link to="/chat/doctors/doctor" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3 className="text-dark">Patient Waiting List</h3>
-                                <button className="btn btn-sm btn-medik top-margin-md">Patient</button>
+    							<h3>Waiting List</h3>
+                                <button className="btn btn-sm btn-medik top-margin-md">Patience</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ chat } alt="consult using our application with doctors" className='home-svg'/>
     						</div>
     					</div>
     				</div>
-					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>PHYSICAL SESSION</h3>
+    							<h3>PYSICAL CONSULTATION</h3>
 
                                 <button className="btn btn-sm btn-medik top-margin-md">Appointments</button>
-								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ conversiation } alt="consult using our application with doctors" className='home-svg'/>
@@ -93,9 +57,8 @@ const DoctorDashboardDetails = (props) => {
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>CME</h3>
-                                <button className="btn btn-sm btn-medik top-margin-md">View</button>
-								<p>Coming Soon!</p>
+    							<h3>HEALTH ARTICLES</h3>
+                                <button className="btn btn-sm btn-medik top-margin-md">Articles</button>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ todo } alt="articles" className='home-svg'/>
@@ -105,7 +68,7 @@ const DoctorDashboardDetails = (props) => {
     			</div>
     		</div>
     	</div>
-    </div>
+    </section>
     )
 }
 

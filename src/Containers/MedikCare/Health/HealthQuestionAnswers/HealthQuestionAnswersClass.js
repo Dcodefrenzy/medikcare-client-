@@ -3,15 +3,12 @@ import HealthQuestionAnswers from './HealthQuestionAnswers';
 import Carosel from '../../Users/Carosel/Carosel';
 import Loading from '../../Loading/Loading';
 import PopMessage from '../../PopMessage/PopMessage';
-import LoginSession from '../../Users/Logins/LoginSession';
 
 class HealthQuestionAnswersClass extends Component {
     constructor() {
         super();
         this.sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
         this.sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
-        
-
 
         this.state= {
             answer:{
@@ -37,12 +34,14 @@ class HealthQuestionAnswersClass extends Component {
                 display:""
             },
             spinner:"display-none",
-            buttonClickedDisplay:"",
-            loginSession:"display-none"
         }
     }
 
-
+    authentication = () => {
+        if(this.sessionItemDoctor === null && this.sessionItemUser === null){
+         window.history.back();
+        }
+    }
         
     breadcrumbHandler = () => {
         let homeLink = "";
@@ -102,12 +101,10 @@ class HealthQuestionAnswersClass extends Component {
     }
     answerSubmitHandler=(event)=>{
         event.preventDefault();
-        this.setState({display:"block"})
         const answer={};
         answer.answer = this.state.answer.value;
         const id = this.props.match.params.id;
-        const userId = this.state.question._userId;
-        const url = "/api/v1/answer/"+id+"/"+userId;
+        const url = "/api/v1/answer/"+id;
        const token = this.sessionItemDoctor.token;
         fetch(url, {
             method:"POST",
@@ -115,7 +112,7 @@ class HealthQuestionAnswersClass extends Component {
             headers: {'Content-Type': "application/json", "u-auth": token}
         })
         .then(res => res.json())
-        .then(response => {console.log(response)
+        .then(response => {
             if(response.status === 401) {
                 if(this.sessionItemUser === null && this.sessionItemDoctor !== null){
                     const displayNone = "display-none"
@@ -127,7 +124,7 @@ class HealthQuestionAnswersClass extends Component {
                 window.location = "/login?Session expired please login."
                 }
             }else if(response.status === 201) {
-                window.location = "/health/questions/answers"+response.message;
+                window.location = "/health/questions/answers/"+response._questionId+"?"+response.message;
             }
         })
         .catch(e=>{
@@ -135,7 +132,7 @@ class HealthQuestionAnswersClass extends Component {
                 const displayPopMessage ={};             
                 displayPopMessage.card = "card bg-danger text-white";
                 displayPopMessage.display = "row";
-                displayPopMessage.message = "something-went-wrong-please-check-your-internet-connection-and-try-again.";
+                displayPopMessage.message = "/health/questions?something-went-wrong-please-check-your-internet-connection-and-try-again.";
                 this.setState({display:"display-none"})
                 this.setState({popMessage:displayPopMessage});
                   
@@ -153,35 +150,28 @@ class HealthQuestionAnswersClass extends Component {
         }else if(this.sessionItemUser !== null && this.sessionItemDoctor === null) {
             url = "/api/v1/question/user/question/answers/"+id;
             sessionItem = this.sessionItemUser;
-        }else{
-            sessionItem = null;
         }
-        if(sessionItem === null){
-            this.setState({loginSession:"row"});
-        }else{
-            fetch(url, {
-                method:"GET",
-                headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
-            })
-            .then(res=>res.json())
-            .then(response=>{console.log(response)
-                if(response.status === 401) {
-                    if(this.sessionItemUser === null && this.sessionItemAdmin !== null){
-                        const displayNone = "display-none";
-                    this.setState({ display: displayNone})
-                       sessionStorage.removeItem("doctor");
-                       window.location = "/doctor/login?Session expired please login.";
-                    }else if(this.sessionItemUser !== null && this.sessionItemAdmin === null) {
-                    sessionStorage.removeItem("user");
-                    window.location = "/login?Session expired please login.";
-                    }
-                }else if(response.status === 200){
-                    this.setState({question:response.question});
-                    this.setState({answers:response.answers});
+        fetch(url, {
+            method:"GET",
+            headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
+        })
+        .then(res=>res.json())
+        .then(response=>{
+            if(response.status === 401) {
+                if(this.sessionItemUser === null && this.sessionItemAdmin !== null){
+                    const displayNone = "display-none";
+                this.setState({ display: displayNone})
+                   sessionStorage.removeItem("doctor");
+                   window.location = "/doctor/login?Session expired please login.";
+                }else if(this.sessionItemUser !== null && this.sessionItemAdmin === null) {
+                sessionStorage.removeItem("user");
+                window.location = "/login?Session expired please login.";
                 }
-            })
-        }
-       
+            }else if(response.status === 200){
+                this.setState({question:response.question});
+                this.setState({answers:response.answers});
+            }
+        })
     }
     buttonClickedHandler=(event)=>{
         event.preventDefault();
@@ -222,10 +212,7 @@ class HealthQuestionAnswersClass extends Component {
         })
     }
     componentDidMount(){
-        if(this.sessionItemUser === null && this.sessionItemDoctor === null){
-            this.setState({loginSession:"row"});
-        }
-    
+        this.authentication();
         this.breadcrumbHandler();
         this.displayAnswerFormHandler();
         this.displayAppriciationButtonHandler();
@@ -238,12 +225,10 @@ class HealthQuestionAnswersClass extends Component {
                  <Loading display={this.state.display}/>
                 <Carosel listItem={this.state.carosel} />
                 <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
-                <LoginSession display={this.state.loginSession}/>
                 <HealthQuestionAnswers 
                 doctorid={this.sessionItemDoctor}
                 userid={this.sessionItemUser}
                 buttonClicked={event=>this.buttonClickedHandler(event,this.id)}
-                answerSubmit={this.buttonClickedDisplay}
                 question={this.state.question}
                 answers={this.state.answers}
                  answerForm={this.state.answeFormDIsplay} 

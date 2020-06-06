@@ -1,211 +1,118 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from './ChatDashboard';
-import {socket} from '../../Socket/Socket';
-import Moment from 'react-moment';
-import 'moment-timezone';
+import io from 'socket.io-client';
 import { Link } from 'react-router-dom';
-import DoctorLoginSession from '../../Medicals/Doctors/DoctorsLogins/LoginSession';
 
 
 const ChatSession = (props) =>{
-    const [user, displayUser] = useState({});
-    const [userSession, setUserSession] =useState({})
-    const [userReports, setUserReports] = useState([]);
-    const [report, setUserReport] = useState({});
+    const [doctor, displayDoctor] = useState([]);
+    const [doctorInfo, displayDoctorInfo] = useState([]);
     const [file, setFile] = useState({});
-    const [doctorSession, setDoctorSession] = useState({display:"display-none"})
-    const session = JSON.parse(sessionStorage.getItem("doctor"));
+    const session = JSON.parse(sessionStorage.getItem("user"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:"display-none"})
-    const [reportDisplay, setReportDisplay] = useState({display:"display-none"})
-    let complains;
 
 
-    const authentication =()=>{
-        if(session === null) {
-            setDoctorSession({display:"row"});
-        }else{
-            fetchUserHandeller();
-        }
-    }
-    const fetchUserHandeller = () => {
+    const fetchDoctorsHandeller = () => {
        const id = props.match.params.id
-        const url = "/api/v1/user/doctor/"+id;
+        const url = "/api/v1/doctors/records/user/doctor/"+id;
         fetch(url, {
             method:"GET",
             headers:{"Content-Type":"application/json", "u-auth":session.token}
         })
         .then(res => res.json())
-        .then(response =>{//console.log(response)
+        .then(response =>{console.log(response)
             if(response.status === 401) {
-                sessionStorage.removeItem("doctor");
-                setDoctorSession({display:"row"});
-            }else if(response.status === 200){
-                //console.log(response)
-                if (response.message.emergencyLevel == 1) {
-                    response.message.emergencyLevel = "Not Critical";
-                    response.message.color = "text-primary";
-                }else if (response.message.emergencyLevel == 2) {
-                    response.message.emergencyLevel = "Managable";
-                    response.message.color = "text-warning";
-                }else if (response.message.emergencyLevel == 3) {
-                    response.message.emergencyLevel = "Critical";
-                    response.message.color = "text-danger";
+                if(session.isUser === false){
+                 sessionStorage.removeItem("doctor");
+                   window.location = "/doctor/login?Session expired please login.";
+                }else if(session.isUser === true) {
+                sessionStorage.removeItem("user");
+                window.location = "/login?Session expired please login.";
                 }
-              displayUser(response.user);
-              complains = response.message.complain
-              setUserSession(response.message)
-              setUserReports(response.reports)
-
+            }else if(response.status === 200){
+                displayDoctor(response.message._doctorId);
+                displayDoctorInfo(response.message)
+                             
+                if (response.message._doctorId.image) {
+                    setFile(response.message._doctorId.image);
+                }else{
+                    setFile({filename:"user.png"});
+                }
                 //setFile(response.message._doctorId.image)
             }
         })
-    }  
-    
-    
-const setReportsHandler = (event, id)=>{
-    const url = "/api/v1/user/doctor/report/"+id;
-    fetch(url, {
-        method: "GET",
-        headers: {'Content-Type': "application/json", "u-auth": session.token}
-    })
-    .then(res=>res.json())
-    .then(response => {
-        if (response.status === 200) {
-            setReportDisplay({display:"card fixed top-padding-sm"})
-            response.message.doctor = response.doctor
-            setUserReport(response.message)
-           // console.log(response)
-        }else if(response.status === 401) {
-            
-            sessionStorage.removeItem("doctor");
-            setDoctorSession({display:"row"});
-        }
-    })
-}
-
-
-const endReportDisplay = (event)=>{
-    event.preventDefault();
-
-    setReportDisplay({display:"display-none"})
-}
-
-
-    const startSessionHander = (event)=>{
+    }
+    const socket = io("http://localhost:8080");
+    const startSessionHander = (event, id)=>{
             event.preventDefault();
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})
-            const id = props.match.params.id
-            const url = "/api/v1/doctor/chat/session/"+id;
-        
-                fetch(url, {
-                    method:"PATCH",
-                    headers:{"Content-Type":"application/json", "u-auth":session.token}
-                })
-                .then(res => res.json())
-                .then(response =>{ //console.log(response)
-                    if(response.status === 401) {
-                        sessionStorage.removeItem("doctor");
-                        setDoctorSession({display:"row"});
-                    }else if(response.status === 201){ 
-                       // console.log("YAY!")
-                    socket.emit("session start", session._id, id, userSession.complain);
-                    setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
-                        
-                    }
-                })
+            socket.emit("session start", session._id, id);
     }
     socket.on('create session', (from, to)=>{
-   
-        window.location = "/chat/"+props.match.params.id;
+        const id = props.match.params.id
+        const url = "/api/v1/doctor/chat/session/"+to;
+        fetch(url, {
+            method:"GET",
+            headers:{"Content-Type":"application/json", "u-auth":session.token}
+        })
+        .then(res => res.json())
+        .then(response =>{
+            if(response.status === 401) {
+                if(session.isUser === false){
+                 sessionStorage.removeItem("doctor");
+                   window.location = "/doctor/login?Session expired please login.";
+                }else if(session.isUser === true) {
+                sessionStorage.removeItem("user");
+                window.location = "/login?Session expired please login.";
+                }
+            }else if(response.status === 200){
+                
+            setAlert({buttonDisplay:"display-none", spinnerDisplay:"display-none"})
+                window.location = "/chat/"+response._id;
+            }
+        })
+        
     })
 
     useEffect(()=>{
-        authentication();
+        fetchDoctorsHandeller();
     }, [])
-    const UserReport =  userReports.map((report)=>{
-        return  <div className="card bottom-margin-sm" key={report._id} onClick={event => setReportsHandler(event, report._id)}>
-                    <div className="card-body">
-                        <div className="row">
-    
-                            <div className="col-12 col-sm-6 col-md-8">
-                                <h6 className="text-dark">Diagnoses: {report.diagnoses}</h6>
-                                <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>                                                        
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              })
+
     return(  
-            <div className="container-fluid"> 
-            
-            <DoctorLoginSession display={doctorSession.display} />
-                <div className="col-12 col-sm-12 col-md-6 offset-md-3">
-                    <div className={reportDisplay.display}>
-                        <span className="fa fa-times fa-3x float-right" onClick={event=> endReportDisplay(event)}></span>
-                    <main className="card bottom-margin-sm">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-12 col-sm-12 col-md-8">
-                                        <h3 className="text-dark">User Health Report</h3>
-                                        <h6 className="text-success"><b className="text-dark">Report By-</b> {report.doctor}</h6>
-                                        <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p> 
-                                        <small>Health complain</small>  
-                                        <p>{report.complains}</p> 
-                                        <small className="text-dark">Doctors Diagnoses</small>
-                                        <p>{report.diagnoses}</p>  
-                                        <small className="text-dark">Doctors Medication</small>
-                                        <p>{report.medication}</p>   
-                                        <small className="text-dark">Lab Test</small>
-                                        <p>{report.test}</p>                                                   
-                                    </div>
-                                </div>
-                            </div>
-                        </main>
-                    </div>
-                </div>  
-                <div className="top-margin-sm">
+            <div className="container-fluid">     
+                <section>
                     <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                             <div className="justify-content-center medik-color">
                             <div className="col-12 col-sm-12 col-md-12">
-                                <Link to="/chat/doctors/doctor"> 
+                                <Link to="/chat/doctors"> 
                                     <button className="btn-sm btn-medik">Go back</button>
                                 </Link>
                                 </div>
                                 <div className="col-12 col-sm-12 col-md-12">
                                     <div className="card">
-                                        <div className="card-header b-medik text-white">
-                                            <h6>Patient Details</h6>
-                                        </div>
+                                        <div className="card-header b-medik"></div>
                                         <div className="card-body">
                                            <div className="row">
-                                           <div className="col-12 col-sm-5 col-md-5">
-                                                <p>{user.firstname+" "+user.lastname}</p>
-                                                <p className="float-right"><b>{user.gender}</b></p>
-                                                <p className=""><b>Age:</b> <Moment fromNow>{user.age}</Moment></p>
-                                                <p className={userSession.color}><b className="text-dark">Emergency Level: </b>{userSession.emergencyLevel}</p>
-                                                
-                                                <p className="">{userSession.complain}</p>
+                                           <div className="col-5 col-sm-5 col-md-5">
+                                           <img className="img-thumbnail" width="100%" src={"/Images/"+file.filename} alt="admin-profile-image"/>
+                                                <small className="block">{doctorInfo.specialty}</small>
                                            </div>
                                            <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">Do you want to join a session with {user.firstname+" "+user.lastname} ?</p>
+                                               <p className="text-dark">Do you want to start a session with Dr {doctor.firstname+" "+doctor.lastname} ?</p>
                                                     <div className={alert.spinnerDisplay}>
                                                         <i className="fa fa-spinner fa-pulse fa-3x"></i>
                                                     </div>
                                                     <div className={alert.buttonDisplay}>   
-                                                        <Link to="/chat/doctors"> <button className="btn-sm btn-warning">No</button></Link><button className="btn-sm btn-danger" onClick={(event)=>startSessionHander(event, user._id)} id={user._id}>Yes</button>
+                                                        <Link to="/chat/doctors"> <button className="btn-sm btn-warning">No</button></Link><button className="btn-sm btn-danger" onClick={(event)=>startSessionHander(event, doctor._id)} id={doctor._id}>Yes</button>
                                                     </div>
                                                </div>
                                            </div>
                                         </div>
                                     </div>
-                                <div className="top-margin-md">
-                                    <h6>Patient Health Reports</h6>
-                                    {UserReport}
-                                </div>
                                 </div>
                             </div>
                     </div>
-                </div>
+                </section>
             </div>
     )
 }

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Verified  from "../../Assets/svgs/verified.svg"
 import { Link } from 'react-router-dom';
 class Verification extends Component {
- 
+    constructor(props) {
+        super(props)
+    }
+
    // sendMailVerification = () => {}
     //componentDidMount() {this.sendMailVerification();}
 

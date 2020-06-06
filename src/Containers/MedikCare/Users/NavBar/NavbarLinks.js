@@ -38,14 +38,12 @@ const NavbarLinks = () => {
                         </Link>
                     </div>
                     <div className="col-2">
-                        <Link to="/chat/doctors">
+                        <Link to="/chat/dashboard">
                             <li  className="nav-item"><i className="fa fa-envelope"></i>Chat</li>
                         </Link>
                     </div>
                     <div className="col-2">
-                        <Link to="/user/Settings">
-                            <li className="nav-item"><i className="fa fa-cogs "></i>Settings</li>
-                        </Link>
+                     <li><i className="fa fa-cogs"></i>Settings</li>
                     </div>
                     <div className="col-2">
                             <li onClick={(event)=>setLogoutHandler(event)}><i className="fa fa-sign-out"></i>Logout</li>

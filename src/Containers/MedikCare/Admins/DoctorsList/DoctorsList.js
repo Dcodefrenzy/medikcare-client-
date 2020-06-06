@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from "react" ;
+import React, {useState, useEffect, createContext} from "react" ;
 import Loading from '../../Loading/Loading';
 import SideBar from '../Navbar/SideBar';
 import ItemNotFound from '../../ItemNotFound/ItemNotFound';
 import NavBar from '../Navbar/NavBar';
 import DoctorsDetails from "./DoctorsDetails/DoctorsDetails";
-import DoctorDelete from "./DoctorsDetails/DoctorDelete";
 
 const DoctorsListTh = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
@@ -14,25 +13,27 @@ const DoctorsListTh = (props) => {
     const [userDetail, setUserDetail]  = useState({});
     const [DoctorsDetail, setDoctorDetail] = useState({});
     const [userDisplay, setUserDisplay] = useState({display:"display-none"});
-    const [doctorVerification, setDoctorVerification] = useState({});
-    const [doctorDelete, setDoctorDelete] = useState({display:"display-none"})
-    const [verifyDoctorMessage, setVerifyDoctorMessage] = useState({display:"display-none", message:""});
+    const [doctorVerification, setDoctorVerification] = useState({})
+    const [verifyDoctorMessage, setVerifyDoctorMessage] = useState({display:"display-none", message:""})
 
    const  fetchUsersHandeller  = ()=>{
         if(sessionItem === null) {
             window.location = "/admin/login?Hi Admin you have to login before you can access a page on the admin platform"
+        }else if(sessionItem.level !== 1) {
+            window.location = "/page-not-found";
         }else {
-            const url = "/api/v1/doctor/admin/doctors";
+            const url = "http://192.168.33.12:3000/api/v1/doctor/admin/doctors";
             fetch(url, {
                 method: "GET",
                 headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
             })
             .then(res => res.json())
-            .then(response => {
+            .then(response => {console.log(response)
                 if(response.status === 401) {
                     sessionStorage.removeItem("admin");
                     window.location = "/admin/login?Session expired please login."
                 }else if(response.status === 403) {
+                    const displayBlock = "display-block";
                     setTableDisplay ({tableDisplay:"display-none", noItems:"block"})
                 }else if(response.status === 200) {
                     const displayNone = "display-none";
@@ -47,8 +48,10 @@ const DoctorsListTh = (props) => {
            
             if(sessionItem === null) {
                 window.location = "/admin/login?Hi Admin you have to login before you can access a page on the admin platform"
+            }else if(sessionItem.level !== 1) {
+                window.location = "/page-not-found";
             }else {
-                const url = "/api/v1/doctors/records/admin/doctor/"+event.target.id;
+                const url = "http://192.168.33.12:3000/api/v1/doctors/records/admin/doctor/"+event.target.id;
                 fetch(url, {
                     method: "GET",
                     headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
@@ -58,7 +61,7 @@ const DoctorsListTh = (props) => {
                     if(response.status === 401) {
                         sessionStorage.removeItem("admin");
                         window.location = "/admin/login?Session expired please login."
-                    }else if (response.status === 200) {console.log(response.message._doctorId)
+                    }else if (response.status === 200) {
                         setUserDetail(response.message)
                         setDoctorDetail(response.message._doctorId)
                         setUserDisplay({display:"display-block"})
@@ -67,38 +70,14 @@ const DoctorsListTh = (props) => {
                 })
             }
         }
-
-        const setUserDeleteHadler = (event)=> {
-           
-            if(sessionItem === null) {
-                window.location = "/admin/login?Hi Admin you have to login before you can access a page on the admin platform"
-            }else {
-                const url = "/api/v1/doctors/records/admin/doctor/"+event.target.id;
-                fetch(url, {
-                    method: "GET",
-                    headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
-                })
-                .then(res => res.json())
-                .then(response => {
-                    if(response.status === 401) {
-                        sessionStorage.removeItem("admin");
-                        window.location = "/admin/login?Session expired please login."
-                    }else if (response.status === 200) {console.log(response)
-                        setUserDetail(response.message)
-                        setDoctorDetail(response.message._doctorId)
-                        setDoctorDelete({display:""})   
-                    }
-                })
-            }
-        }
     const verifyDoctor =(event)=>{
-        const url = "/api/v1/doctor/admin/verify/"+event.target.id;
+        const url = "http://192.168.33.12:3000/api/v1/doctor/admin/verify/"+event.target.id;
         fetch(url, {
             method: "PATCH",
             headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
         })
         .then(res => res.json())
-        .then(response => { 
+        .then(response => {console.log(response) 
             if(response.status === 401) {
                 sessionStorage.removeItem("admin");
                 window.location = "/admin/login?Session expired please login."
@@ -111,43 +90,11 @@ const DoctorsListTh = (props) => {
         event.preventDefault();
         setUserDisplay({display:"display-none"})
     }
-const   reverseAdminDeleteHandler = (event) => {
-        setDoctorDelete({display:"display-none"});
-    }
-
-const   doctorDeleteHandller = (event, id, deleteCode) => {
-        event.preventDefault();
-        const doctorData = {};
-      
-        setDisplay({display:"display-block"})
-        doctorData.deleteUser = !deleteCode;
-        const url = "/api/v1/doctor/admin/delete/"+id;
-        console.log(doctorData)
-        fetch(url, {
-            method: "PATCH",
-            body:JSON.stringify(doctorData),
-            headers: {'Content-Type': "application/json", "x-auth": sessionItem.token}
-        })
-        .then(res => res.json())
-        .then(response => {
-            if(response.status === 201) {
-                const displayPopMessage = {};
-            displayPopMessage.card = "card bg-success text-white";
-            displayPopMessage.display = "row";
-            displayPopMessage.message = response.message;
-            reverseAdminDeleteHandler(event);
-                setDisplay({display:"display-none"})
-                location.reload();
-            }
-        })
-    }
 
    
     useEffect(()=>{
         fetchUsersHandeller();
     }, [])
- 
-    
     return (
             <div>
                 <Loading display={display.display}/> 
@@ -161,8 +108,6 @@ const   doctorDeleteHandller = (event, id, deleteCode) => {
                             image={DoctorsDetail.image}
                             verify ={doctorVerification.verification=== false?<button onClick={(event)=>verifyDoctor(event)} id={DoctorsDetail._id} className="btn btn-sm btn-success">verify</button>:<span className="text-success">Verified</span>}
                             verification={DoctorsDetail.verification===true?"verified" : "Not Verified"} 
-                            verificationButton={userDetail.verification===true?"display-none":""}
-                            _id={DoctorsDetail._id}
                             profileCompleted={DoctorsDetail.profileCompleted===true?"Completed" : "Not Completed"}
                             address={userDetail.address}
                             degree={userDetail.degree}
@@ -172,13 +117,8 @@ const   doctorDeleteHandller = (event, id, deleteCode) => {
                             folio={userDetail.folioNumber}
                             message={verifyDoctorMessage.message}
                             messageDisplay={verifyDoctorMessage.display}
-                            dateCreated={userDetail.dateCreated} clicked={(event)=>unsetUserDisplayHandler(event)}/>
-                    <DoctorDelete  display={doctorDelete.display} 
-                            name={DoctorsDetail.firstname +" "+DoctorsDetail.lastname} 
-                            deleteDetails={DoctorsDetail.deleteUser===false?"Delete":"Undelete"}
-                             clicked={(event)=>reverseAdminDeleteHandler(event)}
-                             doctorDelete={(event)=>doctorDeleteHandller(event, DoctorsDetail._id, DoctorsDetail.deleteUser)}/>
-    
+                            dateCreated={userDetail.datecreated} clicked={(event)=>unsetUserDisplayHandler(event)}/>
+ 
                  <NavBar />
                  
                  <div className="col-12  col-sm-12 col-md-12  col-lg-12  align-center top-padding-sm">
@@ -196,23 +136,23 @@ const   doctorDeleteHandller = (event, id, deleteCode) => {
                                         <thead className="thead-dark">
                                             <tr>
                                                 <th scope="col">S/N</th>
-                                                <th scope="col">Fullname</th>
+                                                <th scope="col">First Name</th>
+                                                <th scope="col">Last Name</th>
                                                 <th scope="col">Gender</th>
+                                                <th scope="col">Phonumber</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {userDetails.map((user, index)=>{
                                                const fa = user.verification === true ? "fa fa-check text-success":"fa fa-check text-warning";
-                                               const trashColor = user.deleteUser === false?"text-danger":"text-success"
                                               return  <tr key={user._id}>
                                                     <th scope="col">{index+1} <i className={fa}></i></th>
-                                                    <td scope="col">{user.firstname} {user.lastname}</td>
+                                                    <td scope="col">{user.firstname}</td>
+                                                    <td scope="col">{user.lastname}</td>
                                                     <td scope="col">{user.gender}</td>
-                                                    <td scope="col">
-                                                        <i onClick={(event)=>setUserDisplayHadler(event)} id={user._id} className="fa fa-eye text-primary"></i>
-                                                        <i onClick={(event)=>setUserDeleteHadler(event)} id={user._id} className={`fa fa-trash ${trashColor}`}></i>
-                                                    </td>
+                                                    <td scope="col">{"+234"+user.phonenumber}</td>
+                                                    <td scope="col" onClick={(event)=>setUserDisplayHadler(event)} id={user._id} className="fa fa-eye text-primary"></td>
                                                 </tr>
                                             })}
                                         </tbody>

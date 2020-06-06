@@ -1,5 +1,5 @@
 import React from 'react';
-import vid from '../Assets/videos/medikcare1.mp4'
+import vid from '../Assets/videos/vid.mp4'
 
 const MedikVideo = (props) => {
   return (

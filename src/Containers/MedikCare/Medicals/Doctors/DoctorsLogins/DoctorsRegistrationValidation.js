@@ -33,6 +33,10 @@ class DoctorsRegistrationValidation extends Component {
                     value:"",
                     id:"phonenumber",
                 },
+                age : {
+                    id:"age",
+                    value:"",
+                },
                 gender: {
                     id:"gender",
                     value:"",
@@ -45,9 +49,38 @@ class DoctorsRegistrationValidation extends Component {
                     id:"pass",
                     value:"",               
                 },
+                socialMedia:{
+                    id:"socialMedia",
+                    value:"",
+                },
+                address: {
+                    id:"address",
+                    value:"",
+                },
+                medicalSchool: {
+                    id:"medicalSchool",
+                    value:"",
+                },
+                degree: {
+                    id:"degree",
+                    value:"",
+                },
+                year: {
+                    id:"year",
+                    value:"",
+                },
+                specialty: {
+                    id:"specialty",
+                    value:"",
+                },
                 folioNumber: {
                     id:"folioNumber",
                     value:"",
+                },
+                annualPracticingLicence: {
+                    id:"annualPracticingLicence",
+                    value:"",
+                    files:"",
                 },
              },
                 emailError: {
@@ -91,6 +124,36 @@ class DoctorsRegistrationValidation extends Component {
                      display: "display-none",
                      value: "",
                  },
+                 socialmediaError: {
+                    id:"socialMediaError",
+                    display:"display-none",
+                    value:"",
+                 },
+                 addressError: {
+                     id:"addressError",
+                     display:"display:none",
+                     value:"",
+                 },
+                 medicalSchoolError: {
+                    id:"medicalSchoolError",
+                    display:"display-none",
+                    value:"",
+                 },
+                 degreeError: {
+                    id:"degreeError",
+                    display:"display-none",
+                    value:"",
+                 },
+                 yearError: {
+                    id:"yearError",
+                    display:"display-none",
+                    value:"",
+                 },
+                 specialtyError:{
+                     id:"specialtyError",
+                     display:"display-none",
+                     value:"",
+                 },
                  folioNumberError: {
                      id:"folioNumberError",
                      display:"display-none",
@@ -99,7 +162,9 @@ class DoctorsRegistrationValidation extends Component {
             personalInformationDisplay: {
                 display: "row"
             },
-
+            medicalInformationDisplay: {
+                display:"display-none",
+            },
              popMessage : {
                  display: "display-none",
                  card: "",
@@ -107,6 +172,9 @@ class DoctorsRegistrationValidation extends Component {
                  welcome: "",
                  
              },
+             pagination: {
+                 value:"Next"
+            },
             signUp:{
                 display:"display-none form-control b-medik medik-color-secondary",
             },
@@ -249,10 +317,6 @@ class DoctorsRegistrationValidation extends Component {
                  phonenumberError.display = "display-block";
                  phonenumberError.value =response.message.phoneNumber.message;
                 this.setState({phonenumberError: phonenumberError});
-            }else if(response.message.name === 'MongoError' && response.message.keyPattern.phonenumber){
-                phonenumberError.display ="display-block";
-                phonenumberError.value = "Phone number Already Exist";
-                this.setState({phonenumberError: phonenumberError});
             }else { this.setState({phonenumberError: phonenumberError}); }
             if(response.message.password) {
                 passwordError.display = "display-block";
@@ -288,7 +352,8 @@ class DoctorsRegistrationValidation extends Component {
     render() {
         return(
             <div>
-                <div className="container-fluid top-margin-lg">
+                <NavBar />
+                <section className="container-fluid">
                 <Loading display={this.state.display}/>
                 <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
                 <DoctorsRegistration 
@@ -322,6 +387,12 @@ class DoctorsRegistrationValidation extends Component {
                  phonenumberErrorValue={this.state.phonenumberError.value}
 
 
+                 ageId={this.state.registerForm.age.id} 
+                 ageValue={this.state.registerForm.age.value}
+                 ageChange={(event) => this.inputChangedHandler(event, this.state.registerForm.age.id)}
+                 ageErrorId={this.state.ageError.id}
+                 ageClass={this.state.ageError.display}
+                 ageErrorValue={this.state.ageError.value}
 
                  passwordId={this.state.registerForm.password.id} 
                  passwordValue={this.state.registerForm.password.value}
@@ -342,18 +413,66 @@ class DoctorsRegistrationValidation extends Component {
                 genderChange={(event)=>this.inputChangedHandler(event, this.state.registerForm.gender.id)}
                 
 
-                                folioNumberId={this.state.registerForm.folioNumber.id}
+                socialMediaId={this.state.registerForm.socialMedia.id} 
+                 socialMediaValue={this.state.registerForm.socialMedia.value}
+                 socialMediaChange={(event) => this.inputChangedHandler(event, this.state.registerForm.socialMedia.id)}
+                  socialmediaErrorId={this.state.socialmediaError.id}
+                 socialmediaClass={this.state.socialmediaError.display}
+                 socialmediaErrorValue={this.state.socialmediaError.value}
+
+                 addressId={this.state.registerForm.address.id}
+                 addressValue={this.state.registerForm.address.value}
+                 addressChange={(event) => this.inputChangedHandler(event, this.state.registerForm.address.id)}
+                 addressErrorId={this.state.addressError.id}
+                 addressClass={this.state.addressError.display}
+                 addressErrorValue={this.state.addressError.value}
+
+                 medicalSchoolId={this.state.registerForm.medicalSchool.id}
+                 medicalSchoolValue={this.state.registerForm.medicalSchool.value}
+                 medicalSchoolChange={(event) => this.inputChangedHandler(event, this.state.registerForm.medicalSchool.id)}
+                 medicalSchoolErrorId={this.state.medicalSchoolError.id}
+                 medicalSchoolClass={this.state.medicalSchoolError.display}
+                 medicalSchoolErrorValue={this.state.medicalSchoolError.value}
+                 
+                 degreeId={this.state.registerForm.degree.id}
+                 degreeValue={this.state.registerForm.degree.value}
+                 degreeChange={(event) => this.inputChangedHandler(event, this.state.registerForm.degree.id)}
+                 degreeErrorId={this.state.degreeError.id}
+                 degreeClass={this.state.degreeError.display}
+                 degreeErrorValue={this.state.degreeError.value}
+
+                 yearId={this.state.registerForm.year.id}
+                 yearValue={this.state.registerForm.year.value}
+                 yearChange={(event) => this.inputChangedHandler(event, this.state.registerForm.year.id)}
+                 yearErrorId={this.state.yearError.id}
+                 yearClass={this.state.yearError.display}
+                 yearErrorValue={this.state.yearError.value}
+
+                 specialtyId={this.state.registerForm.specialty.id}
+                 specialtyValue={this.state.registerForm.specialty.value}
+                 specialtyChange={(event) => this.inputChangedHandler(event, this.state.registerForm.specialty.id)}
+                 specialtyErrorId={this.state.specialtyError.id}
+                 specialtyClass={this.state.specialtyError.display}
+                 specialtyErrorValue={this.state.specialtyError.value}
+                 
+                 folioNumberId={this.state.registerForm.folioNumber.id}
                  folioNumberValue={this.state.registerForm.folioNumber.value}
                  folioNumberChange={(event) => this.inputChangedHandler(event, this.state.registerForm.folioNumber.id)}
                  folioNumberErrorId={this.state.folioNumberError.id}
                  folioNumberClass={this.state.folioNumberError.display}
                  folioNumberErrorValue={this.state.folioNumberError.value}
 
+
+                 medicalInformationDisplay={this.state.medicalInformationDisplay.display}
+
+                 pagination={this.state.pagination.value}
+                 paginationClicked={(event)=>this.paginationHandler(event, this.state.pagination.value)}
                  signUp={this.state.signUp.display}
                  submit={this.registerLoginHandler}
                 
                 />
-                </div>
+                </section>
+                <Footer />
             </div>
         )
     }

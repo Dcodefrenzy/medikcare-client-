@@ -15,10 +15,10 @@ const GetStarted = (props) => {
     				 <h1 className="">Get Started In 10mins.</h1>
     					<h5><i className="square card"></i> Create an account.</h5>
     					<p>Sign up for an account with your name, email and phone number.</p>
-    					<h5><i className="square card"></i> Create a session with.</h5>
+    					<h5><i className="square card"></i> Post a health question.</h5>
     					<p>Ask a doctor anything and get response in not more than 10mins.</p>
     					<h5><i className="square card"></i> Get a treatment plan.</h5>
-    					<p>Get a treatment plan and advice from our medical experts.</p>	
+    					<p>Get a treatment plan that suits you.</p>	
 						<Link to="/registration">
 							<button className="home-buttons nav-link btn-lg btn-medik">Get Started</button>
 						</Link>

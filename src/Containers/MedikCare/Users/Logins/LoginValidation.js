@@ -47,10 +47,6 @@ class LoginValidation extends Component  {
             },
         }
     }
-    getNotificationId = ()=>{
-    
-    
-    }
     
     inputChangedHandler = (event, inputIdentifier) => {
         const updatedLoginForm = {
@@ -83,13 +79,11 @@ class LoginValidation extends Component  {
      formLoginHandler = ( event ) => {
         event.preventDefault();
         this.setState({display:"display-block"})
-        
        const userData = {};
        const url = "/api/v1/user/login";
         for (let formId in this.state.loginForm) {
             userData[formId] = this.state.loginForm[formId].value;
         }
-
         fetch(url, {
             method: "POST",
             body:JSON.stringify(userData),
@@ -115,8 +109,9 @@ class LoginValidation extends Component  {
            this.setState({popMessage:displayPopMessage});
             }
         })
-       
-       
+        .catch(e => {
+        if(e) {window.location = "/login?something-went-wrong-please-check-your-internet-connection-and-try-again."}
+        });
     }
     onLoadHandler = (event) => {
        if(window.location.href.includes('?')) {
@@ -134,20 +129,17 @@ class LoginValidation extends Component  {
    
    componentDidMount() {
        this.onLoadHandler();
-       this.getNotificationId();
       }
 
 
     render() {
         return(
             <div>
-                
+            <NavBar />
                 <section className="container-fluid">
-                   <UserLogin 
-                        popDisplay={this.state.popMessage.display}
-                        popWelcome={this.state.popMessage.welcome}
-                        popMessage={this.state.popMessage.message}
-                        popCard={this.state.popMessage.card}
+                    <Loading display={this.state.display}/>
+                    <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
+                    <UserLogin 
                         errorMessage={this.state.loginError.value}
                         errorDisplay={this.state.loginError.display}
 
@@ -167,10 +159,8 @@ class LoginValidation extends Component  {
 
                         submit={this.formLoginHandler}
                     />
-                    
-                <Loading display={this.state.display}/>
                 </section>
-
+                <Footer />
             </div>
         )
     }
