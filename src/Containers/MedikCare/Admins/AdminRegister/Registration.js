@@ -74,7 +74,7 @@ class Registration extends Component  {
              },
         }
     }
-    //handle authentication and called inside componentDidMount react lifecycle component.
+    //handle authentication and called inside componentDidMount.
     authentication = () => {
     
         if(this.sessionItem === null) {window.location = "/admin/login?Hi-Admin-you-have-to-login-before-you-can-access-a-page-on-the-admin-platform"}
