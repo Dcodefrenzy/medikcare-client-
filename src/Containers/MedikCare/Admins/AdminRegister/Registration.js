@@ -7,7 +7,6 @@ class Registration extends Component  {
 
     constructor(props) {
         super(props);
-        
      this.sessionItem = JSON.parse(sessionStorage.getItem("admin"));
         this.state = {
             registerForm: {
@@ -117,7 +116,7 @@ class Registration extends Component  {
                 emailError.value = "Your email should be more than 3 characters";
                 this.setState({emailError: emailError});
             } else { this.setState({emailError: emailError}); }
-            //phone number
+            //phonenumber
             if(formData.phoneNumber.value !== "" && formData.phoneNumber.value.length !== 11) {      
                  phonenumberError.display = "display-block";
                  phonenumberError.value ="Your Phone Number must be 11 characters";
@@ -187,8 +186,7 @@ class Registration extends Component  {
 
             }else  if(response.status === 401) {
                 sessionStorage.removeItem("admin")
-                window.location = "/admin/login?Your-session-has-ended-please-login."
-
+                window.location = "/admin/login?Your-session-has-ended-please-login.";
             }
         })
         .catch(e => console.log(e));
