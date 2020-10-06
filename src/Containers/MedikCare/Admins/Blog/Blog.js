@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react" ;
-
+import Loading from '../../Loading/Loading';
 import SideBar from '../Navbar/SideBar';
 import NavBar from '../Navbar/NavBar';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,7 @@ import 'moment-timezone';
 
 const AdminBlog = ()=>{
     const [admins, setAdmins] =useState([]);
+    const [display, setDisplay] = useState({display:"display-none"});
     const [blogItem, setBlogItem] = useState([]);
     const [videoLink, setIframeDIsplay] = useState({display:""})
     const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
@@ -69,6 +70,7 @@ const AdminBlog = ()=>{
 
     const notifyUsers =(event,id)=>{
         event.preventDefault();
+        setDisplay({display:"display-block"})
             const url = "/api/v1/blogs/notify-users/"+id;
             fetch(url, {
                 method:"POST",
@@ -76,8 +78,9 @@ const AdminBlog = ()=>{
             })
             .then(res=>res.json())
             .then(response=>{
-                if (response.status === 201) {
-                   console.log(response);
+                if (response.status === 200) {
+                    setDisplay({display:"display-none"})
+                   alert("Blog mail sent.");
                 }else{
                    // console.log(response)
                 }
@@ -130,6 +133,7 @@ const AdminBlog = ()=>{
     })
     return  (
         <div>
+        <Loading display={display.display}/> 
             <NavBar />
             <SideBar />
             <div className="top-margin-lg ">  

@@ -10,6 +10,8 @@ const ChatEndSession = (props)=>{
     const from = props.match.params.id;
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     const [session, setUserSession] =  useState({});
+    
+    const [sessionDisplay, setSessionDisplay] =  useState({"report":"display-none", "end":""});
     const [user, setUser] = useState({});
     const [loading, setLoading] =useState({display:""})
     const [loginSession, setLoginSession] = useState({display:"display-none"});
@@ -43,11 +45,16 @@ const ChatEndSession = (props)=>{
                 setUser(response.user)
                if (response.report !== null) {
                     setReport(response.report);
-                    if(response.report.drugs > 0){
+                    if(response.report.drugs.length > 0){
                     setDrugList(response.report.drugs)
                     }
-                    if (response.report.labTest > 0) {
+                    if (response.report.labTest.length > 0) {
                     setTestList(response.report.labTest);
+                    }
+                    if(response.report.complete === true){
+                        setSessionDisplay({"report":"display-none", "end":""})
+                    }else{
+                        setSessionDisplay({"report":"", "end":"display-none"})
                     }
                }
              }else if (response.status === 403) {
@@ -98,7 +105,7 @@ const labTest = testList.map((list, )=>{
          <div className="col-12 col-sm-12 col-md-12">
              <div className="card opacity fixed">
                  <section className="card-body">
-                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 top-margin-lg">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3 top-margin-sm">
                         <div className="card bg-dark">
                             <div className="card-body text-white  home-content">
                             <Link to={`/chat/${from}`}><span className="fa fa-arrow-left  text-white"></span></Link>
@@ -116,7 +123,16 @@ const labTest = testList.map((list, )=>{
                                     Drugs
                                     {drugTest}
                                 </ul>
-                                <button onClick={event=>endSession(event)} className="btn-lg btn-success m-1">End Session</button>
+                                <div className={sessionDisplay.end}>
+                                    <button onClick={event=>endSession(event)} className="btn-lg btn-success m-1">End Session</button>
+                                </div>
+                                
+                                <div className={sessionDisplay.report}>
+                                    <p>Please complete the report</p>
+                                    <Link to={`/chat/report/${from}`}>
+                                    <button  className="btn-lg btn-success m-1">Back to report</button>
+                                    </Link>
+                                </div>
                             </div>
                         </div>
                     </div>
