@@ -196,7 +196,7 @@ class Registration extends Component  {
     }
     render() {
         return (
-            <div>
+            <div className="">
                 <Loading display={this.state.display}/>
                 <NavBar />
                 <div className="container-fluid">
