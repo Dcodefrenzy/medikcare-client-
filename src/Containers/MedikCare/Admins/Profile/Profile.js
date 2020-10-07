@@ -7,7 +7,7 @@ import SideBar from "../Navbar/SideBar";
 import AdminDashboard from "../AdminDashboard";
 import Loading from "../../Loading/Loading";
 
-const adminProfile = (props) => {
+const AdminProfile = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
     const [display, setDisplay] = useState({display:"display-block"});
     const [admin, setAdmin] = useState({});
@@ -204,4 +204,4 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
     )
 }
 
-export default adminProfile;
+export default AdminProfile;
