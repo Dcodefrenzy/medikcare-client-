@@ -63,7 +63,7 @@ const AdminBlog = ()=>{
                
                 location.reload();
             }else{
-                console.log(response)
+                console.log(response);
             }
         })
     }
