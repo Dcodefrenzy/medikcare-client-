@@ -38,6 +38,7 @@
     "validator": "^10.6.0"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
     "@ckeditor/ckeditor5-alignment": "^17.0.0",
     "@fortawesome/fontawesome-free": "^5.10.2",
     "body-parser": "^1.19.0",
