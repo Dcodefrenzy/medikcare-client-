@@ -6,7 +6,7 @@ const Footer = (props) => {
         <section className="b-medik-color-secondary">
             <div className="container">
             <div className="text-center">
-            <img className=""  width="50%" src={"/MedikImage/MED1.png"} alt="logo"/>
+            <img className="img"  width="50%" src={"/MedikImage/MED1.png"} alt="logo"/>
              </div>
                 <div className="row footer">
                     <div className="col-6 col-sm-6 col-md-3"> 
