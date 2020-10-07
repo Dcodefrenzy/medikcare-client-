@@ -25,7 +25,7 @@ import UsersListTh from './MedikCare/Admins/UsersList/UsersDetails/UsersTh';
 import DoctorsListTh from './MedikCare/Admins/DoctorsList/DoctorsList';
 import UpdatePassword from './MedikCare/Admins/Password/UpdatePassword';
 import AdminProfile from './MedikCare/Admins/Profile/Profile';
-import updateImage from './MedikCare/Admins/Profile/UpdateImage';
+import UpdateImage from './MedikCare/Admins/Profile/UpdateImage';
 import UserProfile from './MedikCare/Users/Profile/Profile';
 import UpdateUserImage from './MedikCare/Users/Profile/UpdateImage';
 import UpdateDoctorImage from './MedikCare/Medicals/Doctors/Profile/UpdateImage';
@@ -128,7 +128,7 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/admin/password/change" exact component={UpdatePassword} />
 						
 						<Route path="/admin/Profile" exact component={AdminProfile} />
-						<Route path="/admin/image/update" exact component={updateImage} />
+						<Route path="/admin/image/update" exact component={UpdateImage} />
 						<Route path="/admin/forget/password" exact component={AdminForgetPassword} />
 						<Route path="/admin/forget-password/:id" exact component={AdminNewPassword} />
 						<Route path="/admin/blog" exact component={AdminBlog} />
