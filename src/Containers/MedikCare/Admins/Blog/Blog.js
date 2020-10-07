@@ -86,11 +86,12 @@ const AdminBlog = ()=>{
                 }
             })
     }
-
     useEffect(()=>{
         fetchBlogArticles();
         fetchAdmins();
     }, [])
+
+
     const allBlogs = blogItem.map((blog)=>{
         let img;
         if (blog.image === undefined) {

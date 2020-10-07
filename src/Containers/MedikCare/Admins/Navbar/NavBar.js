@@ -8,13 +8,13 @@ const NavBar = (props) => {
     const [iconDisplay, seticonDisplay] = useState({display:""})
     const setNavDisplayHandler = (event)=>{
         event.preventDefault();
-        setNavDisplay({display:"block"})
-        seticonDisplay({display:"display-none"})
+        setNavDisplay({display:"block"});
+        seticonDisplay({display:"display-none"});
     }
     const unSetNavDisplayHandler = (event)=>{
         event.preventDefault();
-        setNavDisplay({display:"display-none"})
-        seticonDisplay({display:""})
+        setNavDisplay({display:"display-none"});
+        seticonDisplay({display:""});
     }
 
 
