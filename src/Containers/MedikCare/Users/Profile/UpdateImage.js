@@ -6,7 +6,7 @@ import Loading from "../../Loading/Loading";
 const updateUserImage = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     if (sessionItem === null) {
-        window.location = "/login"
+        window.location = "/login";
     }
     const [display, setDisplay] = useState({display:"display-block"});
     const [admin, setAdmin] = useState({});
