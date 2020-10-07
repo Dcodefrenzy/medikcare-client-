@@ -28,7 +28,7 @@ import adminProfile from './MedikCare/Admins/Profile/Profile';
 import updateImage from './MedikCare/Admins/Profile/UpdateImage';
 import userProfile from './MedikCare/Users/Profile/Profile';
 import updateUserImage from './MedikCare/Users/Profile/UpdateImage';
-import updateDoctorImage from './MedikCare/Medicals/Doctors/Profile/UpdateImage';
+import UpdateDoctorImage from './MedikCare/Medicals/Doctors/Profile/UpdateImage';
 import doctorProfile from './MedikCare/Medicals/Doctors/Profile/Profile';
 import UpdateAnnualPracticingLicence from './MedikCare/Medicals/Doctors/Profile/licence';
 import ChatSession from './MedikCare/Chat/ChatDashboard/ChatSession';
@@ -107,7 +107,7 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/doctor/verification/verify/:id" exact component={DoctorVerificationSuccess} />
 						<Route path="/doctor/dashboard" exact component={DoctorDashboard} />
 						<Route path="/doctor/profile" exact component={doctorProfile} />
-						<Route path="/doctor/image/update" exact component={updateDoctorImage} />
+						<Route path="/doctor/image/update" exact component={UpdateDoctorImage} />
 						<Route path="/doctor/upload/annual-practicing-licence/file" exact component={UpdateAnnualPracticingLicence} />
 						<Route path="/doctor/password/change" exact component={DoctorUpdatePassword} />
 						<Route path="/doctor/forget/password" exact component={DoctorForgetPassword} />

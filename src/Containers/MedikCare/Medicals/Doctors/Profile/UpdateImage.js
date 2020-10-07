@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Loading from "../../../Loading/Loading";
 
 
-const updateDoctorImage = (props) => {
+const UpdateDoctorImage = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     if (sessionItem === null) {
         window.location = "/doctor/login"
@@ -132,4 +132,4 @@ const updateDoctorImage = (props) => {
     )
 }
 
-export default updateDoctorImage;
+export default UpdateDoctorImage;
