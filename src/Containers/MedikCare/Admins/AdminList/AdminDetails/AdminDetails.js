@@ -39,4 +39,5 @@ const AdminDetails = (props) => {
     )
 }
 
+
 export default AdminDetails

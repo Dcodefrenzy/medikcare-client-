@@ -35,4 +35,5 @@ const AdminDelete = (props) => {
     )
 }
 
+
 export default AdminDelete
