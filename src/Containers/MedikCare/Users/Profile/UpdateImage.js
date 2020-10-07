@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Loading from "../../Loading/Loading";
 
 
-const updateUserImage = (props) => {
+const UpdateUserImage = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     if (sessionItem === null) {
         window.location = "/login";
@@ -132,4 +132,4 @@ const updateUserImage = (props) => {
     )
 }
 
-export default updateUserImage;
+export default UpdateUserImage;

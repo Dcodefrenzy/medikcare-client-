@@ -24,16 +24,16 @@ import ChatDashboard from './MedikCare/Chat/ChatDashboard/ChatDashboard';
 import UsersListTh from './MedikCare/Admins/UsersList/UsersDetails/UsersTh';
 import DoctorsListTh from './MedikCare/Admins/DoctorsList/DoctorsList';
 import UpdatePassword from './MedikCare/Admins/Password/UpdatePassword';
-import adminProfile from './MedikCare/Admins/Profile/Profile';
+import AdminProfile from './MedikCare/Admins/Profile/Profile';
 import updateImage from './MedikCare/Admins/Profile/UpdateImage';
-import userProfile from './MedikCare/Users/Profile/Profile';
-import updateUserImage from './MedikCare/Users/Profile/UpdateImage';
+import UserProfile from './MedikCare/Users/Profile/Profile';
+import UpdateUserImage from './MedikCare/Users/Profile/UpdateImage';
 import UpdateDoctorImage from './MedikCare/Medicals/Doctors/Profile/UpdateImage';
-import doctorProfile from './MedikCare/Medicals/Doctors/Profile/Profile';
+import DoctorProfile from './MedikCare/Medicals/Doctors/Profile/Profile';
 import UpdateAnnualPracticingLicence from './MedikCare/Medicals/Doctors/Profile/licence';
 import ChatSession from './MedikCare/Chat/ChatDashboard/ChatSession';
-import mainActivity from './MedikCare/Users/Activities/MainActivity';
-import chatCurrentsession from './MedikCare/Chat/ChatDashboard/ChatCurrentSession';
+import MainActivity from './MedikCare/Users/Activities/MainActivity';
+import ChatCurrentsession from './MedikCare/Chat/ChatDashboard/ChatCurrentSession';
 import ChatDashbordActivities from './MedikCare/Chat/ChatDashboard/ChatDashBoardActivities';
 import AdminForgetPassword from './MedikCare/Admins/Password/ForgetPassword';
 import AdminNewPassword from './MedikCare/Admins/Password/NewPassword';
@@ -62,7 +62,7 @@ import Risk from './MedikCare/Covid19/Risk';
 import HealthDoctorQuestionAnswersClass from './MedikCare/Health/HealthQuestionAnswers/HealthDoctorQuestionAnswerClass';
 import ChatCreateSession from './MedikCare/Chat/ChatDashboard/ChatCreateSession';
 import ChatUserProfile from './MedikCare/Chat/ChatUserProfile';
-import chatDoctorProfile from './MedikCare/Chat/ChatDoctorProfile';
+import ChatDoctorProfile from './MedikCare/Chat/ChatDoctorProfile';
 import AdminChatSession from './MedikCare/Admins/Sessions/ChatSessions';
 import ChatWaitingList from './MedikCare/Chat/ChatDashboard/ChatWaitingList';
 import ChatOngoingSessions from './MedikCare/Chat/ChatDashboard/ChatOngoingSessions';
@@ -89,9 +89,9 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/user/verification" exact component={Verification} />
 						<Route path="/user/verification/verify/:id" exact component={VerificationSuccess} />
 						<Route path="/user/question" exact component={Question} />
-						<Route path="/user/profile" exact component={userProfile} />
-						<Route path="/user/image/update" exact component={updateUserImage} />
-						<Route path="/user/main-activity" exact component={mainActivity} />
+						<Route path="/user/profile" exact component={UserProfile} />
+						<Route path="/user/image/update" exact component={UpdateUserImage} />
+						<Route path="/user/main-activity" exact component={MainActivity} />
 						<Route path="/user/password/change" exact component={UserUpdatePassword} />
 						<Route path="/user/forget/password" exact component={UserForgetPassword} />
 						<Route path="/user/forget-password/:id" exact component={UserNewPassword} />
@@ -106,7 +106,7 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/doctor/verification" exact component={DoctorsVerification} />
 						<Route path="/doctor/verification/verify/:id" exact component={DoctorVerificationSuccess} />
 						<Route path="/doctor/dashboard" exact component={DoctorDashboard} />
-						<Route path="/doctor/profile" exact component={doctorProfile} />
+						<Route path="/doctor/profile" exact component={DoctorProfile} />
 						<Route path="/doctor/image/update" exact component={UpdateDoctorImage} />
 						<Route path="/doctor/upload/annual-practicing-licence/file" exact component={UpdateAnnualPracticingLicence} />
 						<Route path="/doctor/password/change" exact component={DoctorUpdatePassword} />
@@ -127,7 +127,7 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/admin/doctors" exact component={DoctorsListTh} />
 						<Route path="/admin/password/change" exact component={UpdatePassword} />
 						
-						<Route path="/admin/Profile" exact component={adminProfile} />
+						<Route path="/admin/Profile" exact component={AdminProfile} />
 						<Route path="/admin/image/update" exact component={updateImage} />
 						<Route path="/admin/forget/password" exact component={AdminForgetPassword} />
 						<Route path="/admin/forget-password/:id" exact component={AdminNewPassword} />
@@ -154,12 +154,12 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/chat/dashboard" exact component={ChatDashboard} />
 						<Route path="/chat/doctors" exact component={ChatCreateSession} />
 						<Route path="/chat/user/profile/:id" exact component={ChatUserProfile} />
-						<Route path="/chat/doctor/profile/:id" exact component={chatDoctorProfile} />
+						<Route path="/chat/doctor/profile/:id" exact component={ChatDoctorProfile} />
 						<Route path="/chat/end/:id" extract component={ChatEndSession} />
 						<Route path="/chat/notifications" exact component={ChatDashbordActivities} />
 						<Route path="/chat/:id" exact component={Chat} />
 						<Route path="/chat/session/:id" exact component={ChatSession} />
-						<Route path="/chat/current/session/:id" exact component={chatCurrentsession} />
+						<Route path="/chat/current/session/:id" exact component={ChatCurrentsession} />
 						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
 						<Route path="/chat/feedback/:id" exact  component={ChatFeedbackUser} />
 						<Route path="/chat/report/:id" exact component={ChatReportDoctor} />

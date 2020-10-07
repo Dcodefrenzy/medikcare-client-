@@ -3,11 +3,11 @@ import { SessionContext } from './ChatDashboard';
 import {socket} from '../../Socket/Socket';
 import ChatSession from './ChatSession';
 import { Link } from 'react-router-dom';
-import doctorProfile from '../../Medicals/Doctors/Profile/Profile';
+import DoctorProfile from '../../Medicals/Doctors/Profile/Profile';
 import LoginSession from "../../Users/Logins/LoginSession";
 
 
-const chatCurrentsession = (props) =>{
+const ChatCurrentsession = (props) =>{
     const id = props.match.params.id
 
     const [doctor, displayDoctor] = useState([]);
@@ -109,4 +109,4 @@ const chatCurrentsession = (props) =>{
     )
 }
 
-export default chatCurrentsession;
+export default ChatCurrentsession;

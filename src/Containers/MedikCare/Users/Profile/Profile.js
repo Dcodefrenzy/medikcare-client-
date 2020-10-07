@@ -6,7 +6,7 @@ import Loading from "../../Loading/Loading";
 import NavbarHeader from "../NavBar/NavBar";
 import NavbarFooter from "../NavBar/NavbarFooter";
 
-const userProfile = (props) => {
+const UserProfile = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     if (sessionItem === null) {
         window.location = "/login"
@@ -310,4 +310,4 @@ const userProfile = (props) => {
     )
 }
 
-export default userProfile;
+export default UserProfile;

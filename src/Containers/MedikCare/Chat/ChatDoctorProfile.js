@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LoginSession from "../Users/Logins/LoginSession";
 
 
-const chatDoctorProfile = (props) =>{
+const ChatDoctorProfile = (props) =>{
     const id = props.match.params.id
 
     const [doctor, displayDoctor] = useState([]);
@@ -94,4 +94,4 @@ const chatDoctorProfile = (props) =>{
     )
 }
 
-export default chatDoctorProfile;
+export default ChatDoctorProfile;

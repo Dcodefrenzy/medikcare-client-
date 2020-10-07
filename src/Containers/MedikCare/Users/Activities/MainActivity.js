@@ -7,7 +7,7 @@ import NavbarHeader from "../NavBar/NavBar";
 import NavbarFooter from "../NavBar/NavbarFooter";
 
 
-const mainActivity = (props) => {
+const MainActivity = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     if (sessionItem === null) {
         window.location = "/login"
@@ -79,4 +79,4 @@ const mainActivity = (props) => {
     )
 }
 
-export default mainActivity;
+export default MainActivity;

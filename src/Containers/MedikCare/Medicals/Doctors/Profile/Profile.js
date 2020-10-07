@@ -6,7 +6,7 @@ import Loading from "../../../Loading/Loading";
 import NavbarHeader from "../../NavBar/NavBar"
 import NavbarFooter from "../../NavBar/NavbarFooter";
 
-const doctorProfile = (props) => {
+const DoctorProfile = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     if (sessionItem === null) {
         window.location = "/doctor/login"
@@ -337,4 +337,4 @@ const doctorProfile = (props) => {
     )
 }
 
-export default doctorProfile;
+export default DoctorProfile;
