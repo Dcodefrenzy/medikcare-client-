@@ -82,7 +82,7 @@ const AdminBlog = ()=>{
                     setDisplay({display:"display-none"})
                    alert("Blog mail sent.");
                 }else{
-                   // console.log(response)
+                   console.log("response");
                 }
             })
     }
