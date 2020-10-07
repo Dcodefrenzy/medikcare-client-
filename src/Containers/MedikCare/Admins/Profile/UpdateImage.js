@@ -24,7 +24,7 @@ const updateImage = (props) => {
         .then(response => { 
             if(response.status === 401) {
                 sessionStorage.removeItem("admin");
-                window.location = "/admin/login?Session expired please login."
+                window.location = "/admin/login?Session expired please login.";
             }else if (response.status === 200) {
                 setDisplay({display:"display-none"});
                 if (response.message.image) {
