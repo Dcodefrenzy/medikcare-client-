@@ -22,7 +22,7 @@ const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay
     const firstNameHandler =(event)=>{
         setfirstName({id:"firstName", value:event.target.value, type:"text"})
     }
-    const lastNameHandler =()=>{
+    const lastNameHandler =(event)=>{
 
         setlastName({id:"lastName", value:event.target.value, type:"text"})
     }
