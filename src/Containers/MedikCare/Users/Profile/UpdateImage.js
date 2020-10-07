@@ -43,7 +43,7 @@ const updateUserImage = (props) => {
 
     const setAdminProfile=(event)=>{console.log(file)
         event.preventDefault();
-        const formData = new FormData()
+        const formData = new FormData();
         
         formData.append('image', file.file)
         const url = "/api/v1/user/image/update";

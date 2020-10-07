@@ -35,7 +35,6 @@ import ChatSession from './MedikCare/Chat/ChatDashboard/ChatSession';
 import mainActivity from './MedikCare/Users/Activities/MainActivity';
 import chatCurrentsession from './MedikCare/Chat/ChatDashboard/ChatCurrentSession';
 import ChatDashbordActivities from './MedikCare/Chat/ChatDashboard/ChatDashBoardActivities';
-import ChatDashbordNewChat from './MedikCare/Chat/ChatDashboard/ChatDashbordNewChat';
 import AdminForgetPassword from './MedikCare/Admins/Password/ForgetPassword';
 import AdminNewPassword from './MedikCare/Admins/Password/NewPassword';
 import UserForgetPassword from './MedikCare/Users/Password/ForgetPassword';
