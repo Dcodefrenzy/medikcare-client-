@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Loading from "../../../Loading/Loading";
 
 
-const updateAnnualPracticingLicence = (props) => {
+const UpdateAnnualPracticingLicence = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("doctor"));
     if (sessionItem === null) {
         window.location = "/doctor/login"
@@ -133,4 +133,4 @@ const updateAnnualPracticingLicence = (props) => {
     )
 }
 
-export default updateAnnualPracticingLicence;
+export default UpdateAnnualPracticingLicence;

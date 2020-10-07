@@ -30,7 +30,7 @@ import userProfile from './MedikCare/Users/Profile/Profile';
 import updateUserImage from './MedikCare/Users/Profile/UpdateImage';
 import updateDoctorImage from './MedikCare/Medicals/Doctors/Profile/UpdateImage';
 import doctorProfile from './MedikCare/Medicals/Doctors/Profile/Profile';
-import updateAnnualPracticingLicence from './MedikCare/Medicals/Doctors/Profile/licence';
+import UpdateAnnualPracticingLicence from './MedikCare/Medicals/Doctors/Profile/licence';
 import ChatSession from './MedikCare/Chat/ChatDashboard/ChatSession';
 import mainActivity from './MedikCare/Users/Activities/MainActivity';
 import chatCurrentsession from './MedikCare/Chat/ChatDashboard/ChatCurrentSession';
@@ -108,7 +108,7 @@ import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 						<Route path="/doctor/dashboard" exact component={DoctorDashboard} />
 						<Route path="/doctor/profile" exact component={doctorProfile} />
 						<Route path="/doctor/image/update" exact component={updateDoctorImage} />
-						<Route path="/doctor/upload/annual-practicing-licence/file" exact component={updateAnnualPracticingLicence} />
+						<Route path="/doctor/upload/annual-practicing-licence/file" exact component={UpdateAnnualPracticingLicence} />
 						<Route path="/doctor/password/change" exact component={DoctorUpdatePassword} />
 						<Route path="/doctor/forget/password" exact component={DoctorForgetPassword} />
 						<Route path="/doctor/forget-password/:id" exact component={DoctorNewPassword} />
