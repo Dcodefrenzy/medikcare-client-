@@ -16,7 +16,7 @@ const DoctorUpdatePassword = (props) => {
         }
         setOldPassword({id:"oldPassword", value:event.target.value, type:"password"})
     }
-    const newPasswordChangedHandler =()=>{
+    const newPasswordChangedHandler =(event)=>{
         if (event.target.value !=="" && event.target.value.length < 6) {
             setnewPasswordError({id:"newPasswordError", display:"display-block", value:"Your password must be more than 6 characters"})
         }else {
