@@ -1,7 +1,5 @@
 import React, {useState, useEffect, createContext} from "react" ;
 import { Link } from 'react-router-dom';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import DoctorLoginSession from "../../Medicals/Doctors/DoctorsLogins/LoginSession";
 import io from 'socket.io-client';
 import Loading from "../../Loading/Loading";
