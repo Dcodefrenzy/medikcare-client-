@@ -6,7 +6,7 @@ import AdminDashboard from "../AdminDashboard";
 import Loading from "../../Loading/Loading";
 
 
-const updateImage = (props) => {
+const UpdateImage = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("admin"));
     const [display, setDisplay] = useState({display:"display-block"});
     const [admin, setAdmin] = useState({});
@@ -133,4 +133,4 @@ const updateImage = (props) => {
     )
 }
 
-export default updateImage;
+export default UpdateImage;
