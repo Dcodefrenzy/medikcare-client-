@@ -17,7 +17,7 @@ const DeleteAnswer = (props) => {
         .then(response => { console.log(response)
             if(response.status === 201) {
                 setAlert({formDisplay:"alert alert-success ", spinnerDisplay:"display-none"})
-                location.reload();
+                window.location.reload();
                 console.log("yay worked!")
              }else if(response.status === 403) {
                 setAlert({formDisplay:"", spinnerDisplay:"display-none"})

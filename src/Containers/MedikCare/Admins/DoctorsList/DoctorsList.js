@@ -137,7 +137,7 @@ const   doctorDeleteHandller = (event, id, deleteCode) => {
             displayPopMessage.message = response.message;
             reverseAdminDeleteHandler(event);
                 setDisplay({display:"display-none"})
-                location.reload();
+                window.location.reload();
             }
         })
     }

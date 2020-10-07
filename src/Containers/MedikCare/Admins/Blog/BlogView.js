@@ -84,7 +84,7 @@ const updateBlogPublish = (event, deleteArticle)=>{
         if (response.status === 201) {
             console.log(response)
             setAlert({alertDisplay:"", spinnerDisplay:"display-none"})
-            location.reload();
+            window.location.reload();
         }else{
             console.log(response)
         }
@@ -105,7 +105,7 @@ const updateBlogPublish = (event, deleteArticle)=>{
             if (response.status === 201) {
                 console.log(response)
                 setAlert({alertDisplay:"", spinnerDisplay:"display-none"})
-                location.reload();
+                window.location.reload();
             }else{
                 console.log(response)
             }
@@ -170,7 +170,7 @@ const updateBlogPublish = (event, deleteArticle)=>{
         })
         .then(res=>res.json())
         .then(response=>{
-            location.reload();
+            window.location.reload();
         });
     }
 const allImages = images.map((image)=>{

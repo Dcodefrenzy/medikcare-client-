@@ -55,7 +55,7 @@ const AdminMailer = ()=>{
         .then(response=>{
             if (response.status === 201) {
                
-                location.reload();
+                window.location.reload();
             }else{
                 console.log(response)
             }

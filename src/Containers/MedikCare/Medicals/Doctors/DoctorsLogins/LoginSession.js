@@ -35,7 +35,7 @@ const DoctorLoginSession = (props) => {
                 
                 setError({display:"text-success block", value:"Login successful."})
                 sessionStorage.setItem("doctor", JSON.stringify(response));
-                location.reload();
+                window.location.reload();
                 console.log("yay worked!")
              }else if(response.status === 403) {
                 setAlert({formDisplay:"", spinnerDisplay:"display-none"})

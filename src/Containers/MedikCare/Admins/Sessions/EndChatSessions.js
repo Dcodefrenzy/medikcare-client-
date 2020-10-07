@@ -37,7 +37,7 @@ const EndChatSessions = (props) => {
     socket.on("end session", (dataset)=>{
         //console.log(dataset);
         setMessage({display:"", color:"", message:"Ended an ongoing session"+dataset._id});
-        location.reload();
+        window.location.reload();
      })
 
     return (
