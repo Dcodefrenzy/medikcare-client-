@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-
 const NavbarLinks = () => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     
