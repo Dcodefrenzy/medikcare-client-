@@ -11,7 +11,7 @@ import Payment  from '../../Assets/svgs/payment.svg';
 const UserSettings= ()=>{
     
 	const [display, setDisplay]  = useState({display:"block"});
-const   authentication = () => {
+    const   authentication = () => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     if(sessionItem === null) {window.location = "/login?Hi-Visitor-you-have-to-login-before-you-can-access-a-page-on-the-platform"}
     else { setDisplay({display:"display-none"});}
@@ -32,7 +32,7 @@ useEffect(()=>{
                 </Link>
                     <div className="user-section">
                         <div className="">
-                                    <div className="row">
+                                    <div className="row mt-3">
                                         <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Profile } alt="health-questions" className='home-svg'/>
                                         </div>
@@ -43,7 +43,7 @@ useEffect(()=>{
                                             </Link>
                                        </div>
                                     </div>
-                                    <div className="row">
+                                    <div className="row mt-3">
                                         
                                          <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Lock } alt="health-questions" className='home-svg'/>
@@ -57,7 +57,7 @@ useEffect(()=>{
                                     </div>
                                 
                                 <Link to="/user/reports">
-                                    <div className="row">
+                                    <div className="row mt-3">
                                          <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Record } alt="health-questions" className='home-svg'/>
                                         </div>
@@ -70,7 +70,7 @@ useEffect(()=>{
                                     </div>
                                
                                 </Link>
-                                    <div className="row">
+                                    <div className="row mt-3">
                                          <div className="col-3 col-sm-2 col-md-2">
     							            <img src={ Payment } alt="health-questions" className='home-svg'/>
                                         </div>

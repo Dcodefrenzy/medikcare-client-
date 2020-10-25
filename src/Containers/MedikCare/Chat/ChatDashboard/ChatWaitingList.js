@@ -108,7 +108,7 @@ const ChatWaitingList = (props) =>{
                                         
                                         <div>
                                             <Link to="/doctor/sessions/ongoing">
-                                                <i className="far fa-handshake fa-2x text-dark" aria-hidden="true"></i>
+                                                <i className="fa fa-tasks fa-2x text-dark" aria-hidden="true"></i>
                                             </Link>
                                         </div> 
                                         <div className="col-2">

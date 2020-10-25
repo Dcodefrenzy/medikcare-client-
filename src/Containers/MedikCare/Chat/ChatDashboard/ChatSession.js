@@ -16,7 +16,9 @@ const ChatSession = (props) =>{
     const [doctorSession, setDoctorSession] = useState({display:"display-none"})
     const session = JSON.parse(sessionStorage.getItem("doctor"));
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:"display-none"})
-    const [reportDisplay, setReportDisplay] = useState({display:"display-none"})
+    const [reportDisplay, setReportDisplay] = useState({display:"display-none"});
+    const [drugList, setDrugList] = useState([{_id:"1",name:"",duration:"",interval:""}]);
+    const [testList, setTestList] = useState([{_id:"1",name:""}]);
     let complains;
 
 
@@ -71,10 +73,13 @@ const setReportsHandler = (event, id)=>{
     .then(res=>res.json())
     .then(response => {
         if (response.status === 200) {
+            console.log(response)
             setReportDisplay({display:"card fixed top-padding-sm"})
             response.message.doctor = response.doctor
             setUserReport(response.message)
-           // console.log(response)
+           
+            setDrugList(response.message.drugs);
+            setTestList(response.message.labTest);
         }else if(response.status === 401) {
             
             sessionStorage.removeItem("doctor");
@@ -121,7 +126,20 @@ const endReportDisplay = (event)=>{
 
     useEffect(()=>{
         authentication();
-    }, [])
+    }, []);
+
+
+
+    const drugTest = drugList.map((list, index)=>{
+        return <li key={list._id}>{list.name} {list.interval}/daily {list.duration}/days </li>
+                
+});
+
+const labTest = testList.map((list, )=>{
+    return  <li key={list._id}>{list.name}</li>
+})
+
+
     const UserReport =  userReports.map((report)=>{
         return  <div className="card bottom-margin-sm" key={report._id} onClick={event => setReportsHandler(event, report._id)}>
                     <div className="card-body">
@@ -129,7 +147,8 @@ const endReportDisplay = (event)=>{
     
                             <div className="col-12 col-sm-6 col-md-8">
                                 <h6 className="text-dark">Diagnoses: {report.diagnoses}</h6>
-                                <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>                                                        
+                                <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p> 
+                                <small className="text-success">Read more..</small>                                                       
                             </div>
                         </div>
                     </div>
@@ -152,11 +171,13 @@ const endReportDisplay = (event)=>{
                                         <small>Health complain</small>  
                                         <p>{report.complains}</p> 
                                         <small className="text-dark">Doctors Diagnoses</small>
-                                        <p>{report.diagnoses}</p>  
+                                        <p>{report.diagnoses}</p>   
+                                        <small className="text-dark">Heath Plan</small>
+                                        <p>{report.plan}</p> 
                                         <small className="text-dark">Doctors Medication</small>
-                                        <p>{report.medication}</p>   
+                                        <p>{drugTest}</p>   
                                         <small className="text-dark">Lab Test</small>
-                                        <p>{report.test}</p>                                                   
+                                        <p>{labTest}</p>                                                   
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +220,7 @@ const endReportDisplay = (event)=>{
                                         </div>
                                     </div>
                                 <div className="top-margin-md">
-                                    <h6>Patient Health Reports</h6>
+                                    <h6>Recent Patient Health Reports</h6>
                                     {UserReport}
                                 </div>
                                 </div>

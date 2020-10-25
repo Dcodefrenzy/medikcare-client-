@@ -289,7 +289,7 @@ const ChatReportDoctor = (props) => {
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                 <label>Next Appointment <span className="text-white">  <Moment>{appointmentDate.value}</Moment></span></label>
-                                                   <input type="Date" id={appointmentDate.id} onChange={(event=>setAppointmentHandler(event, appointmentDate.id))} className="form-control" />
+                                                   <input type="datetime-local" id={appointmentDate.id} onChange={(event=>setAppointmentHandler(event, appointmentDate.id))} className="form-control" />
                                                 </div> 
                                             </div> 
                                         </div>

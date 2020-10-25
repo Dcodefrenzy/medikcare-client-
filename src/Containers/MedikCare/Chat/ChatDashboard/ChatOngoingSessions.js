@@ -174,7 +174,7 @@ const reverseDisplay = (event)=>{
                                         
                                         <div>
                                             <Link to="/doctor/sessions/ongoing">
-                                                <i className="far fa-handshake fa-2x  chat-dashboard-active" aria-hidden="true"></i>
+                                                <i className="fa fa-tasks fa-2x  chat-dashboard-active" aria-hidden="true"></i>
                                             </Link>
                                         </div> 
                                         <div className="col-2">

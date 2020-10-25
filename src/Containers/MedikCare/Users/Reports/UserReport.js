@@ -13,6 +13,8 @@ const UserReport= (props)=>{
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
     const [display, setDisplay]  = useState({display:"block"});
     const [report, setReport] = useState({});
+    const [drugList, setDrugList] = useState([{_id:"1",name:"",duration:"",interval:""}]);
+    const [testList, setTestList] = useState([{_id:"1",name:""}]);
     const [notfound, setNotFound] =useState({display:"display-none"})
     const [doctor, setDoctor] = useState({})
 const   authentication = () => {
@@ -28,9 +30,12 @@ const setReportsHandler = ()=>{
     .then(res=>res.json())
     .then(response => {
         if (response.status === 200) {
+            console.log(response)
             setReport(response.message)
             setDoctor({doc:response.doctor});
-            console.log(response)
+            setDrugList(response.message.drugs);
+            setTestList(response.message.labTest);
+           
         }else if (response.status === 404) {
             
         }
@@ -42,13 +47,23 @@ useEffect(()=>{
   }, [])
 
 
+
+  const drugTest = drugList.map((list, index)=>{
+    return <li key={list._id}>{list.name} {list.interval}/daily {list.duration}/days </li>
+            
+});
+
+const labTest = testList.map((list, )=>{
+return  <li key={list._id}>{list.name} </li>
+})
+
     return (
     <div className="container-fluid">
 
         <Loading display={display.display}/>
         <section className="user-section">
             <div className="col-12 col-sm-12 col-md-7 col-lg-7 offset-md-3 offset-lg-3 ">
-                <div className="user-dashboard-content">
+                <div className="user-dashboard-content card">
                 <h1>User Medical Report</h1>
                 <Link to="/user/reports">  
                 <i className="fa fa-arrow-left text-dark">Back</i>
@@ -56,7 +71,13 @@ useEffect(()=>{
                     <div className="user-section">
                         
                         <h6 className="text-success"><b className="text-dark">Report By-</b> {doctor.doc}</h6>
-                        <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p>  
+                        <div className="row"> 
+                            <div className="col-12">    
+                            <p className="text-dark top-margin-sm float-right"><b>Next Appointment- </b><Moment className="text-success" fromNow>{report.appointmentDate}</Moment></p>
+                            <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p> 
+                            </div>
+                        </div>
+                         
                                         
                         <div className="card bottom-margin-sm">
                             <div className="card-body">
@@ -83,7 +104,7 @@ useEffect(()=>{
                                 <div className="row">
                                     <div className="col-12 col-sm-12 col-md-8">
                                         <h3 className="text-dark">Medication</h3> 
-                                        <p>{report.medication}</p>                                                      
+                                        <ul>{drugTest}</ul>                                                      
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +114,7 @@ useEffect(()=>{
                                 <div className="row">
                                     <div className="col-12 col-sm-12 col-md-8">
                                         <h3 className="text-dark">Lab Test</h3>
-                                        <p>{report.test}</p>                                                      
+                                        <ul>{labTest}</ul>                                                      
                                     </div>
                                 </div>
                             </div>

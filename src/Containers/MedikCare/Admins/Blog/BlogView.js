@@ -18,8 +18,9 @@ const AdminBlogView = (props)=>{
     const [images, setImages] =useState([]);
     const [blogItem, setBlogItem] = useState({});
     
-    const [display, setDisplay] = useState({display:"display-none"})
-    const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none"})
+    const [videoLink,setVideoLink] = useState({value:""});
+    const [display, setDisplay] = useState({display:"display-none"});
+    const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-none"});
     
     
     const [blogTopic, setBlogTopic] = useState({value:""})
@@ -37,6 +38,9 @@ const AdminBlogView = (props)=>{
     const validateBlogCategory = (event)=>{
         setBlogCategory({value:event.target.value})
     }
+    const validateVideoLink = (event) =>{
+        setVideoLink({value:event.target.value});
+    }
 
    const  previewBlog =()=>{
        const url = "/api/v1/blogs/"+blogId
@@ -47,9 +51,13 @@ const AdminBlogView = (props)=>{
        .then(res=>res.json())
        .then(response=>{
            if (response.status === 200) {
+               console.log(response.message)
                if (response.message.category === 1) {
                 response.message.category = "MedikByte"
-               }else{
+               }else if(response.message.category === 2){
+                response.message.category = "MedikByte Video"
+               }
+               else{
                 response.message.category = "Others"
                }
                if (response.message.deleteArticle === false) {
@@ -61,6 +69,9 @@ const AdminBlogView = (props)=>{
             setBlogItem(response.message);
             setBlogTopic({value:response.message.topic});
             setBlogArticle({value:response.message.article});
+            setVideoLink({value:response.message.videoLink});
+
+            
             
             if (response.message.image) {
                 setblogFile(response.message.image);
@@ -93,7 +104,7 @@ const updateBlogPublish = (event, deleteArticle)=>{
 
     const submitBlog = (event)=>{
         event.preventDefault();
-        const blog = {topic:blogTopic.value, category:blogCategory.value, article:blogArticle.value}
+        const blog = {topic:blogTopic.value, category:blogCategory.value, article:blogArticle.value, videoLink:videoLink.value}
        const url = "/api/v1/blogs/update/"+blogId;
         fetch(url, {
             method:"PATCH",
@@ -270,7 +281,7 @@ useEffect(()=>{
                                             <div className="col-12 col-sm-7 col-md-7">
                                                 <h1>{blogItem.topic}</h1>
                                                 <div className="blog-image" dangerouslySetInnerHTML={{ __html: blogItem.article }} />
-                                                <iframe  width="100%" className="iframe-height" src={`https://youtube.com/embed/${blogItem.videoLink}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                                <iframe  width="100%" className="iframe-height" src={`https://youtube.com/embed/${blogItem.videoLink}`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                                             </div>
                                         </div>
                                     </div>
@@ -300,10 +311,18 @@ useEffect(()=>{
                                                 <select onChange={event=>validateBlogCategory(event)} name="category" className="form-control" required>
                                                     <option value="">select category</option>
                                                     <option value="1">MedikByte</option>
-                                                    <option value="2">Other</option>
+                                                    <option value="2">MedikByte Video</option>
+                                                    <option value="3">Other</option>
                                                 </select>
                                                 <span>Old category: <b>{blogItem.category}</b></span>
                                             </div>
+                                        </div>
+                                        <div className="col-12 col-sm-12 col-md-12">
+                                            <div className="form-group">
+                                                    <label htmlFor="Video">Video Link</label>
+                                                    <input type="text" value={videoLink.value} onChange={event=>validateVideoLink(event)} className="form-control" />
+                                                    <span></span>
+                                                </div>
                                         </div>
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group text-dark">  
