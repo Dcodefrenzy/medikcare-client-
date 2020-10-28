@@ -62,8 +62,6 @@ const UpdateUserImage = (props) => {
 
             }
         })
-
-
     }
 
     useEffect(()=>{
@@ -73,8 +71,8 @@ const UpdateUserImage = (props) => {
     return (
         <div>  
             <Loading display={display.display}/> 
-        <section>
-            <div className="col-12 col-sm-12 col-md-8 offset-md-2">
+        <div>
+            <div className="col-12 col-sm-12 col-md-8 offset-md-2 mt-5">
                     <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-7">
                             <Link to="/user/Profile">
@@ -127,7 +125,7 @@ const UpdateUserImage = (props) => {
                         </div>
                     </div>
             </div>
-        </section>
+        </div>
     </div>
     )
 }

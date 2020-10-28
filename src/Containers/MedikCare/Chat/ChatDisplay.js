@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import ChatForm from './chatForms';
+import ChatImageDisplay from './ChatImageDisplay';
 
 
 
@@ -12,6 +13,7 @@ const ChatDisplay = (props) =>{
     //const chatSession = JSON.parse(sessionStorage.getItem("chatSession"));
     const [messages, setDisplayMessage] = useState([]); 
     const element = useRef(null);
+    const [imageForm, setImageForm] = useState({"display":"display-none","image":""});
 
     const scrollToBottom = ()=>{  
         element.current.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
@@ -100,6 +102,18 @@ const ChatDisplay = (props) =>{
     }
 
 
+    const displayImage =(event, image)=>{
+        event.preventDefault();
+        setImageForm({"display":"container-fluid","image":image})
+    }
+
+    const hideDisplayImage=(event)=>{
+        event.preventDefault();
+        setImageForm({"display":"display-none","image":""})
+
+    }
+
+
     useEffect(()=>{
         fetchChatMessage();
     }, [])
@@ -115,7 +129,8 @@ const ChatDisplay = (props) =>{
         let  Color;
         let cardColor;
         let cardBodyColor;  
-        let delivery; 
+        let delivery;
+        let msg; 
         let name;
             if (message.delivery === true) {
                 delivery =  <i className="fa fa-check" aria-hidden="true"></i>
@@ -137,10 +152,15 @@ const ChatDisplay = (props) =>{
              cardColor = " b-medik";
              cardBodyColor = "text-white";
         }
+        if (message.image === true) {
+            msg = <img onClick={event => displayImage(event, "/Images/"+message.message)} className="padding-sm" width="100%" src={"/Images/"+message.message} />
+        }else {
+            msg = <p className="padding-sm">{message.message}</p>
+        }
            return <div className={float} key={message._id}>
                 <div className={"card box-shadow "+cardColor}>
                     <div className={cardBodyColor}>
-                        <p className="padding-sm">{message.message}</p>
+                        {msg}
                     </div>
                 </div>
                 <i className="date-time"><Moment fromNow>{message.createdAt}</Moment></i>
@@ -149,6 +169,7 @@ const ChatDisplay = (props) =>{
     })
     return(
     <div>
+        <ChatImageDisplay display={imageForm.display} image={imageForm.image} hideImage={event => hideDisplayImage(event)} /> 
         <div className="top-margin-lg">
             {displayMessages}
             <p className="col-12 row bottom-margin-lg bottom-padding-lg card-body" ref={element}></p>

@@ -21,7 +21,7 @@ const UpdateAnnualPracticingLicence = (props) => {
             headers: {'Content-Type': "application/json", "u-auth": sessionItem.token}
         })
         .then(res => res.json())
-        .then(response => { 
+        .then(response => { console.log(response)
             if(response.status === 401) {
                 sessionStorage.removeItem("doctor");
                 window.location = "/doctor/login?Session expired please login."
@@ -74,7 +74,7 @@ const UpdateAnnualPracticingLicence = (props) => {
     return (
         <div>  
             <Loading display={display.display}/> 
-        <section>
+        <div className="mt-5">
             <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-7">
@@ -83,7 +83,7 @@ const UpdateAnnualPracticingLicence = (props) => {
                             </Link>
                         <div className="card">
                                 <div className="card-header b-medik text-white">
-                                    <h3>Image</h3>
+                                    <h3>FILE</h3>
                                 </div>
                                 <div className="card-body">
                                    <div className="row">
@@ -91,7 +91,7 @@ const UpdateAnnualPracticingLicence = (props) => {
                                         <div className="row justify-content-center">
                                            <div className="col-12 col-sm-12 col-md-12"> 
                                                <div className="text-center">
-                                               <embed className="img-thumbnail" type={admin.mime} src={"/Files/"+admin.filename}   width="50%"  />
+                                               <embed src={"/Files/"+admin.filename}  className="img-thumbnail" type={"application/pdf"}   width="50%"  />
                                                </div>
                                            </div>
                                         </div>
@@ -128,7 +128,7 @@ const UpdateAnnualPracticingLicence = (props) => {
                         </div>
                     </div>
             </div>
-        </section>
+        </div>
     </div>
     )
 }

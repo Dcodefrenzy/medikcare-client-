@@ -9,7 +9,7 @@ import LoginSession from "../../Users/Logins/LoginSession";
 
 const ChatCurrentsession = (props) =>{
     const id = props.match.params.id
-
+    
     const [doctor, displayDoctor] = useState([]);
     const [doctorInfo, displayDoctorInfo] = useState([]);
     const [file, setFile] = useState({});
@@ -17,12 +17,6 @@ const ChatCurrentsession = (props) =>{
     const [loginSession, setLoginSession] = useState({display:"display-none"})
     const   [alert, setAlert]= useState({buttonDisplay:"block", spinnerDisplay:"display-none"})
 
-    const getSession = ()=> {
-        const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
-        if( sessionItemUser === null) {
-            setLoginSession({display:"row"})
-        }
-    }
 
     const fetchDoctorsHandeller = () => {
          const url = "/api/v1/doctors/records/user/doctor/"+id;
@@ -31,7 +25,7 @@ const ChatCurrentsession = (props) =>{
              headers:{"Content-Type":"application/json", "u-auth":session.token}
          })
          .then(res => res.json())
-         .then(response =>{
+         .then(response =>{console.log(response)
              if(response.status === 401) {
                  if(session.isUser === true) {
                  sessionStorage.removeItem("user");
@@ -63,8 +57,13 @@ const ChatCurrentsession = (props) =>{
 
 
     useEffect(()=>{
-        getSession();
+        console.log(session)
+        if( session === null) {
+            setLoginSession({display:"row"})
+        }else{
+            
         fetchDoctorsHandeller();
+        }
     }, [])
 
    

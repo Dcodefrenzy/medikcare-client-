@@ -78,7 +78,6 @@ const ChatReportDoctor = (props) => {
    const saveReport=(event)=>{
         event.preventDefault();  
       
-        setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
             const report = {"complains":complains.value,
                             "diagnoses":diagnose.value,  
                             "_sessionId":userSession._id,

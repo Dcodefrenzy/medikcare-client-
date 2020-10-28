@@ -76,7 +76,7 @@ class DoctorDashboard extends Component {
                 <Loading display={this.state.display}/>
                 <div  className="container">
                     <NavbarHeader />
-                    <div className="user-section">
+                    <div className="mt-5">
                         <PopMessage display={this.state.popMessage.display} message={this.state.popMessage.message} welcome={this.state.popMessage.welcome} card={this.state.popMessage.card} />
                     </div>
                     <DashboardDetails welcomeName={this.state.welcome.name} />

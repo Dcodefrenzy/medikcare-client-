@@ -9,6 +9,8 @@ import SideBar from '../MedikWeb/NavBar/SideBar';
 
 const Blog = (props)=>{
 
+    const sessionItemUser = JSON.parse(sessionStorage.getItem("user"));
+    const sessionItemDoctor = JSON.parse(sessionStorage.getItem("doctor"));
     const [blog, setBlog]=useState([]);
 
    const fetchBlogHandler = ()=>{
@@ -28,7 +30,14 @@ const Blog = (props)=>{
     useEffect(()=>{
         fetchBlogHandler();
     }, [])
-
+    let arrowBack;
+    if (sessionItemUser !== null && sessionItemDoctor === null) {
+        arrowBack = <Link to="user/dashboard"> <span   className="fa fa-arrow-left medik-color mt-2" aria-hidden="false"></span></Link>
+    }else if (sessionItemUser === null && sessionItemDoctor !== null) {
+        arrowBack = <Link to="/doctor/dashboard"> <span   className="fa fa-arrow-left medik-color mt-2" aria-hidden="false"></span></Link>
+    }else{
+        arrowBack = "";
+    }
     const allBlog =  blog.map((blog)=>{
         
         if(!blog.image){
@@ -36,6 +45,7 @@ const Blog = (props)=>{
         }else{
             blog.blogImage = blog.image.filename;
         }
+        
        return  <div className="col-12 col-sm-12 col-md-6 col-lg-4 bottom-margin-sm" key={blog._id}>
            <Link to={`/blog/${blog._id}`}>
             <div className="card  bg-dark">
@@ -44,7 +54,7 @@ const Blog = (props)=>{
                 <div className="card-body blog-position-text text-white">
                 <h1>{blog.topic}</h1>
                 <span><i className="card-text fa fa-user"></i> {blog._createdBy}</span>
-                <span className="float-right text-success"><i className="fa fa-clock" ariahidden="true"></i> <Moment fromNow>{blog.dateCreated}</Moment> </span>
+                <span className="float-right text-white">  <i className="fa fa-clock" ariahidden="true"></i> <Moment fromNow>{blog.dateCreated}</Moment> </span>
                 </div>
             </div>
             </Link>
@@ -55,10 +65,12 @@ const Blog = (props)=>{
         <div>
             <NavBar />
             <SideBar />
-            <div className="container user-section">
+            <div className="container mt-5">
+                
                 <div className="col-12 col-sm-12 col-md-12 top-margin-lg">
             <div className="row top-margin-lg">
                 <div className="col-12 col-sm-10 col-md-10 col-lg-10">
+                    {arrowBack}
                     <h1 className="medik-color">Blog Post</h1>
                 </div>
             </div>

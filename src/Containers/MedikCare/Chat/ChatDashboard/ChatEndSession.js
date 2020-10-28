@@ -18,6 +18,7 @@ const ChatEndSession = (props)=>{
     const [report, setReport] = useState({complains:"No complains", diagnoses:"No diagnoses filled", plan:"No doctors plan filled"});
     const [drugList, setDrugList] = useState([{_id:"1",name:"No drug added",duration:"-",interval:"-"}]);
     const [testList, setTestList] = useState([{_id:"1",name:"No test added"}]);
+    const   [alert, setAlert]= useState({ spinnerDisplay:"display-none"});
 
     const checkSession = ()=>{
         if (sessionItem === null) {
@@ -40,7 +41,7 @@ const ChatEndSession = (props)=>{
                  setLoginSession({display:"row"});
              }else if(response.status === 200){
                 setLoading({display:"display-none"});
-                console.log( response.report)
+                console.log( response)
                 setUserSession(response.session);
                 setUser(response.user)
                if (response.report !== null) {
@@ -56,6 +57,8 @@ const ChatEndSession = (props)=>{
                     }else{
                         setSessionDisplay({"report":"", "end":"display-none"})
                     }
+               }else if (response.report === null) {
+                setSessionDisplay({"report":"", "end":"display-none"})
                }
              }else if (response.status === 403) {
                  window.location = "/doctor/sessions/waiting";
@@ -63,6 +66,7 @@ const ChatEndSession = (props)=>{
          })
      } 
     const endSession = (event)=>{
+        setAlert({spinnerDisplay:""})
         event.preventDefault();
         console.log(session._id)
         const sessionData = {"from":sessionItem._id, "to":from, "session":session._id};
@@ -85,6 +89,7 @@ const ChatEndSession = (props)=>{
                 })
                 .then(res=>res.json())
                 .then(response=>{
+                    setAlert({spinnerDisplay:"display-none"})
                     alert("Session ended successfully.");
                     window.location ="/chat/doctors/doctor";
                 })
@@ -124,11 +129,14 @@ const labTest = testList.map((list, )=>{
                                     {drugTest}
                                 </ul>
                                 <div className={sessionDisplay.end}>
+                                                <div className={alert.spinnerDisplay}>
+                                                    <i className="fa fa-spinner fa-pulse fa-2x"></i>
+                                                </div>
                                     <button onClick={event=>endSession(event)} className="btn-lg btn-success m-1">End Session</button>
                                 </div>
                                 
                                 <div className={sessionDisplay.report}>
-                                    <p>Please complete the report</p>
+                                    <p>You have not filled any report Please attempt complete the report</p>
                                     <Link to={`/chat/report/${from}`}>
                                     <button  className="btn-lg btn-success m-1">Back to report</button>
                                     </Link>

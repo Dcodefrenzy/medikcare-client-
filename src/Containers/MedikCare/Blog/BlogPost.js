@@ -108,12 +108,12 @@ const BlogPost = (props)=>{
                             <img src={`/Images/${blog.blogImage}`} className="img-thumbnail card" />
                             <div className="card-body bg-dark text-white">
                             <span><i className="card-text fa fa-user"></i> {blog._createdBy}</span>
-                            <span className="float-right"><i className="fa fa-clock" ariahidden="true"></i> 20 mins ago</span>
+                            <span className="float-right"><i className="fa fa-clock" ariahidden="true"></i> <Moment fromNow>{blog.dateCreated}</Moment></span>
                                  
                             </div>
                              <div className="card-body">  
                                    <div className="blog-image" dangerouslySetInnerHTML={{ __html: blog.article }} /> 
-                                   <iframe className={` ${iframe.display} iframe-height`} width="100%"  src={`https://www.youtube.com/embed/${blog.videoLink}`} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>          
+                                   <iframe className={` ${iframe.display} iframe-height`} width="100%"  src={`https://www.youtube.com/embed/${blog.videoLink}`} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>          
                                 </div>
                             </div>
                         </div>
