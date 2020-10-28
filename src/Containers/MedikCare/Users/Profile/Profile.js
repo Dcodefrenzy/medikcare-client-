@@ -157,7 +157,7 @@ const UserProfile = (props) => {
         <div>  
              <NavbarHeader />
             <Loading display={display.display}/> 
-            <section>  
+            <div className="mt-5">  
             <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="row justify-content-center medik-color">
                         <div className="col-12 col-sm-12 col-md-8">
@@ -304,7 +304,7 @@ const UserProfile = (props) => {
                         </div>
                     </div>
             </div>
-        </section>
+        </div>
         <NavbarFooter />
     </div>
     )

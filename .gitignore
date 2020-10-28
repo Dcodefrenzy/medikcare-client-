@@ -18,4 +18,5 @@ yarn-error.log*
 .vagrant
 Vagrantfile
 /public/files
+/public/Files
 /public/Images
