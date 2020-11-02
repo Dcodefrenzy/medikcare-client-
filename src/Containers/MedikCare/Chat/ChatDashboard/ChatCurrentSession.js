@@ -10,8 +10,9 @@ import LoginSession from "../../Users/Logins/LoginSession";
 const ChatCurrentsession = (props) =>{
     const id = props.match.params.id
     
-    const [doctor, displayDoctor] = useState([]);
-    const [doctorInfo, displayDoctorInfo] = useState([]);
+    const [doctor, displayDoctor] = useState({});
+    const [doctorInfo, displayDoctorInfo] = useState({});
+    const [chatSession, setChatSession] = useState({});
     const [file, setFile] = useState({});
     const session = JSON.parse(sessionStorage.getItem("user"));
     const [loginSession, setLoginSession] = useState({display:"display-none"})
@@ -33,8 +34,8 @@ const ChatCurrentsession = (props) =>{
                  }
              }else if(response.status === 200){
                  displayDoctor(response.message._doctorId);
-                 displayDoctorInfo(response.message)
-                              
+                 displayDoctorInfo(response.message);
+                 setChatSession(response.session);
                  if (response.message._doctorId.image) {
                      setFile(response.message._doctorId.image);
                  }else{
@@ -51,9 +52,6 @@ const ChatCurrentsession = (props) =>{
         const sessionData = {"from":session._id, "to":id};  
         socket.emit("end session", sessionData);
     }
-    socket.on("end session", (dataset, sessionData)=>{
-        window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
-    })
 
 
     useEffect(()=>{
@@ -64,6 +62,11 @@ const ChatCurrentsession = (props) =>{
             
         fetchDoctorsHandeller();
         }
+        socket.on("end session", (dataset, sessionData)=>{
+            // window.location = "/chat/feedback/"+dataset.to+"/"+sessionData._id;
+            window.location = "/user/dashboard"
+         })
+     
     }, [])
 
    
@@ -88,13 +91,13 @@ const ChatCurrentsession = (props) =>{
                                         <small className="block">{doctorInfo.specialty}</small>
                                    </div>
                                    <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, Please click the button bellow to continue? </p>
+                                               <p className="text-dark">You are still on a session with {doctor.firstname+" "+doctor.lastname}, Please click the button below to continue? </p>
                                                     <div className={alert.spinnerDisplay}>
                                                         <i className="fa fa-spinner fa-pulse fa-3x"></i>
                                                     </div>
                                                     <div className={alert.buttonDisplay}>   
                                                         
-                                                        <Link to={"/chat/"+doctor._id}><button className="btn-sm btn-success" id={doctor._id}>Continue</button></Link>
+                                                        <Link to={`/${chatSession.means}/${doctor._id}/${chatSession._id}`}><button className="btn-sm btn-success" id={doctor._id}>Continue</button></Link>
                                                     </div>
                                                </div>
                                    </div>

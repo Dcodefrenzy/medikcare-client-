@@ -7,18 +7,23 @@ import {socket} from '../../Socket/Socket';
 
 const ChatCreateSession = (props) => {
     const sessionItem = JSON.parse(sessionStorage.getItem("user"));
-    const [complain, setComplain] = useState({id:"complain",value:""})
-    const [emergency, setEmergency] = useState({id:"emergency",value:""})
-    const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-block", formDisplay:"display-none"})
-    const [loginSession, setLoginSession] = useState({display:"display-none"})
+    const [complain, setComplain] = useState({id:"complain",value:""});
+    const [emergency, setEmergency] = useState({id:"emergency",value:""});
+    const [means, setMeans] = useState({id:"means",value:""});
+    const   [alert, setAlert]= useState({alertDisplay:"display-none", spinnerDisplay:"display-block", formDisplay:"display-none"});
+    const [loginSession, setLoginSession] = useState({display:"display-none"});
     const [updateSession, setupdateSession] = useState({});
     const [sessionDisplay, setSessionDisplay] = useState({display:""});
         
     const setComplainHandler =(event)=>{ setComplain({id:"complain", value:event.target.value}) }
     const setEmergencyHandler =(event)=>{ setEmergency({id:"emergency", value:event.target.value}) }
+    const setMeansHandler =(event)=>{ setMeans({id:"means", value:event.target.value}) }
     const checkSession = ()=>{
         if (sessionItem === null) {
             setLoginSession({display:"row"})
+        }else{
+            
+        checkChatSession();
         }
     }
     const submitChatSessionHandler=(event)=>{
@@ -26,7 +31,7 @@ const ChatCreateSession = (props) => {
         setAlert({alertDisplay:"display-none", spinnerDisplay:"", formDisplay:""})
     
 
-        const complainBody = {"emergencyLevel":emergency.value, "complain":complain.value}
+        const complainBody = {"means":means.value,"emergencyLevel":emergency.value, "complain":complain.value}
        
         const url = "/api/v1/chatSession/create";
         fetch(url, {
@@ -93,7 +98,6 @@ const ChatCreateSession = (props) => {
     })
     useEffect(()=>{
         checkSession();
-        checkChatSession();
     }, [])
 
     return(
@@ -148,6 +152,7 @@ const ChatCreateSession = (props) => {
                             <div className="card">
                                 <div className="card-body top-margin-lg"><p className="top-margin-md">Thank you for creating a session, Your complains have been sent to our doctors, you will be contacted shortly via email and notification. Please if you have not subscribed, click the notification bell no the screen and subscibe so as to get quick notification response.👍</p>
                                     <p className="medik-color"><b className="text-dark">Emergency Level: </b>{updateSession.emergencyLevel}</p>
+                                    <p className="text-success"><b className="text-dark">Consultation Means: </b>{updateSession.means}</p>
                                     <p className="text-center top-margin-md">User Complain</p>
                                     <small className="top-margin-md">{updateSession.complain}</small>
                                    <div className="col-12 col-sm-12 col-md-12 col-lg-12 top-margin-md"> 
@@ -170,6 +175,16 @@ const ChatCreateSession = (props) => {
                                     <div className="row">
                                             <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
+                                                    <label>Means of Consultation?</label>
+                                                    <select required id={means.id} onChange={(event)=>setMeansHandler(event, means.id)} className="form-control">
+                                                        <option value="">Please select</option>
+                                                        <option value="chat">Chat</option>
+                                                        <option  value="video">Video</option>      
+                                                    </select>
+                                                </div>
+                                            </div> 
+                                            <div className="col-12 col-sm-12 col-md-12">
+                                                <div className="form-group">
                                                     <label>Emergency Status</label>
                                                     <select required id={emergency.id} onChange={(event)=>setEmergencyHandler(event, emergency.id)} className="form-control">
                                                         <option value="">Please select</option>
@@ -178,7 +193,8 @@ const ChatCreateSession = (props) => {
                                                         <option value="3">Critical</option>       
                                                     </select>
                                                 </div>
-                                            </div> <div className="col-12 col-sm-12 col-md-12">
+                                            </div>
+                                            <div className="col-12 col-sm-12 col-md-12">
                                                 <div className="form-group">
                                                     <label>Patient Complain <span className="text-danger"></span></label>
                                                    <textarea required id={complain.id} onChange={(event)=>setComplainHandler(event, complain.id)} className="form-control" placeholder="Explain how you are feeling,include when it started and other needed details."></textarea>

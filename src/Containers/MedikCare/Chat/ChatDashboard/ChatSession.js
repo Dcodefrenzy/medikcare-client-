@@ -30,8 +30,10 @@ const ChatSession = (props) =>{
         }
     }
     const fetchUserHandeller = () => {
-       const id = props.match.params.id
-        const url = "/api/v1/user/doctor/"+id;
+        console.log(props.match.sessionId);
+       const id = props.match.params.id;
+       const sessionId = props.match.params.session;
+        const url = `/api/v1/user/doctor/${id}/${sessionId}`;
         fetch(url, {
             method:"GET",
             headers:{"Content-Type":"application/json", "u-auth":session.token}
@@ -99,8 +101,9 @@ const endReportDisplay = (event)=>{
     const startSessionHander = (event)=>{
             event.preventDefault();
             setAlert({buttonDisplay:"display-none", spinnerDisplay:"block"})
-            const id = props.match.params.id
-            const url = "/api/v1/doctor/chat/session/"+id;
+            const id = props.match.params.id;
+            const sessionId = props.match.params.session;
+            const url = `/api/v1/doctor/chat/session/${id}/${sessionId}`;
         
                 fetch(url, {
                     method:"PATCH",
@@ -120,12 +123,17 @@ const endReportDisplay = (event)=>{
                 })
     }
     socket.on('create session', (from, to)=>{
-   
-        window.location = "/chat/"+props.match.params.id;
+    console.log(userSession.means)
+        if (userSession.means === "chat") {
+        window.location = `/chat/${props.match.params.id}/${userSession._id}`;
+        }else if (userSession.means === "video") {
+            window.location = `/video/${props.match.params.id}/${userSession._id}`;  
+        }
     })
 
     useEffect(()=>{
         authentication();
+
     }, []);
 
 
@@ -188,7 +196,7 @@ const labTest = testList.map((list, )=>{
                     <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                             <div className="justify-content-center medik-color">
                             <div className="col-12 col-sm-12 col-md-12">
-                                <Link to="/chat/doctors/doctor"> 
+                                <Link to="/doctor/sessions/waiting"> 
                                     <button className="btn-sm btn-medik">Go back</button>
                                 </Link>
                                 </div>
@@ -205,10 +213,10 @@ const labTest = testList.map((list, )=>{
                                                 <p className=""><b>Age:</b> <Moment fromNow>{user.age}</Moment></p>
                                                 <p className={userSession.color}><b className="text-dark">Emergency Level: </b>{userSession.emergencyLevel}</p>
                                                 
-                                                <p className="">{userSession.complain}</p>
+                                                <p><b className="text-dark">Patient complain: </b>{userSession.complain}</p>
                                            </div>
                                            <div className="col-12 col-sm-6 col-md-6">
-                                               <p className="text-dark">Do you want to join a session with {user.firstname+" "+user.lastname} ?</p>
+                                               <h3 className="text-dark">Do you want to join <b className="text-success">{userSession.means}</b> session with {user.firstname+" "+user.lastname} ?</h3>
                                                     <div className={alert.spinnerDisplay}>
                                                         <i className="fa fa-spinner fa-pulse fa-3x"></i>
                                                     </div>

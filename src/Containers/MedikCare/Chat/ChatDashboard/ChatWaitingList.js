@@ -72,11 +72,13 @@ const ChatWaitingList = (props) =>{
                 newSession.session.emergencyLevel = "Critical";
                 color = "text-danger";
             }
-            return    <Link to={"/chat/session/"+newSession.session.userId} key={newSession.session._id}>
+            return    <Link to={`/chat/session/${newSession.session.userId}/${newSession.session._id}`} key={newSession.session._id}>
                       <div className="card box-shadow">
                           <div className="card-body text-dark">
                               <span className="card-text text-dark">Patient Complains:</span>
                             <p>{newSession.session.complain}</p>
+                              <span className="card-text text-dark">Consultation Means:</span>
+                            <p className="text-success">{newSession.session.means}</p>
                             <p className="card-text text-dark"><i className="fa fa-clock"></i> <Moment fromNow>{newSession.session.createdAt}</Moment></p>                           
                              <button className="btn btn-sm btn-success">Proceed</button>  
                             <span className={`${color} float-right`} aria-hidden="true"><b className="text-dark">Emergency level: </b>{newSession.session.emergencyLevel}</span>                    

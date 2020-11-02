@@ -25,6 +25,9 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
         if(sessionItemDoctor === null) {
             setDoctorSession({display:"row"})
+        }else{
+            
+        fetchDoctorsSessions();
         }
     }  
     
@@ -40,7 +43,7 @@ const ChatDashbordNewChatDoctor = (props) =>{
         .then(res=>res.json())
         .then(response=>{
             if (response.status === 200) {
-                
+                console.log(response)
             setDIsplay("display-none")
                 if (response.message.length < 1) {
                     setAlert({sessionDisplay:"top-margin-md",buttonDisplay:"display-none", alertDisplay:"", spinnerDisplay:"display-none"})
@@ -72,18 +75,17 @@ const ChatDashbordNewChatDoctor = (props) =>{
 
     useEffect(()=>{
         getSession();
-        fetchDoctorsSessions();
     }, [])
 
     const sessionDetails = sessions.map((session, index)=>{
             let id;
 
-      return    <Link to={"/chat/"+session.users._id} key={index}>
+      return    <Link to={`/${session.chatSessions.means}/${session.users._id}/${session.chatSessions._id}`} key={index}>
                 <div className="card bottom-margin-sm box-shadow">
                     <div className="card-body text-dark">
                     <i className={`fa fa-circle text-success float-right`} aria-hidden="true"></i>
                         <h6 className="card-text text-dark"><i className="fa fa-user text-white" aria-hidden="true"></i> {session.users.firstname+" "+session.users.lastname}</h6>
-                        <p className="card-text text-dark">Session status: <span className="text-dark">On session</span></p>
+                        <p className="card-text text-dark">Session status:  <span className="text-dark">On session</span></p>
                         <p className="card-text text-dark">Time: <Moment fromNow>{session.sessions.start}</Moment></p>
                         
                             <i className="fa fa-envelope fa-2x text-dark float-right" aria-hidden="true" />                      

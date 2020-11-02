@@ -68,6 +68,7 @@ import ChatWaitingList from './MedikCare/Chat/ChatDashboard/ChatWaitingList';
 import ChatOngoingSessions from './MedikCare/Chat/ChatDashboard/ChatOngoingSessions';
 import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 import ChatAppointment from './MedikCare/Chat/ChatAppointment';
+import ChatVideo from './MedikCare/Video/ChatVideo';
 
 
 
@@ -154,17 +155,18 @@ import ChatAppointment from './MedikCare/Chat/ChatAppointment';
 					
 						<Route path="/chat/dashboard" exact component={ChatDashboard} />
 						<Route path="/chat/doctors" exact component={ChatCreateSession} />
+						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
 						<Route path="/chat/user/profile/:id" exact component={ChatUserProfile} />
 						<Route path="/chat/doctor/profile/:id" exact component={ChatDoctorProfile} />
 						<Route path="/chat/end/:id" extract component={ChatEndSession} />
 						<Route path="/chat/notifications" exact component={ChatDashbordActivities} />
-						<Route path="/chat/:id" exact component={Chat} />
-						<Route path="/chat/session/:id" exact component={ChatSession} />
+						<Route path="/chat/:id/:sessionId" exact component={Chat} />
+						<Route path="/chat/session/:id/:session" exact component={ChatSession} />
 						<Route path="/chat/current/session/:id" exact component={ChatCurrentsession} />
-						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
 						<Route path="/chat/feedback/:id" exact  component={ChatFeedbackUser} />
 						<Route path="/chat/report/:id" exact component={ChatReportDoctor} />
 						<Route path="/chat/appointment/:appointmentId/session/:sessionId" exact component={ChatAppointment} />
+						<Route path="/video/:id/:sessionId" exact component={ChatVideo} />
 							
 						
 						
