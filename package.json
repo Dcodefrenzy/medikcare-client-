@@ -42,6 +42,7 @@
     "@babel/preset-env": "^7.11.5",
     "@ckeditor/ckeditor5-alignment": "^17.0.0",
     "@fortawesome/fontawesome-free": "^5.10.2",
+    "babel-minify": "^0.5.1",
     "body-parser": "^1.19.0",
     "ejs": "^1.0.0",
     "expect": "^23.5.0",
