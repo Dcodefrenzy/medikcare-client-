@@ -165,7 +165,7 @@ const ChatVideo = (props)=>{
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12 ">
                         <div className="partner-video">
-                        <video  className="partner-video-height" ref={partnerVideo}   autoPlay playsInline controls={false}/>
+                        <video  className="partner-video-height" ref={partnerVideo} muted  autoPlay playsInline controls={false}/>
                         </div>
                     </div>
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12 ">

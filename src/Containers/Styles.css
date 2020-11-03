@@ -577,7 +577,8 @@ body {
 	  left: 0;
 }
 .partner-video-height{
-	width: 100%;
+	min-height: 100%;
+	min-width: 100%;
 }
 .your-video-display{
 	max-width: 300px;
@@ -609,11 +610,11 @@ body {
 }
 @media (max-width:768px) {
 	.partner-video-height{
-		position: relative;
-		right: 0;
-		left: 0;
+		position: absolute;
+		left: 50%;
+		top: 50%;
 		bottom: 0;
-		height: 100%;
+		transform: translate(-50%, -50%);
 	}
 	.fixed-navbar-header {
 		display: none;
@@ -656,6 +657,12 @@ body {
 		right: 0px;
 		height: auto;
 		object-fit: cover;
+	}
+	.partner-video-height{
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		transform: translate(-50%, -50%);
 	}
 
 }
