@@ -570,14 +570,14 @@ body {
 .partner-video{
 	  /* override other styles to make responsive */
 	  min-width:100%    !important;
-	  min-height: 100%   !important;
-	  overflow: hidden;
-	object-fit: fill;
+	  min-height: 100%   !important;	
+	  height: 100vh;
+	  position: fixed;
+	  top:0;
+	  left: 0;
 }
 .partner-video-height{
-	min-width: 100%;
-	min-height: 100%;
-	object-fit: fill;
+	width: 100%;
 }
 .your-video-display{
 	max-width: 300px;
@@ -609,9 +609,11 @@ body {
 }
 @media (max-width:768px) {
 	.partner-video-height{
-		position: fixed;
-		right: -50%;
+		position: relative;
+		right: 0;
+		left: 0;
 		bottom: 0;
+		height: 100%;
 	}
 	.fixed-navbar-header {
 		display: none;
@@ -625,7 +627,7 @@ body {
 	}
 	.your-video-display{
 		max-height:300px ;
-		max-width: 50%;
+		max-width: 30%;
 	}
 	.video-fixed{
 		bottom: 5%;

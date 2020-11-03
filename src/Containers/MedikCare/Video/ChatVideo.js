@@ -164,7 +164,7 @@ const ChatVideo = (props)=>{
             <div className="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div className="row">
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12 ">
-                        <div className="partner-video fixed">
+                        <div className="partner-video">
                         <video  className="partner-video-height" ref={partnerVideo} muted  autoPlay playsInline controls={false}/>
                         </div>
                     </div>
@@ -194,7 +194,7 @@ const ChatVideo = (props)=>{
                         </main>
                         </div>
                         <div className="video-fixed">
-                            <div className="row justify-content-center ml-5">    
+                            <div className="row justify-content-center ml-2">    
                                 <div className="col-4 col-sm-4 col-md-4 col-lg-4">
                                     <i className='fas fa-camera fa-2x'></i>
                                 </div>
