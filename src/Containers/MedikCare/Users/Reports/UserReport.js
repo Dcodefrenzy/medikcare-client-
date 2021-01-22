@@ -52,7 +52,12 @@ useEffect(()=>{
     return <li key={list._id}>{list.name} {list.interval}/daily {list.duration}/days </li>
             
 });
-
+let nextAppointment  
+if (report.appointmentDate != null) {
+    nextAppointment = <Moment className='text-success' fromNow>{report.appointmentDate}</Moment>;
+}else{
+    nextAppointment = "No appointment";
+}
 const labTest = testList.map((list, )=>{
 return  <li key={list._id}>{list.name} </li>
 })
@@ -73,7 +78,7 @@ return  <li key={list._id}>{list.name} </li>
                         <h6 className="text-success"><b className="text-dark">Report By-</b> {doctor.doc}</h6>
                         <div className="row"> 
                             <div className="col-12">    
-                            <p className="text-dark top-margin-sm float-right"><b>Next Appointment- </b><Moment className="text-success" fromNow>{report.appointmentDate}</Moment></p>
+                            <p className="text-dark top-margin-sm float-right"><b>Next Appointment- </b>{nextAppointment}</p>
                             <p className="text-dark top-margin-sm"><Moment fromNow>{report.dateCreated}</Moment></p> 
                             </div>
                         </div>

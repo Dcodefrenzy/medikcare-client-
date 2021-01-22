@@ -18,6 +18,8 @@ const ChatUserProfile = (props) =>{
 
 
 
+    const id = props.match.params.id;
+    const sessionId = props.match.params.sessionId;
     const authentication =()=>{
         if(session === null) {
             setDoctorSession({display:"row"});
@@ -26,14 +28,13 @@ const ChatUserProfile = (props) =>{
         }
     }
     const fetchUserHandeller = () => {
-       const id = props.match.params.id
-        const url = "/api/v1/user/doctor/"+id;
+        const url = "/api/v1/user/doctor/"+id+"/"+sessionId;
         fetch(url, {
             method:"GET",
             headers:{"Content-Type":"application/json", "u-auth":session.token}
         })
         .then(res => res.json())
-        .then(response =>{//console.log(response)
+        .then(response =>{console.log(response)
             if(response.status === 401) {
                 sessionStorage.removeItem("doctor");
                 setDoctorSession({display:"row"});
@@ -135,7 +136,7 @@ const endReportDisplay = (event)=>{
                     <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                             <div className="justify-content-center medik-color">
                             <div className="col-12 col-sm-12 col-md-12">
-                                <Link to={"/chat/"+props.match.params.id}> 
+                                <Link to={"/chat/"+props.match.params.id+"/"+sessionId}> 
                                     <button className="btn-sm btn-medik">Go back</button>
                                 </Link>
                                 </div>

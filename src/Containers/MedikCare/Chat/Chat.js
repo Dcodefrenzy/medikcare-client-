@@ -8,6 +8,8 @@ import { Beforeunload } from 'react-beforeunload';
  
 const Chat =(props)=>{
     const to  = props.match.params.id
+    const sessionId = props.match.params.sessionId;
+   
  
     let dashboardLink;
     let userUrl;;
@@ -56,9 +58,9 @@ const Chat =(props)=>{
 const viewProfile= (event, id)=>{
     event.preventDefault();
     if (sessionItemDoctor) {
-        window.location = "/chat/user/profile/"+id;
+        window.location = "/chat/user/profile/"+id+"/"+sessionId;
     }else if(sessionItemUser){
-        window.location = "/chat/doctor/profile/"+id;
+        window.location = "/chat/doctor/profile/"+id+"/"+sessionId;
     }
 }
 const endSession=(event, id)=>{

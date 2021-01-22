@@ -4,7 +4,8 @@ import LoginSession from "../Users/Logins/LoginSession";
 
 
 const ChatDoctorProfile = (props) =>{
-    const id = props.match.params.id
+    const id = props.match.params.id;
+    const sessionId = props.match.params.sessionId;
 
     const [doctor, displayDoctor] = useState([]);
     const [doctorInfo, displayDoctorInfo] = useState([]);
@@ -62,7 +63,7 @@ const ChatDoctorProfile = (props) =>{
             <div className="col-12 col-sm-12 col-md-8 offset-md-2">
                     <div className="justify-content-center medik-color">
                     <div className="col-12 col-sm-12 col-md-12">
-                        <Link to={"/chat/"+props.match.params.id}> 
+                        <Link to={"/chat/"+props.match.params.id+"/"+sessionId}> 
                             <button className="btn-sm btn-medik">Go back</button>
                         </Link>
                         </div>

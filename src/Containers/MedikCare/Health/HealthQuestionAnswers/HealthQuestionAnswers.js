@@ -71,7 +71,7 @@ const HealthQuestionAnswers = (props) => {
 
     const date = <Moment fromNow>{props.question.createdAt}</Moment>
     const answer = props.answers.map((answer)=>{
-      let button =  button =  <button onClick={event=>props.buttonClicked(event, answer._id)} className= "btn btn-sm btn-success" id={answer._id}>{props.buttonValue}</button> 
+      let button =   <button onClick={event=>props.buttonClicked(event, answer._id)} className= "btn btn-sm btn-success" id={answer._id}>{props.buttonValue}</button> 
         if(props.doctorid !== null) {
               answer.agrees.filter((agree)=>{
                     if( props.doctorid._id === agree._doctorId) {

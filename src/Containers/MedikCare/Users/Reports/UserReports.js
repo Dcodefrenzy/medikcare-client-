@@ -65,7 +65,7 @@ useEffect(()=>{
 
         <Loading display={display.display}/>
         <section className="user-section">
-            <div className="col-12 col-sm-12 col-md-7 col-lg-7 offset-md-3 offset-lg-3 ">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-6 offset-md-3 offset-lg-3 ">
                 <div className=" user-dashboard-content">
                 <h1>User Medical Report</h1>
                 <Link to="/user/dashboard">  

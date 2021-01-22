@@ -156,8 +156,8 @@ import ChatVideo from './MedikCare/Video/ChatVideo';
 						<Route path="/chat/dashboard" exact component={ChatDashboard} />
 						<Route path="/chat/doctors" exact component={ChatCreateSession} />
 						<Route path="/chat/doctors/doctor" exact component={ChatDashbordNewChatDoctor} />
-						<Route path="/chat/user/profile/:id" exact component={ChatUserProfile} />
-						<Route path="/chat/doctor/profile/:id" exact component={ChatDoctorProfile} />
+						<Route path="/chat/user/profile/:id/:sessionId" exact component={ChatUserProfile} />
+						<Route path="/chat/doctor/profile/:id/:sessionId" exact component={ChatDoctorProfile} />
 						<Route path="/chat/end/:id" extract component={ChatEndSession} />
 						<Route path="/chat/notifications" exact component={ChatDashbordActivities} />
 						<Route path="/chat/:id/:sessionId" exact component={Chat} />

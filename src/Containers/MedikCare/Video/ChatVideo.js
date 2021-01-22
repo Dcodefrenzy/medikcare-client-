@@ -37,6 +37,12 @@ const ChatVideo = (props)=>{
     }
 
 
+    const redirectBack = (event)=>{
+        event.preventDefault();
+        //socket.emit('user isOffline', room);
+        window.location = dashboardLink;
+    }
+
     const joinSession = async(event)=>{
         event.preventDefault();
         setPopup("display-none");
@@ -74,6 +80,7 @@ const ChatVideo = (props)=>{
     const makeCall =(stream, from, to)=>{
         const peer = new Peer({
             initiator:true,
+            config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] },
             trickle:false,
             stream:stream
         });
@@ -121,6 +128,7 @@ const ChatVideo = (props)=>{
         console.log(stream)
         const peer = new Peer({
             initiator:false,
+            config: { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }, { urls: 'stun:global.stun.twilio.com:3478?transport=udp' }] },
             trickle:false,
             stream:stream[0]
         });
@@ -157,7 +165,7 @@ const ChatVideo = (props)=>{
 
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid b-medik">
             
             <LoginSession display={loginSession.display} /> 
             <DoctorLoginSession display={doctorSession.display} />
@@ -171,7 +179,8 @@ const ChatVideo = (props)=>{
                     <div className="col-12 col-sm-12 col-md-12 col-lg-12 ">
                         <div className="your-video  row">
                         <main className="col-10 col-sm-10 col-md-10 col-lg-10">
-                            <i className="fa fa-arrow-left text-white"></i>
+                            
+                        <i onClick={event=> redirectBack(event)} className="fa fa-arrow-left fa-lg text-white" aria-hidden="false"></i>
                         </main>
                         <main className="col-2 col-sm-2 col-md-2 col-lg-2">
                             <div className="dropdown dropleft">
