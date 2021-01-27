@@ -130,7 +130,7 @@ const HealthQuestionAnswers = (props) => {
                 <div className="col-12 offset-0 col-sm-12 offset-sm-0 col-md-12 offset-md-0 col-lg-12 offset-lg-0">
                     <div className="card">
                         <div className="card-body">
-                            <h3 className="text-chocolate"><i className="fa fa-user"></i> {props.question.topic}</h3>
+                            <h3 className="text-dark"><i className="fa fa-user"></i> {props.question.topic}</h3>
                             <i className="fa fa-clock-o medik-color"> {date}</i>
                             <p>{props.question.description}</p>
                         </div>

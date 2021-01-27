@@ -148,7 +148,7 @@ const sendNotification=()=>{
 					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">	
-				<Link to="/blog" className="href">
+				<Link to="/blog/category/medikbyte" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
@@ -165,20 +165,21 @@ const sendNotification=()=>{
 					</Link>
     			</div>
 				
-    			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
+    			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">	
+				<Link to="/blog/category/medikbyte-video" className="href">
     				<div className="card">
     					<div className="row">
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6 user-dashboard-content">
-    							<h3>HEALTH VLOG</h3>
+    							<h3 className="text-dark">HEALTH VLOG</h3>
 								<p className="text-dark top-margin-sm">Watch videos that explain healthy living.</p>
                                 <button className="btn btn-sm btn-medik top-margin-md">Vlog</button>
-								<p>Coming Soon!</p>
     						</div>
     						<div className="col-6 col-sm-6 col-md-6 col-lg-6">
     							 <img src={ chat1 } alt="treatment-plan" className='home-svg'/>
     						</div>
     					</div>
     				</div>
+					</Link>
     			</div>
     			<div className="col-12 col-sm-12 col-md-6 col-lg-6 user-dashboard-container">
     				<div className="card">

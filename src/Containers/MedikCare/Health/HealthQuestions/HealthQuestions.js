@@ -32,7 +32,8 @@ class HealthQuestions extends Component {
 
     authentication = () => {
         if(this.sessionItemAdmin === null && this.sessionItemUser === null){
-            window.history.back();
+           // window.history.back();
+            window.location = "/login"
         }
         
     }

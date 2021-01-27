@@ -69,6 +69,7 @@ import ChatOngoingSessions from './MedikCare/Chat/ChatDashboard/ChatOngoingSessi
 import ChatEndSession from './MedikCare/Chat/ChatDashboard/ChatEndSession';
 import ChatAppointment from './MedikCare/Chat/ChatAppointment';
 import ChatVideo from './MedikCare/Video/ChatVideo';
+import BlogsPost from './MedikCare/Blog/BlogsPost';
 
 
 
@@ -84,6 +85,7 @@ import ChatVideo from './MedikCare/Video/ChatVideo';
 						<Route path="/index" exact component={ MedikHome } />
 						<Route path="/home" exact component={ MedikHome } />
 						<Route path="/blog" exact component={ Blog } />
+						<Route path="/blog/category/:id" exact component={ BlogsPost } />
 						<Route path="/blog/:id" exact component={ BlogPost } />
 						<Route path="/registration" exact component={RegistrationValidation}/>
 						<Route path="/login" exact component={UserLogin} />

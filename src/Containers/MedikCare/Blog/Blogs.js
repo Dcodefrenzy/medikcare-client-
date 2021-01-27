@@ -32,7 +32,7 @@ const Blog = (props)=>{
     }, [])
     let arrowBack;
     if (sessionItemUser !== null && sessionItemDoctor === null) {
-        arrowBack = <Link to="user/dashboard"> <span   className="fa fa-arrow-left medik-color mt-2" aria-hidden="false"></span></Link>
+        arrowBack = <Link to="/user/dashboard"> <span   className="fa fa-arrow-left medik-color mt-2" aria-hidden="false"></span></Link>
     }else if (sessionItemUser === null && sessionItemDoctor !== null) {
         arrowBack = <Link to="/doctor/dashboard"> <span   className="fa fa-arrow-left medik-color mt-2" aria-hidden="false"></span></Link>
     }else{
@@ -49,7 +49,7 @@ const Blog = (props)=>{
        return  <div className="col-12 col-sm-12 col-md-6 col-lg-4 bottom-margin-sm" key={blog._id}>
            <Link to={`/blog/${blog._id}`}>
             <div className="card  bg-dark">
-                <img src={`Images/${blog.blogImage}`} height="255px" className="blog-position card opacity-5 bg-dark" />
+                <img src={`/Images/${blog.blogImage}`} height="255px" className="blog-position card opacity-5 bg-dark" />
                 <button className="btn btn-medik btn-lg blog-button-position">Read</button>
                 <div className="card-body blog-position-text text-white">
                 <h1>{blog.topic}</h1>

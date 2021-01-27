@@ -156,7 +156,7 @@ class HealthDoctorQuestionAnswersClass extends Component {
                 headers:{"Content-Type":"application/json", "u-auth":sessionItem.token}
             })
             .then(res=>res.json())
-            .then(response=>{console.log(response)
+            .then(response=>{//console.log(response)
                 if(response.status === 401) {
                     if(this.sessionItemDoctor !== null){
                         const displayNone = "display-none";
